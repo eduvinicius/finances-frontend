@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/Button"
 
 function App() {
 
@@ -9,6 +10,7 @@ function App() {
       <p className="var(--font-size-1)">
         Click on the Vite and React logos to learn more
       </p>
+      <Button variant="default">Click me</Button>
     </>
   )
 }
