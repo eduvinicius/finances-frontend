@@ -10,5 +10,5 @@ export interface LoginFormProps {
 };
 
 export interface LoginResponse {
-  accessToken: string;
+  token: string;
 }

@@ -74,7 +74,7 @@ export function LoginForm({
                                         </InputGroupAddon>
                                     </InputGroup>
                                     <FieldDescription>
-                                        {errors.password ? errors.password.message : "Deve conter no mínimo 8 caracteres."}
+                                        {errors.password ? errors.password.message : "Deve conter no mínimo 6 caracteres."}
                                     </FieldDescription>
                                 </Field>
                             </FieldGroup>

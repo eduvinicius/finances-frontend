@@ -5,7 +5,7 @@ export function useLogin() {
   return useMutation({
     mutationFn: authService.login,
     onSuccess: (data) => {
-      localStorage.setItem("access_token", data.accessToken);
+      localStorage.setItem("access_token", data.token);
     },
   });
 }

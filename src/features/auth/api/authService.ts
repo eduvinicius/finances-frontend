@@ -1,5 +1,6 @@
 import { httpClient } from "@/shared/api/httpClient";
-import { LoginFormValues, LoginResponse } from "@/shared/types/login.type";
+import type { LoginFormValues, LoginResponse } from "@/shared/types/login.type";
+
 
 export const authService = {
   async login(data: LoginFormValues): Promise<LoginResponse> {
