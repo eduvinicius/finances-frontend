@@ -3,16 +3,19 @@ import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader,
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/Field";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/InputGroup";
 import { loginSchema } from "@/shared/schemas/loginSchema";
-import type { LoginFormProps, LoginFormValues } from "@/shared/types/loginForm.type";
+import type { LoginFormProps, LoginFormValues } from "@/shared/types/login.type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EyeOffIcon, MailIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 
-export function LoginForm({ onSubmit }: Readonly<LoginFormProps>) {
+export function LoginForm({ 
+    onSubmit, 
+    loading
+}: Readonly<LoginFormProps>) {
     const {
         register,
         handleSubmit,
-        formState: { errors, isSubmitting },
+        formState: { errors },
     } = useForm<LoginFormValues>({
         resolver: zodResolver(loginSchema),
         mode: "onTouched",
@@ -78,8 +81,8 @@ export function LoginForm({ onSubmit }: Readonly<LoginFormProps>) {
                         </FieldSet>
                     </CardContent>
                     <CardFooter className="flex-col gap-2">
-                        <Button type="submit" className="w-full" disabled={isSubmitting}>
-                            {isSubmitting ? "Entrando..." : "Entrar"}
+                        <Button type="submit" className="w-full" disabled={loading}>
+                            {loading ? "Entrando..." : "Entrar"}
                         </Button>
                         <Button variant="outline" className="w-full" type="button">
                             Entrar com Google
