@@ -1,8 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import { PrivateRoute } from "./privateRoute";
 import { Login } from "@/features/auth/pages/Login";
-import { Home } from "@/features/Home";
-import { Layout } from "@/features/Layout";
+import { Home } from "@/features/home";
+import { Layout } from "@/features/layout";
+import { Account } from "@/features/account/account";
+import { Transactions } from "@/features/transactions/transactions";
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +20,8 @@ export const router = createBrowserRouter([
     ),
     children: [
       { path: "home", element: <Home /> },
+      { path: "account", element: <Account /> },
+      { path: "transactions", element: <Transactions /> },
     ],
   },
 ]);

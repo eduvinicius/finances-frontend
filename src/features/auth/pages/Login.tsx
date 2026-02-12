@@ -25,9 +25,20 @@ export function Login() {
     }
 
     return (
-        <LoginForm 
-        onSubmit={handleLoginSubmit} 
-        loading={isPending}
-        />
+        <div
+            className="flex flex-col-reverse md:grid md:grid-cols-3 h-screen items-center justify-items-center px-4 md:px-0 gap-6 md:gap-0"
+        >
+            <div className="w-full flex justify-center md:col-span-1">
+                <LoginForm
+                    onSubmit={handleLoginSubmit}
+                    loading={isPending}
+                />
+            </div>
+            <img
+                className="w-185 h-155 max-w-xs md:max-w-full md:col-span-2 rounded-3xl md:rounded-[9rem] object-cover mb-8 md:mb-0"
+                src="src/assets/img/finance-login-img.jpg"
+                alt="Imagem login"
+            />
+        </div>
     );
 }

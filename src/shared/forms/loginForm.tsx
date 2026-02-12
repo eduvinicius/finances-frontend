@@ -26,7 +26,7 @@ export function LoginForm({
     });
 
     return (
-        <section className="flex min-h-screen items-center justify-center">
+        <section className="flex min-h-screen items-center justify-center w-full">
             <Card className="w-full max-w-sm">
                 <CardHeader>
                     <CardTitle title="Entre na sua conta" />
