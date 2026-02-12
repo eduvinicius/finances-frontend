@@ -10,5 +10,9 @@ export interface LoginFormProps {
 };
 
 export interface LoginResponse {
+  fullName: string;
+  nickName: string;
+  email: string;
+  userId: string;
   token: string;
 }

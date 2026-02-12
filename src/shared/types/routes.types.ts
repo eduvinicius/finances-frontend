@@ -1,6 +1,8 @@
+import type { IconType } from "react-icons/lib";
+
 export interface IRoute {
   id: string;
-  path: string;
+  url: string;
   label: string;
-  icon?: string;
+  icon?: IconType;
 }
