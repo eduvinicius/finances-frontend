@@ -48,8 +48,9 @@ export function LoginForm({
                                     <MdMailOutline />
                                 </InputGroupAddon>
                             </InputGroup>
-                            <FieldDescription>
-                                {errors.email ? errors.email.message : "Digite o seu e-mail"}
+                            <FieldDescription
+                                className={errors.email ? "text-red-500" : ""}>
+                                {errors.email ? errors.email.message : ""}
                             </FieldDescription>
                         </Field>
                         <Field>
@@ -67,8 +68,9 @@ export function LoginForm({
                                     <MdVisibilityOff />
                                 </InputGroupAddon>
                             </InputGroup>
-                            <FieldDescription>
-                                {errors.password ? errors.password.message : "Deve conter no mínimo 6 caracteres."}
+                            <FieldDescription
+                                className={errors.password ? "text-red-500" : ""}>
+                                {errors.password ? errors.password.message : ""}
                             </FieldDescription>
                         </Field>
                     </FieldGroup>
