@@ -35,7 +35,7 @@ export function Login() {
                 />
             </div>
             <img
-                className="w-185 h-155 max-w-xs md:max-w-full md:col-span-2 rounded-3xl md:rounded-[9rem] object-cover mb-8 md:mb-0"
+                className="w-195 h-165 max-w-xs md:max-w-full md:col-span-2 rounded-3xl md:rounded-[9rem] object-cover mb-8 md:mb-0"
                 src="src/assets/img/finance-login-img.jpg"
                 alt="Imagem login"
             />

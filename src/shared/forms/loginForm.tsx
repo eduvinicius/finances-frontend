@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/Button";
-import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/Field";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/InputGroup";
 import { loginSchema } from "@/shared/schemas/loginSchema";
 import type { LoginFormProps, LoginFormValues } from "@/shared/types/login.type";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { EyeOffIcon, MailIcon } from "lucide-react";
+import { MdMailOutline, MdVisibilityOff } from "react-icons/md";
 import { useForm } from "react-hook-form";
+import { FcGoogle } from "react-icons/fc";
 
 export function LoginForm({ 
     onSubmit, 
@@ -26,70 +26,66 @@ export function LoginForm({
     });
 
     return (
-        <section className="flex min-h-screen items-center justify-center w-full">
-            <Card className="w-full max-w-sm">
-                <CardHeader>
-                    <CardTitle title="Entre na sua conta" />
-                    <CardDescription description="Digite seu e-mail abaixo para entrar na sua conta" />
-                    <CardAction>
-                        <Button variant="link">Cadastre-se</Button>
-                    </CardAction>
-                </CardHeader>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <CardContent>
-                        <FieldSet className="w-full max-w-xs">
-                            <FieldGroup>
-                                <Field>
-                                    <FieldLabel htmlFor="email">Email</FieldLabel>
-                                    <InputGroup>
-                                        <InputGroupInput
-                                            id="email"
-                                            type="email"
-                                            placeholder="Digite o seu e-mail"
-                                            autoComplete="email"
-                                            aria-invalid={!!errors.email}
-                                            {...register("email")}
-                                        />
-                                        <InputGroupAddon>
-                                            <MailIcon />
-                                        </InputGroupAddon>
-                                    </InputGroup>
-                                    <FieldDescription>
-                                        {errors.email ? errors.email.message : "Digite o seu e-mail"}
-                                    </FieldDescription>
-                                </Field>
-                                <Field>
-                                    <FieldLabel htmlFor="password">Senha</FieldLabel>
-                                    <InputGroup>
-                                        <InputGroupInput
-                                            id="password"
-                                            type="password"
-                                            placeholder="Digite a sua senha"
-                                            autoComplete="current-password"
-                                            aria-invalid={!!errors.password}
-                                            {...register("password")}
-                                        />
-                                        <InputGroupAddon>
-                                            <EyeOffIcon />
-                                        </InputGroupAddon>
-                                    </InputGroup>
-                                    <FieldDescription>
-                                        {errors.password ? errors.password.message : "Deve conter no mínimo 6 caracteres."}
-                                    </FieldDescription>
-                                </Field>
-                            </FieldGroup>
-                        </FieldSet>
-                    </CardContent>
-                    <CardFooter className="flex-col gap-2">
-                        <Button type="submit" className="w-full" disabled={loading}>
-                            {loading ? "Entrando..." : "Entrar"}
-                        </Button>
-                        <Button variant="outline" className="w-full" type="button">
-                            Entrar com Google
-                        </Button>
-                    </CardFooter>
-                </form>
-            </Card>
+        <section className="flex flex-col min-h-screen items-center justify-center w-full">
+            <img src="src/assets/img/fin-verso-logo.png" alt="Ícone do FinVerso" className="w-87.5" />
+            <form
+                className="flex flex-col items-center justify-center gap-4 w-full m-5" 
+                onSubmit={handleSubmit(onSubmit)}>
+                <FieldSet className="w-full max-w-xs">
+                    <FieldGroup>
+                        <Field>
+                            <FieldLabel htmlFor="email">Email</FieldLabel>
+                            <InputGroup>
+                                <InputGroupInput
+                                    id="email"
+                                    type="email"
+                                    placeholder="Digite o seu e-mail"
+                                    autoComplete="email"
+                                    aria-invalid={!!errors.email}
+                                    {...register("email")}
+                                />
+                                <InputGroupAddon>
+                                    <MdMailOutline />
+                                </InputGroupAddon>
+                            </InputGroup>
+                            <FieldDescription>
+                                {errors.email ? errors.email.message : "Digite o seu e-mail"}
+                            </FieldDescription>
+                        </Field>
+                        <Field>
+                            <FieldLabel htmlFor="password">Senha</FieldLabel>
+                            <InputGroup>
+                                <InputGroupInput
+                                    id="password"
+                                    type="password"
+                                    placeholder="Digite a sua senha"
+                                    autoComplete="current-password"
+                                    aria-invalid={!!errors.password}
+                                    {...register("password")}
+                                />
+                                <InputGroupAddon>
+                                    <MdVisibilityOff />
+                                </InputGroupAddon>
+                            </InputGroup>
+                            <FieldDescription>
+                                {errors.password ? errors.password.message : "Deve conter no mínimo 6 caracteres."}
+                            </FieldDescription>
+                        </Field>
+                    </FieldGroup>
+                    <Button 
+                        size="lg"
+                        type="submit" 
+                        className="w-full" 
+                        disabled={loading}>
+                        {loading ? "Entrando..." : "Entrar"}
+                    </Button>
+                    <Button 
+                        variant="outline" className="w-full" type="button">
+                        <FcGoogle className="size-5 mr-2" />
+                        Entrar com Google
+                    </Button>
+                </FieldSet>
+            </form>
         </section>
     );
 }
