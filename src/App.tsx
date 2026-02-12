@@ -1,26 +1,8 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-
-import { Home } from "./features/Home";
-import { Login } from "./features/auth/pages";
-
-function AppContent() {
-  return (
-    <>
-      {/* <Header /> */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </>
-  );
-}
+import { RouterProvider } from "react-router-dom";
+import { router } from "./app/router";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
