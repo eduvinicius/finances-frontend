@@ -1,10 +1,10 @@
-export {
-  Sheet,
-  SheetTrigger,
-  SheetClose,
-  SheetContent,
-  SheetHeader,
-  SheetFooter,
-  SheetTitle,
-  SheetDescription,
-} from "./sheet"
+export { Sheet } from "./sheet"
+export { SheetTrigger } from "./sheetTrigger"
+export { SheetClose } from "./sheetClose"
+export { SheetContent } from "./sheetContent"
+export { SheetHeader } from "./sheetHeader"
+export { SheetFooter } from "./sheetFooter"
+export { SheetTitle } from "./sheetTitle"
+export { SheetDescription } from "./sheetDescription"
+export { SheetPortal } from "./sheetPortal"
+export { SheetOverlay } from "./sheetOverlay"

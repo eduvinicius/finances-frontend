@@ -1,12 +1,11 @@
-export { 
-  Field,
-  FieldLabel,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLegend,
-  FieldSeparator,
-  FieldSet,
-  FieldContent,
-  FieldTitle,
- } from "./field";
+export { Field } from "./field"
+export { FieldLabel } from "./fieldLabel"
+export { FieldDescription } from "./fieldDescription"
+export { FieldError } from "./fieldError"
+export { FieldGroup } from "./fieldGroup"
+export { FieldLegend } from "./fieldLegend"
+export { FieldSeparator } from "./fieldSeparator"
+export { FieldSet } from "./fieldSet"
+export { FieldContent } from "./fieldContent"
+export { FieldTitle } from "./fieldTitle"
+export { fieldVariants } from "./fieldVariants"

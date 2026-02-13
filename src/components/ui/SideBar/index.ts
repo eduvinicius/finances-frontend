@@ -1,25 +1,23 @@
-export {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupAction,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarInput,
-  SidebarInset,
-  SidebarMenu,
-  SidebarMenuAction,
-  SidebarMenuBadge,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSkeleton,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
-  SidebarRail,
-  SidebarSeparator,
-} from "./sidebar"
-
+export { Sidebar } from "./sidebar"
+export { SidebarContent } from "./sidebarContent"
+export { SidebarFooter } from "./sidebarFooter"
+export { SidebarGroup } from "./sidebarGroup"
+export { SidebarGroupAction } from "./sidebarGroupAction"
+export { SidebarGroupContent } from "./sidebarGroupContent"
+export { SidebarGroupLabel } from "./sidebarGroupLabel"
+export { SidebarHeader } from "./sidebarHeader"
+export { SidebarInput } from "./sidebarInput"
+export { SidebarInset } from "./sidebarInset"
+export { SidebarMenu } from "./sidebarMenu"
+export { SidebarMenuAction } from "./sidebarMenuAction"
+export { SidebarMenuBadge } from "./sidebarMenuBadge"
+export { SidebarMenuButton } from "./sidebarMenuButton"
+export { SidebarMenuItem } from "./sidebarMenuItem"
+export { SidebarMenuSkeleton } from "./sidebarMenuSkeleton"
+export { SidebarMenuSub } from "./sidebarMenuSub"
+export { SidebarMenuSubButton } from "./sidebarMenuSubButton"
+export { SidebarMenuSubItem } from "./sidebarMenuSubItem"
+export { SidebarRail } from "./sidebarRail"
+export { SidebarSeparator } from "./sidebarSeparator"
+export { sidebarMenuButtonVariants } from "./sidebarMenuButtonVariants"
 export { SidebarTrigger } from "./sidebarTrigger"

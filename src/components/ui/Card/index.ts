@@ -1,9 +1,7 @@
-export {
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardAction,
-  CardDescription,
-  CardContent,
-} from "./card"
+export { Card } from "./card"
+export { CardHeader } from "./cardHeader"
+export { CardTitle } from "./cardTitle"
+export { CardDescription } from "./cardDescription"
+export { CardAction } from "./cardAction"
+export { CardContent } from "./cardContent"
+export { CardFooter } from "./cardFooter"

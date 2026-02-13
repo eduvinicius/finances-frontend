@@ -1,8 +1,8 @@
-export { 
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupText,
-  InputGroupInput,
-  InputGroupTextarea,
-} from "./input-group"
+export { InputGroup } from "./input-group"
+export { InputGroupAddon } from "./inputGroupAddon"
+export { InputGroupButton } from "./inputGroupButton"
+export { InputGroupText } from "./inputGroupText"
+export { InputGroupInput } from "./inputGroupInput"
+export { InputGroupTextarea } from "./inputGroupTextarea"
+export { inputGroupAddonVariants } from "./inputGroupAddonVariants"
+export { inputGroupButtonVariants } from "./inputGroupButtonVariants"
