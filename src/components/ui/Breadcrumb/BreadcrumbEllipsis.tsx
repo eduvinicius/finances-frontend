@@ -1,0 +1,21 @@
+import * as React from "react"
+import { IoEllipsisHorizontal } from "react-icons/io5"
+import { cn } from "@/lib/utils"
+
+export function BreadcrumbEllipsis({
+  className,
+  ...props
+}: React.ComponentProps<"span">) {
+  return (
+    <span
+      data-slot="breadcrumb-ellipsis"
+      role="presentation"
+      aria-hidden="true"
+      className={cn("flex size-9 items-center justify-center", className)}
+      {...props}
+    >
+      <IoEllipsisHorizontal className="size-4" />
+      <span className="sr-only">More</span>
+    </span>
+  )
+}

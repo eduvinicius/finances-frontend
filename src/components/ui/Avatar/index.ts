@@ -1,0 +1,6 @@
+export { Avatar } from "./avatar"
+export { AvatarImage } from "./AvatarImage"
+export { AvatarFallback } from "./AvatarFallback"
+export { AvatarBadge } from "./AvatarBadge"
+export { AvatarGroup } from "./AvatarGroup"
+export { AvatarGroupCount } from "./AvatarGroupCount"

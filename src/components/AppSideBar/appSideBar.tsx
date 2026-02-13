@@ -1,61 +1,63 @@
+"use client"
+
+import * as React from "react"
+import {
+  BookOpen,
+  Bot,
+  Settings2,
+  SquareTerminal,
+} from "lucide-react"
+
+import { NavMain } from "@/components/nav-main"
+import { NavUser } from "@/components/nav-user"
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarGroup,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/components/ui/SideBar";
-import { useAuth } from "@/features/auth/hooks/useAuth";
-import { ROUTES } from "@/shared/constants/routes.cons";
-import { useLocation } from "react-router-dom";
+  SidebarRail,
+} from "@/components/ui/SideBar"
 
-export function AppSidebar() {
+const data = {
+  user: {
+    name: "shadcn",
+    email: "m@example.com",
+    avatar: "/avatars/shadcn.jpg",
+  },
+  navMain: [
+    {
+      title: "Playground",
+      url: "#",
+      icon: SquareTerminal,
+      isActive: true,
+    },
+    {
+      title: "Models",
+      url: "#",
+      icon: Bot,
+    },
+    {
+      title: "Documentation",
+      url: "#",
+      icon: BookOpen,
+    },
+    {
+      title: "Settings",
+      url: "#",
+      icon: Settings2,
+    },
+  ],
+}
 
-  const location = useLocation();
-  const { getUserData } = useAuth();
-  
-  const userData = getUserData();
-  const sideBarItems = ROUTES;
-
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar>
-    <SidebarContent>
-        <SidebarGroup />
-        <nav>
-          <SidebarMenu>
-            {sideBarItems.map((item) => {
-              const IconComponent = item.icon;
-              return (
-              <SidebarMenuItem 
-                className={`hover:bg-(--green-200) rounded-md ${location.pathname === item.url ? "bg-(--green-200)" : ""}`}
-                key={item.id}>
-                <SidebarMenuButton size="lg" asChild>
-                  <a 
-                    className="h-9 cursor-pointer" 
-                    href={item.url}>
-                    {IconComponent && <IconComponent size="2.25rem" />}
-                    <span className="text-base">{item.label}</span>
-                  </a>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            );
-            })}
-          </SidebarMenu>
-        </nav>
-        <SidebarGroup />
-    </SidebarContent>
-    <SidebarFooter>
-      <SidebarMenu>
-        <SidebarMenuItem>
-          <SidebarMenuButton>
-            {userData?.fullName}
-            {userData?.nickName}
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-      </SidebarMenu>
-    </SidebarFooter>
+    <Sidebar collapsible="icon" {...props}>
+      <SidebarContent>
+        <NavMain items={data.navMain} />
+      </SidebarContent>
+      <SidebarFooter>
+        <NavUser user={data.user} />
+      </SidebarFooter>
+      <SidebarRail />
     </Sidebar>
   )
 }
