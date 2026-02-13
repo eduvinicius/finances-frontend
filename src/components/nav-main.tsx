@@ -1,35 +1,35 @@
-import { type LucideIcon } from "lucide-react"
-
 import {
   SidebarGroup,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/SideBar"
+import type { IRoute } from "@/shared/types/routes.types"
+import { useLocation } from "react-router-dom"
 
 export function NavMain({
   items,
 }: Readonly<{
-  items: {
-    title: string
-    url: string
-    icon?: LucideIcon
-    isActive?: boolean
-    items?: {
-      title: string
-      url: string
-    }[]
-  }[]
+  items: IRoute[]
 }>) {
+
+  const location = useLocation();
+
   return (
     <SidebarGroup>
       <SidebarMenu>
         {items.map((item) => (
-          <SidebarMenuItem key={item.title} data-active={item.isActive}>
-            <SidebarMenuButton tooltip={item.title}>
-              {item.icon && <item.icon />}
-              <span>{item.title}</span>
-            </SidebarMenuButton>
+          <SidebarMenuItem 
+            key={item.id}>
+            <a 
+              href={item.url}>
+              <SidebarMenuButton 
+                className={`cursor-pointer ${location.pathname === item.url ? "bg-(--green-300)" : ""}`}
+                tooltip={item.label}>
+                  {item.icon && <item.icon />}
+                  {item.label}
+              </SidebarMenuButton>
+            </a>
           </SidebarMenuItem>
         ))}
       </SidebarMenu>

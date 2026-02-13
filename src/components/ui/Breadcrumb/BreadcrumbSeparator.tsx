@@ -6,16 +6,16 @@ export function BreadcrumbSeparator({
   children,
   className,
   ...props
-}: React.ComponentProps<"li">) {
+}: React.ComponentProps<"img">) {
   return (
-    <li
+    <img
       data-slot="breadcrumb-separator"
-      role="presentation"
+      alt=""
       aria-hidden="true"
       className={cn("[&>svg]:size-3.5", className)}
       {...props}
     >
       {children ?? <IoChevronForward />}
-    </li>
+    </img>
   )
 }

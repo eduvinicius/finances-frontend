@@ -1,12 +1,6 @@
 "use client"
 
 import * as React from "react"
-import {
-  BookOpen,
-  Bot,
-  Settings2,
-  SquareTerminal,
-} from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
@@ -16,46 +10,25 @@ import {
   SidebarFooter,
   SidebarRail,
 } from "@/components/ui/SideBar"
-
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  navMain: [
-    {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-    },
-  ],
-}
+import { ROUTES } from "@/shared/constants/routes.cons"
+import { useAuth } from "@/features/auth/hooks/useAuth"
+import type { LoginResponse } from "@/shared/types/login.type"
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+
+  const { getUserData } = useAuth()
+  const userData: LoginResponse | null = getUserData()
+  if (userData) {
+    userData.avatar = "/avatars/shadcn.jpg"
+  }
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={ROUTES} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={userData} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

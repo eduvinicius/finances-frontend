@@ -5,17 +5,17 @@ import { cn } from "@/lib/utils"
 export function BreadcrumbEllipsis({
   className,
   ...props
-}: React.ComponentProps<"span">) {
+}: React.ComponentProps<"img">) {
   return (
-    <span
+    <img
+      alt=""
       data-slot="breadcrumb-ellipsis"
-      role="presentation"
       aria-hidden="true"
       className={cn("flex size-9 items-center justify-center", className)}
       {...props}
     >
       <IoEllipsisHorizontal className="size-4" />
       <span className="sr-only">More</span>
-    </span>
+    </img>
   )
 }

@@ -1,15 +1,16 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-export function BreadcrumbPage({ className, ...props }: React.ComponentProps<"span">) {
+export function BreadcrumbPage({ className, ...props }: React.ComponentProps<"a">) {
   return (
-    <span
+    <a
       data-slot="breadcrumb-page"
-      role="link"
       aria-disabled="true"
       aria-current="page"
       className={cn("text-foreground font-normal", className)}
       {...props}
-    />
+    >
+        
+    </a>
   )
 }
