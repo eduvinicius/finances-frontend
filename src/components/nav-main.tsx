@@ -26,8 +26,8 @@ export function NavMain({
               <SidebarMenuButton 
                 className={`cursor-pointer ${location.pathname === item.url ? "bg-(--green-300)" : ""}`}
                 tooltip={item.label}>
-                  {item.icon && <item.icon />}
-                  {item.label}
+                  {item.icon && <span className="text-lg"><item.icon /></span>}
+                  <span className="text-lg"> {item.label}</span>
               </SidebarMenuButton>
             </a>
           </SidebarMenuItem>

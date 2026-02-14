@@ -1,6 +1,10 @@
+import type { IconType } from "react-icons/lib";
+
 export interface IMenuOption {
+  id: string;
   label: string;
-  icon?: React.ReactNode;
-  onClick: () => void;
+  url?: string;
+  icon?: IconType;
+  onClick?: () => void;
   divider?: boolean;
 }
