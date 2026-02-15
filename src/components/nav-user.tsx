@@ -83,7 +83,7 @@ export function NavUser({
               <DropdownMenuGroup key={item.id}>
                 <DropdownMenuItem
                   onSelect={item.onClick && item.label === "Sair" ? handleLogout : item.onClick}
-                  className="cursor-pointer"
+                  className="cursor-pointer hover:bg-(--green-300)"
                 >
                   {item.url ? (
                     <a href={item.url} className="flex items-center gap-2">
