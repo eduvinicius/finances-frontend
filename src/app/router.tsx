@@ -5,7 +5,7 @@ import { Home } from "@/features/Home";
 import { Layout } from "@/features/Layout";
 import { Account } from "@/features/Account";
 import { Transactions } from "@/features/Transactions";
-import { Categories } from "@/features/Categories";
+import { Categories } from "@/features/Categories/pages";
 
 export const router = createBrowserRouter([
   {
