@@ -11,31 +11,37 @@ import {
 } from "@/components/ui/Dialog";
 import { CategoryForm } from "@/shared/forms/categoryForm";
 import type { CategoryFormValues } from "@/shared/types/categoryForm.type";
+import { useCreateCategory } from "../hooks/useCreateCategory";
+import { Spinner } from "@/components/ui/Spinner";
 
 export function Categories() {
 
-    // const { data, isLoading } = useCategories();
+    const { data, isLoading } = useCategories();
+    const { mutate, isPending } = useCreateCategory();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     
     
-    // useEffect(() => {
-    //     if (data) {
-    //         console.log("Categories:", data);
-    //     }
-    // }, [data]);
+    useEffect(() => {
+        if (data) {
+            console.log("Categories:", data);
+        }
+    }, [data]);
 
     const handleFormSubmit = (formData: CategoryFormValues) => {
-        console.log("Form submitted:", formData);
-        setIsDialogOpen(false);
+        mutate(formData, {
+            onSuccess: () => {
+            setIsDialogOpen(false);
+            },
+        });
     };
 
-    // if (isLoading) {
-    //     return (
-    //         <div className="flex items-center justify-center h-screen">
-    //             <p>Loading categories...</p>
-    //         </div>
-    //     );
-    // }
+    if (isLoading) {
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <p>Loading categories...</p>
+            </div>
+        );
+    }
 
     return (
         <>
@@ -54,7 +60,11 @@ export function Categories() {
                             Preencha os campos abaixo para criar uma nova categoria.
                         </DialogDescription>
                     </DialogHeader>
-                    <CategoryForm onSubmit={handleFormSubmit} />
+                    {isPending ? (
+                        <Spinner className="mx-auto my-4 w-10 h-10" />
+                    ) : (
+                        <CategoryForm onSubmit={handleFormSubmit} />
+                    )}
                 </DialogContent>
             </Dialog>
         </header>
