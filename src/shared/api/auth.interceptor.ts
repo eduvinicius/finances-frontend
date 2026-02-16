@@ -1,7 +1,8 @@
+import { forceLogout } from "../utils/logout";
 import { httpClient } from "./httpClient";
 
 httpClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")!).token : null;
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -9,3 +10,14 @@ httpClient.interceptors.request.use((config) => {
 
   return config;
 });
+
+httpClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      forceLogout();
+    }
+
+    return Promise.reject(error);
+  }
+);
