@@ -13,3 +13,6 @@ export interface ICreateCategoryRequest {
     type: TransactionTypeEnum;
     description: string;
 }
+export interface CategoriesListProps {
+    data: ICategory[];
+}

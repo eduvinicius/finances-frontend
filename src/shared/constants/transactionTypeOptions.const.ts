@@ -1,7 +1,13 @@
-import { TransactionTypeEnum } from "../enums/transactionTypeEnum";
+import { TransactionTypeEnum, TransactionTypeEnumString } from "../enums/transactionTypeEnum";
 
-export const transactionTypeOptions = [
-    { value: TransactionTypeEnum.INCOME, label: "Receita" },
-    { value: TransactionTypeEnum.EXPENSE, label: "Despesa" },
-    { value: TransactionTypeEnum.INVESTMENT, label: "Investimento" },
+export const TRANSACTION_TYPE_OPTIONS = [
+    { value: TransactionTypeEnum.INCOME, label: TransactionTypeEnumString.INCOME },
+    { value: TransactionTypeEnum.EXPENSE, label: TransactionTypeEnumString.EXPENSE },
+    { value: TransactionTypeEnum.INVESTMENT, label: TransactionTypeEnumString.INVESTMENT },
 ];
+
+export const TRANSACTION_TYPE_STRINGS = {
+    [TransactionTypeEnum.INCOME]: TransactionTypeEnumString.INCOME,
+    [TransactionTypeEnum.EXPENSE]: TransactionTypeEnumString.EXPENSE,
+    [TransactionTypeEnum.INVESTMENT]: TransactionTypeEnumString.INVESTMENT,
+};

@@ -13,7 +13,7 @@ import { categorySchema } from "@/shared/schemas/categorySchema";
 import type { CategoryFormProps, CategoryFormValues } from "@/shared/types/categoryForm.type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
-import { transactionTypeOptions } from "../constants/transactionTypeOptions.const";
+import { TRANSACTION_TYPE_OPTIONS } from "../constants/transactionTypeOptions.const";
 
 export function CategoryForm({ 
     onSubmit, 
@@ -84,7 +84,7 @@ export function CategoryForm({
                                         <SelectValue placeholder="Selecione o tipo" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        {transactionTypeOptions.map((option) => (
+                                        {TRANSACTION_TYPE_OPTIONS.map((option) => (
                                             <SelectItem
                                                 key={option.value}
                                                 value={option.value.toString()}

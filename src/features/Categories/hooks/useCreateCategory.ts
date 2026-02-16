@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient, type UseMutationResult } from "@tanstack/react-query";
 import { categoryService } from "../api/categoryService";
-import { queryKeys } from "@/shared/constants/queryKeys";
+import { QUERY_KEYS } from "@/shared/constants/queryKeys";
 import type { ICategory, ICreateCategoryRequest } from "@/shared/types/category.type";
 import { toast } from "sonner";
 
@@ -12,7 +12,7 @@ export function useCreateCategory(): UseMutationResult<ICategory, Error, ICreate
 
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.categories,
+        queryKey: QUERY_KEYS.categories,
       });
     },
 
