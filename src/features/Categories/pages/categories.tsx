@@ -13,7 +13,7 @@ import { CategoryForm } from "@/shared/forms/categoryForm";
 import type { CategoryFormValues } from "@/shared/types/categoryForm.type";
 import { useCreateCategory } from "../hooks/useCreateCategory";
 import { Spinner } from "@/components/ui/Spinner";
-import { CategoriesList,  CategoriesListSkeleton  } from "../components";
+import { CategoriesFilters, CategoriesList,  CategoriesListSkeleton  } from "../components";
 import { toast } from "sonner";
 
 export function Categories() {
@@ -55,6 +55,7 @@ export function Categories() {
                     </DialogContent>
                 </Dialog>
             </header>
+            <CategoriesFilters onFilter={(filters) => console.log("Filtros aplicados:", filters)} />
             {isLoading ? <CategoriesListSkeleton /> : <CategoriesList data={data ?? []} />}
             {data?.length === 0 && !isLoading && (
                 <p className="text-center text-muted-foreground mt-10">Nenhuma categoria encontrada. Crie sua primeira categoria!</p>
