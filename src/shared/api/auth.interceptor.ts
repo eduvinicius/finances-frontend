@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import { forceLogout } from "../utils/logout";
 import { httpClient } from "./httpClient";
 
@@ -16,6 +17,7 @@ httpClient.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       forceLogout();
+      toast.error("A sessão expirou. Por favor, faça login novamente.");
     }
 
     return Promise.reject(error);

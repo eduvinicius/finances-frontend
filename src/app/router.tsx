@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { PrivateRoute } from "./privateRoute";
-import { Login } from "@/features/auth/pages/Login";
+import { Login } from "@/features/auth/pages/login";
 import { Home } from "@/features/Home";
 import { Layout } from "@/features/Layout";
 import { Account } from "@/features/Account";

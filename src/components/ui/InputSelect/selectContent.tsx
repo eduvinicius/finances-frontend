@@ -1,8 +1,8 @@
 import * as React from "react"
 import { Select as SelectPrimitive } from "radix-ui"
 import { cn } from "@/lib/utils"
-import { SelectScrollUpButton } from "./SelectScrollUpButton"
-import { SelectScrollDownButton } from "./SelectScrollDownButton"
+import { SelectScrollUpButton } from "./selectScrollUpButton"
+import { SelectScrollDownButton } from "./selectScrollDownButton"
 
 export function SelectContent({
   className,

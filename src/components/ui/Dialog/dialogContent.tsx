@@ -2,8 +2,8 @@ import * as React from "react"
 import { XIcon } from "lucide-react"
 import { Dialog as DialogPrimitive } from "radix-ui"
 import { cn } from "@/lib/utils"
-import { DialogPortal } from "./DialogPortal"
-import { DialogOverlay } from "./DialogOverlay"
+import { DialogPortal } from "./dialogPortal"
+import { DialogOverlay } from "./dialogOverlay"
 
 export function DialogContent({
   className,

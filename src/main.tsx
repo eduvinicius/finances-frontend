@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
+import App from './app.tsx'
 import './styles/global.css'
 import './shared/api/auth.interceptor.ts'
 import { AppProviders } from './app/providers.tsx'

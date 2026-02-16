@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { AuthProvider } from "@/features/auth/context/AuthContext";
+import { AuthProvider } from "@/features/auth/context/authContext";
 import type { AxiosError } from "axios";
 
 const queryClient = new QueryClient({

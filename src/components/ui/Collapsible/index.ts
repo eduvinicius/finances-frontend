@@ -1,3 +1,3 @@
 export { Collapsible } from "./collapsible"
-export { CollapsibleTrigger } from "./CollapsibleTrigger"
-export { CollapsibleContent } from "./CollapsibleContent"
+export { CollapsibleTrigger } from "./collapsibleTrigger"
+export { CollapsibleContent } from "./collapsibleContent"
