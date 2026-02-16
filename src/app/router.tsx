@@ -3,7 +3,7 @@ import { PrivateRoute } from "./privateRoute";
 import { Login } from "@/features/auth/pages/login";
 import { Home } from "@/features/Home";
 import { Layout } from "@/features/Layout";
-import { Account } from "@/features/Account";
+import { Account } from "@/features/Account/pages";
 import { Transactions } from "@/features/Transactions";
 import { Categories } from "@/features/Categories/pages";
 
