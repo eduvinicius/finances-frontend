@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/Button"
 import { Calendar } from "@/components/ui/Calendar"
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/Field"
@@ -12,20 +13,26 @@ import {
 } from "@/components/ui/Popover"
 import {
     Combobox,
+    ComboboxChip,
+    ComboboxChips,
+    ComboboxChipsInput,
     ComboboxContent,
     ComboboxEmpty,
-    ComboboxInput,
     ComboboxItem,
     ComboboxList,
+    ComboboxValue,
+    useComboboxAnchor,
 } from "@/components/ui/Combobox"
 import { categoriesFiltersSchema } from "@/shared/schemas/categoriesFiltersSchema"
 import type { CategoriesFiltersProps, CategoriesFiltersValues } from "@/shared/types/categoriesFilters.type"
+import { TRANSACTION_TYPE_OPTIONS } from "@/shared/constants/transactionTypeOptions.const"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, Controller } from "react-hook-form"
-import { TRANSACTION_TYPE_OPTIONS } from "@/shared/constants/transactionTypeOptions.const"
 import { format } from "date-fns"
 import { CalendarIcon, XIcon } from "lucide-react"
 import type { DateRange } from "react-day-picker"
+import type { TransactionTypeEnum } from "@/shared/enums/transactionTypeEnum"
+import type { ISelectBaseProps } from "@/shared/types/selectBase.types"
 
 export function CategoriesFilters({
     onFilter,
@@ -47,6 +54,9 @@ export function CategoriesFilters({
         },
     })
 
+    const [dateRange, setDateRange] = useState<DateRange | undefined>();
+    const anchor = useComboboxAnchor();
+
     const handleClearFilters = () => {
         reset({
             name: "",
@@ -56,8 +66,6 @@ export function CategoriesFilters({
             onClear()
         }
     }
-
-    const [dateRange, setDateRange] = React.useState<DateRange | undefined>()
 
     const getDateRangeText = () => {
         if (!dateRange?.from) {
@@ -99,36 +107,51 @@ export function CategoriesFilters({
                         <Controller
                             name="transactionType"
                             control={control}
-                            render={({ field }) => (
-                                <Combobox
-                                    multiple
-                                    value={field.value?.map(String) ?? []}
-                                    onValueChange={(value) => {
-                                        const numericValues = value && value.length > 0 
-                                            ? value.map(Number) 
-                                            : []
-                                        field.onChange(numericValues)
-                                    }}
-                                >
-                                    <ComboboxInput
-                                        placeholder="Selecione o tipo..."
-                                        showClear={!!field.value?.length}
-                                    />
-                                    <ComboboxContent>
-                                        <ComboboxList>
-                                            {TRANSACTION_TYPE_OPTIONS.map((option) => (
-                                                <ComboboxItem
-                                                    key={option.value}
-                                                    value={option.value.toString()}
-                                                >
-                                                    {option.label}
-                                                </ComboboxItem>
-                                            ))}
-                                            <ComboboxEmpty>Nenhum tipo encontrado</ComboboxEmpty>
-                                        </ComboboxList>
-                                    </ComboboxContent>
-                                </Combobox>
-                            )}
+                            render={({ field }) => {
+                                const selectedOptions = TRANSACTION_TYPE_OPTIONS.filter(
+                                    option => field.value?.includes(option.value)
+                                )
+                                
+                                return (
+                                    <Combobox
+                                        multiple
+                                        autoHighlight
+                                        value={selectedOptions}
+                                        onValueChange={(value: ISelectBaseProps<TransactionTypeEnum>[]) => {
+                                            const numericValues = value.map(item => item.value)
+                                            field.onChange(numericValues)
+                                        }}
+                                    >
+                                        <ComboboxChips ref={anchor} className="w-full cursor-pointer">
+                                            <ComboboxValue>
+                                                {(values: ISelectBaseProps<TransactionTypeEnum>[]) => (
+                                                    <React.Fragment>
+                                                        {values.map((value) => (
+                                                            <ComboboxChip key={value.value}>{value.label}</ComboboxChip>
+                                                        ))}
+                                                        <ComboboxChipsInput />
+                                                    </React.Fragment>
+                                                )}
+                                            </ComboboxValue>
+                                        </ComboboxChips>
+                                        <ComboboxContent anchor={anchor}>
+                                            <ComboboxList>
+                                                {TRANSACTION_TYPE_OPTIONS.map((option) => (
+                                                    <ComboboxItem
+                                                        key={option.value}
+                                                        value={option}
+                                                    >
+                                                        {option.label}
+                                                    </ComboboxItem>
+                                                ))}
+                                                {TRANSACTION_TYPE_OPTIONS.length === 0 && (
+                                                    <ComboboxEmpty>Nenhum tipo encontrado</ComboboxEmpty>
+                                                )}
+                                            </ComboboxList>
+                                        </ComboboxContent>
+                                    </Combobox>
+                                )
+                            }}
                         />
                         <FieldDescription
                             className={errors.transactionType ? "text-red-500" : ""}
