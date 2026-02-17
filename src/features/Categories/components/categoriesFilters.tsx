@@ -39,8 +39,8 @@ export function CategoriesFilters({
     onClear,
     loading = false,
 }: Readonly<CategoriesFiltersProps>) {
+
     const {
-        register,
         handleSubmit,
         control,
         reset,
@@ -62,6 +62,9 @@ export function CategoriesFilters({
             name: "",
             transactionType: [],
         })
+
+        setDateRange(undefined)
+        
         if (onClear) {
             onClear()
         }
@@ -69,15 +72,15 @@ export function CategoriesFilters({
 
     const getDateRangeText = () => {
         if (!dateRange?.from) {
-            return <span>Selecione o período</span>
+            return <span className="text-">Selecione o período</span>
         }
         
         if (dateRange.to) {
             return (
-                <>
+                <span className="text-white">
                     {format(dateRange.from, "dd/MM/yyyy")} -{" "}
                     {format(dateRange.to, "dd/MM/yyyy")}
-                </>
+                </span>
             )
         }
         
@@ -90,12 +93,20 @@ export function CategoriesFilters({
                 <FieldGroup className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
                     <Field>
                         <FieldLabel htmlFor="name">Nome</FieldLabel>
-                        <Input
-                            id="name"
-                            type="text"
-                            placeholder="Buscar por nome..."
-                            aria-invalid={!!errors.name}
-                            {...register("name")}
+                        <Controller
+                            name="name"
+                            control={control}
+                            render={({ field }) => (
+                                <Input
+                                    id="name"
+                                    type="text"
+                                    placeholder="Buscar por nome..."
+                                    aria-invalid={!!errors.name}
+                                    value={field.value || ""}
+                                    onChange={field.onChange}
+                                    onBlur={field.onBlur}
+                                />
+                            )}
                         />
                         <FieldDescription className={errors.name ? "text-red-500" : ""}>
                             {errors.name ? errors.name.message : ""}
@@ -122,7 +133,7 @@ export function CategoriesFilters({
                                             field.onChange(numericValues)
                                         }}
                                     >
-                                        <ComboboxChips ref={anchor} className="w-full cursor-pointer">
+                                        <ComboboxChips ref={anchor} className="w-full">
                                             <ComboboxValue>
                                                 {(values: ISelectBaseProps<TransactionTypeEnum>[]) => (
                                                     <React.Fragment>
@@ -175,9 +186,11 @@ export function CategoriesFilters({
                                                 <Button
                                                     variant="outline"
                                                     id="date-range"
-                                                    className="justify-start px-2.5 font-normal w-full"
+                                                    className="justify-start px-2.5 font-normal w-full bg-transparent"
                                                 >
-                                                    <CalendarIcon />
+                                                    <CalendarIcon
+                                                        color="white"
+                                                     />
                                                     {getDateRangeText()}
                                                     {dateRange?.from && (
                                                         <XIcon

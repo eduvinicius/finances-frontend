@@ -15,10 +15,11 @@ import { useCreateCategory } from "../hooks/useCreateCategory";
 import { Spinner } from "@/components/ui/Spinner";
 import { CategoriesFilters, CategoriesList,  CategoriesListSkeleton  } from "../components";
 import { toast } from "sonner";
+import type { CategoriesFiltersValues } from "@/shared/types/categoriesFilters.type";
 
 export function Categories() {
-
-    const { data, isLoading, error } = useCategories();
+    const [filters, setFilters] = useState<CategoriesFiltersValues | undefined>(undefined);
+    const { data, isLoading, error } = useCategories(filters);
     const { mutate, isPending } = useCreateCategory();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     
@@ -29,6 +30,14 @@ export function Categories() {
             },
         });
     };
+
+    const filterCategories = (filters: CategoriesFiltersValues) => {
+        setFilters(filters);
+    }
+
+    const handleClearFilters = () => {
+        setFilters(undefined);
+    }
 
     return (
         <>
@@ -55,7 +64,11 @@ export function Categories() {
                     </DialogContent>
                 </Dialog>
             </header>
-            <CategoriesFilters onFilter={(filters) => console.log("Filtros aplicados:", filters)} />
+            <CategoriesFilters 
+                onFilter={filterCategories} 
+                onClear={handleClearFilters}
+                loading={isLoading}
+            />
             {isLoading ? <CategoriesListSkeleton /> : <CategoriesList data={data ?? []} />}
             {data?.length === 0 && !isLoading && (
                 <p className="text-center text-muted-foreground mt-10">Nenhuma categoria encontrada. Crie sua primeira categoria!</p>
