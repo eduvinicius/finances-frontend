@@ -10,15 +10,16 @@ import {
     SelectValue,
 } from "@/components/ui/InputSelect";
 import { categorySchema } from "@/shared/schemas/categorySchema";
-import type { CategoryFormProps, CategoryFormValues } from "@/shared/types/categoryForm.type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import { TRANSACTION_TYPE_OPTIONS } from "../constants/transactionTypeOptions.const";
+import type { CategoryFormValues } from "../types/category.type";
+import type { IFormBaseProps } from "../types/formBase.types";
 
 export function CategoryForm({ 
     onSubmit, 
     loading 
-}: Readonly<CategoryFormProps>) {
+}: Readonly<IFormBaseProps<CategoryFormValues>>) {
     const {
         register,
         handleSubmit,

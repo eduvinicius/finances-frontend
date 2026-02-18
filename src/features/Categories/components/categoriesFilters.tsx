@@ -24,7 +24,7 @@ import {
     useComboboxAnchor,
 } from "@/components/ui/Combobox"
 import { categoriesFiltersSchema } from "@/shared/schemas/categoriesFiltersSchema"
-import type { CategoriesFiltersProps, CategoriesFiltersValues } from "@/shared/types/categoriesFilters.type"
+
 import { TRANSACTION_TYPE_OPTIONS } from "@/shared/constants/transactionTypeOptions.const"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, Controller } from "react-hook-form"
@@ -33,12 +33,14 @@ import { CalendarIcon, XIcon } from "lucide-react"
 import type { DateRange } from "react-day-picker"
 import type { TransactionTypeEnum } from "@/shared/enums/transactionTypeEnum"
 import type { ISelectBaseProps } from "@/shared/types/selectBase.types"
+import type { IFiltersBaseProps } from "@/shared/types/filtersBase.types"
+import type { CategoriesFiltersValues } from "@/shared/types/category.type"
 
 export function CategoriesFilters({
     onFilter,
     onClear,
     loading = false,
-}: Readonly<CategoriesFiltersProps>) {
+}: Readonly<IFiltersBaseProps<CategoriesFiltersValues>>) {
 
     const {
         handleSubmit,

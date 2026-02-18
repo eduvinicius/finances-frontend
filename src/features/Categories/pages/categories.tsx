@@ -10,12 +10,11 @@ import {
     DialogTrigger,
 } from "@/components/ui/Dialog";
 import { CategoryForm } from "@/shared/forms/categoryForm";
-import type { CategoryFormValues } from "@/shared/types/categoryForm.type";
+import type { CategoriesFiltersValues, CategoryFormValues } from "@/shared/types/category.type";
 import { useCreateCategory } from "../hooks/useCreateCategory";
 import { Spinner } from "@/components/ui/Spinner";
 import { CategoriesFilters, CategoriesList,  CategoriesListSkeleton  } from "../components";
 import { toast } from "sonner";
-import type { CategoriesFiltersValues } from "@/shared/types/categoriesFilters.type";
 import { AppPaginator } from "@/components/ui/Paginator/appPaginator";
 
 export function Categories() {

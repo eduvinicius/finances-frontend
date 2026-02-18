@@ -1,8 +1,7 @@
-import type { ICategory, ICreateCategoryRequest } from "@/shared/types/category.type";
+import type { ICategory, ICreateCategoryRequest, CategoriesFiltersValues } from "@/shared/types/category.type";
 import type { AxiosResponse } from "axios";
 import { httpClient } from "@/shared/api/httpClient";
 import { QUERY_KEYS } from "@/shared/constants/queryKeys";
-import type { CategoriesFiltersValues } from "@/shared/types/categoriesFilters.type";
 import type { IPaginatedBaseResponse, IPaginatedRequest } from "@/shared/types/pagination.types";
 
 const queryKey = QUERY_KEYS.categories.toString();
