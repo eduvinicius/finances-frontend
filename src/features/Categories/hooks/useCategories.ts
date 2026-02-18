@@ -3,10 +3,14 @@ import { categoryService } from "../api/categoryService";
 import { QUERY_KEYS } from "@/shared/constants/queryKeys";
 import type { ICategory } from "@/shared/types/category.type";
 import type { CategoriesFiltersValues } from "@/shared/types/categoriesFilters.type";
+import type { IPaginatedBaseResponse, IPaginatedRequest } from "@/shared/types/pagination.types";
 
-export function useCategories(filters?: CategoriesFiltersValues): UseQueryResult<ICategory[], Error> {
+export function useCategories(
+  pagination: IPaginatedRequest,
+  filters?: CategoriesFiltersValues
+): UseQueryResult<IPaginatedBaseResponse<ICategory[]>, Error> {
   return useQuery({
-    queryKey: [...QUERY_KEYS.categories, filters],
-    queryFn: () => categoryService.getCategoriesPaginated(filters),
+    queryKey: [...QUERY_KEYS.categories, pagination, filters],
+    queryFn: () => categoryService.getCategoriesPaginated(pagination, filters),
   });
 }

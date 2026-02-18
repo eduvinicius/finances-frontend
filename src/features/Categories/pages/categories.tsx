@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useCategories } from "../hooks/useCategories";
 import { Button } from "@/components/ui/Button";
 import {
@@ -16,12 +16,28 @@ import { Spinner } from "@/components/ui/Spinner";
 import { CategoriesFilters, CategoriesList,  CategoriesListSkeleton  } from "../components";
 import { toast } from "sonner";
 import type { CategoriesFiltersValues } from "@/shared/types/categoriesFilters.type";
+import { AppPaginator } from "@/components/ui/Paginator/appPaginator";
 
 export function Categories() {
+
+    const pageSize = 10;
+    const [currentPage, setCurrentPage] = useState(1);
     const [filters, setFilters] = useState<CategoriesFiltersValues | undefined>(undefined);
-    const { data, isLoading, error } = useCategories(filters);
+    const { data, isLoading, error } = useCategories({ page: currentPage, pageSize }, filters);
     const { mutate, isPending } = useCreateCategory();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+    const totalPages = useMemo(
+        () => Math.ceil((data?.totalCount ?? 0) / pageSize),
+        [data?.totalCount, pageSize]
+    );
+
+    console.log('Debug pagination:', { 
+        totalCount: data?.totalCount, 
+        pageSize, 
+        totalPages,
+        dataKeys: data ? Object.keys(data) : 'no data'
+    });
     
     const handleFormSubmit = (formData: CategoryFormValues) => {
         mutate(formData, {
@@ -33,11 +49,14 @@ export function Categories() {
 
     const filterCategories = (filters: CategoriesFiltersValues) => {
         setFilters(filters);
+        setCurrentPage(1);
     }
 
     const handleClearFilters = () => {
         setFilters(undefined);
+        setCurrentPage(1);
     }
+
 
     return (
         <>
@@ -69,11 +88,18 @@ export function Categories() {
                 onClear={handleClearFilters}
                 loading={isLoading}
             />
-            {isLoading ? <CategoriesListSkeleton /> : <CategoriesList data={data ?? []} />}
-            {data?.length === 0 && !isLoading && (
+            {isLoading ? <CategoriesListSkeleton /> : <CategoriesList data={data?.items ?? []} />}
+            {data?.totalCount === 0 && !isLoading && (
                 <p className="text-center text-muted-foreground mt-10">Nenhuma categoria encontrada. Crie sua primeira categoria!</p>
             )}
             {error && toast.error(`Erro ao carregar categorias: ${error.message}`)}
+            {totalPages >= 1 && (
+                <AppPaginator
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={setCurrentPage}
+                />
+            )}
         </>
     );
 }
