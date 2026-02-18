@@ -72,7 +72,7 @@ export function CategoriesFilters({
 
     const getDateRangeText = () => {
         if (!dateRange?.from) {
-            return <span className="text-">Selecione o período</span>
+            return <span className="text-white">Selecione o período</span>
         }
         
         if (dateRange.to) {
@@ -84,7 +84,7 @@ export function CategoriesFilters({
             )
         }
         
-        return format(dateRange.from, "dd/MM/yyyy")
+        return <span className="text-white">{format(dateRange.from, "dd/MM/yyyy")}</span>
     }
 
     return (
@@ -186,7 +186,7 @@ export function CategoriesFilters({
                                                 <Button
                                                     variant="outline"
                                                     id="date-range"
-                                                    className="justify-start px-2.5 font-normal w-full bg-transparent"
+                                                    className="justify-start px-2.5 font-normal w-full bg-transparent hover:bg-(--green-300) "
                                                 >
                                                     <CalendarIcon
                                                         color="white"

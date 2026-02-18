@@ -12,10 +12,10 @@ export function PaginationNext({
     <PaginationLink
       aria-label="Go to next page"
       size="default"
-      className={cn("gap-1 px-2.5 sm:pr-2.5", className)}
+      className={cn("gap-1 px-2.5 sm:pr-2.5 text-white hover:bg-(--green-200)", className)}
       {...props}
     >
-      <span className="hidden sm:block">Next</span>
+      <span className="hidden sm:block">Próxima</span>
       <ChevronRightIcon />
     </PaginationLink>
   )

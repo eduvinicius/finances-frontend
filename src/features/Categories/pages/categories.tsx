@@ -31,13 +31,6 @@ export function Categories() {
         () => Math.ceil((data?.totalCount ?? 0) / pageSize),
         [data?.totalCount, pageSize]
     );
-
-    console.log('Debug pagination:', { 
-        totalCount: data?.totalCount, 
-        pageSize, 
-        totalPages,
-        dataKeys: data ? Object.keys(data) : 'no data'
-    });
     
     const handleFormSubmit = (formData: CategoryFormValues) => {
         mutate(formData, {
@@ -56,7 +49,6 @@ export function Categories() {
         setFilters(undefined);
         setCurrentPage(1);
     }
-
 
     return (
         <>

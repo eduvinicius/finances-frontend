@@ -27,44 +27,35 @@ export function AppPaginator({
     const pages: (number | { type: "ellipsis"; id: string })[] = []
 
     if (totalPages <= maxVisiblePages) {
-      // Show all pages if total is less than max visible
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i)
       }
     } else {
-      // Always show first page
       pages.push(1)
 
-      // Calculate start and end of middle pages
       let startPage = Math.max(2, currentPage - 1)
       let endPage = Math.min(totalPages - 1, currentPage + 1)
 
-      // Adjust if we're near the beginning
       if (currentPage <= 3) {
         endPage = 4
       }
 
-      // Adjust if we're near the end
       if (currentPage >= totalPages - 2) {
         startPage = totalPages - 3
       }
 
-      // Add ellipsis after first page if needed
       if (startPage > 2) {
         pages.push({ type: "ellipsis", id: "start" })
       }
 
-      // Add middle pages
       for (let i = startPage; i <= endPage; i++) {
         pages.push(i)
       }
 
-      // Add ellipsis before last page if needed
       if (endPage < totalPages - 1) {
         pages.push({ type: "ellipsis", id: "end" })
       }
 
-      // Always show last page
       pages.push(totalPages)
     }
 
@@ -130,6 +121,7 @@ export function AppPaginator({
                 href="#"
                 onClick={(e) => handlePageClick(e, pageNumber)}
                 isActive={pageNumber === currentPage}
+                className="text-white hover:bg-(--green-200)"
               >
                 {pageNumber}
               </PaginationLink>
