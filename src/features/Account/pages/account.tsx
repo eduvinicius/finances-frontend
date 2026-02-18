@@ -1,19 +1,28 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useCreateAccount } from "../hooks/useCreateAccount";
 import { useGetAccounts } from "../hooks/useGetAccounts";
-import type { AccountFormValues } from "@/shared/types/account.types";
+import type { AccountFiltersValues, AccountFormValues } from "@/shared/types/account.types";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/Dialog";
 import { Button } from "@/components/ui/Button";
 import { Spinner } from "@/components/ui/Spinner";
 import { AccountForm } from "@/shared/forms/accountForm";
-import { AccountsList, AccountsListSkeleton } from "../components";
+import { AccountFilters, AccountsList, AccountsListSkeleton } from "../components";
 import { toast } from "sonner";
+import { AppPaginator } from "@/components/ui/Paginator/appPaginator";
 
 export function Account() {
 
-    const { data, isLoading, error } = useGetAccounts();
+    const pageSize = 10;
+    const [currentPage, setCurrentPage] = useState(1);
+    const [filters, setFilters] = useState<AccountFiltersValues | undefined>(undefined);
+    const { data, isLoading, error } = useGetAccounts({ page: currentPage, pageSize }, filters);
     const { mutate, isPending } = useCreateAccount();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+    const totalPages = useMemo(
+        () => Math.ceil((data?.totalCount ?? 0) / pageSize),
+        [data?.totalCount, pageSize]
+    );
     
     const handleFormSubmit = (formData: AccountFormValues) => {
       mutate(formData, {
@@ -22,6 +31,17 @@ export function Account() {
         },
       });
     };
+
+    
+    const filterAccounts = (filters: AccountFiltersValues) => {
+        setFilters(filters);
+        setCurrentPage(1);
+    }
+
+    const handleClearFilters = () => {
+        setFilters(undefined);
+        setCurrentPage(1);
+    }
 
     return (
       <>
@@ -48,11 +68,23 @@ export function Account() {
               </DialogContent>
           </Dialog>
         </header>
-        {isLoading ? <AccountsListSkeleton /> : <AccountsList data={data ?? []} />}
-        {data?.length === 0 && !isLoading && (
+        <AccountFilters
+            onFilter={filterAccounts} 
+            onClear={handleClearFilters}
+            loading={isLoading}
+        />
+        {isLoading ? <AccountsListSkeleton /> : <AccountsList data={data?.items ?? []} />}
+        {data?.items.length === 0 && !isLoading && (
           <p className="text-center text-muted-foreground mt-10">Nenhuma conta encontrada. Crie sua primeira conta!</p>
         )}
         {error && toast.error(`Erro ao carregar contas: ${error.message}`)}
+        {totalPages >= 1 && (
+          <AppPaginator
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
+        )}
       </>
     );
 }

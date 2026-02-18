@@ -1,6 +1,10 @@
 import type z from "zod";
 import type { AccountTypeEnum } from "../enums/accountTypeEnum";
 import type { accountSchema } from "../schemas/accountSchema";
+import type { accountFiltersSchema } from "../schemas/accountFiltersSchema";
+
+export type AccountFormValues = z.infer<typeof accountSchema>;
+export type AccountFiltersValues = z.infer<typeof accountFiltersSchema>;
 
 export interface ICreateAccount {
     name: string;
@@ -17,8 +21,6 @@ export interface IAccount {
     isActive: boolean;
     createdAt: string;
 }
-
-export type AccountFormValues = z.infer<typeof accountSchema>;
 
 export interface IAccountFormProps {
     onSubmit: (data: AccountFormValues) => void;
