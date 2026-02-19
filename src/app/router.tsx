@@ -6,6 +6,7 @@ import { Layout } from "@/features/Layout";
 import { Account } from "@/features/Account/pages";
 import { Transactions } from "@/features/Transactions";
 import { Categories } from "@/features/Categories/pages";
+import { Settings } from "@/features/Settings";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ export const router = createBrowserRouter([
       { path: "account", element: <Account /> },
       { path: "transactions", element: <Transactions /> },
       { path: "categories", element: <Categories /> },
+      { path: "settings", element: <Settings /> },
     ],
   },
 ]);

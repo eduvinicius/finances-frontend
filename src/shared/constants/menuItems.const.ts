@@ -7,7 +7,7 @@ export const MENU_ITEMS: IMenuOption[] = [
     {
         id: "my_account",
         label: "Minha Conta",
-        url: "/my-account",
+        url: "/settings",
         icon: IoSettingsOutline,
         divider: true,
     },
