@@ -29,6 +29,7 @@ export const categoryService = {
         const response: AxiosResponse<IPaginatedBaseResponse<ICategory[]>> = await httpClient.get(`/${queryKey}/paginated`, {
             params
         });
+        
         return response.data;
     },
 

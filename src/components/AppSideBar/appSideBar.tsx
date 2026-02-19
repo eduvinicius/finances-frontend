@@ -18,9 +18,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   const { getUserData } = useAuth()
   const userData: LoginResponse | null = getUserData()
-  if (userData) {
-    userData.avatar = "/avatars/shadcn.jpg"
-  }
 
   return (
     <Sidebar collapsible="icon" {...props}>

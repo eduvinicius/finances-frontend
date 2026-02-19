@@ -10,7 +10,7 @@ export interface LoginFormProps {
 };
 
 export interface LoginResponse {
-  avatar: string;
+  profileImageUrl: string;
   fullName: string;
   nickName: string;
   userId: string;

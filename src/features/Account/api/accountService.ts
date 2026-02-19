@@ -30,6 +30,7 @@ export const accountService = {
         const response: AxiosResponse<IPaginatedBaseResponse<IAccount[]>> = await httpClient.get(`/${queryKey}/paginated`, {
             params
         });
+        
         return response.data;
     },
 
