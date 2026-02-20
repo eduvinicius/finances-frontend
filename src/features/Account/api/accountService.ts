@@ -1,10 +1,10 @@
 import { httpClient } from "@/shared/api/httpClient";
-import { QUERY_KEYS } from "@/shared/constants/queryKeys";
+import { QUERY_KEYS, getApiEndpoint } from "@/shared/constants/queryKeys";
 import type { AccountFiltersValues, IAccount, ICreateAccount } from "@/shared/types/account.types";
 import type { IPaginatedBaseResponse, IPaginatedRequest } from "@/shared/types/pagination.types";
 import type { AxiosResponse } from "axios";
 
-const queryKey = QUERY_KEYS.accounts.toString();
+const apiEndpoint = getApiEndpoint(QUERY_KEYS.accounts.all);
 
 export const accountService = {
 
@@ -27,7 +27,7 @@ export const accountService = {
         
         if (filters?.toDate) params.toDate = filters.toDate.toISOString();
         
-        const response: AxiosResponse<IPaginatedBaseResponse<IAccount[]>> = await httpClient.get(`/${queryKey}/paginated`, {
+        const response: AxiosResponse<IPaginatedBaseResponse<IAccount[]>> = await httpClient.get(`/${apiEndpoint}/paginated`, {
             params
         });
         
@@ -35,7 +35,7 @@ export const accountService = {
     },
 
     async getAllAccounts(): Promise<IAccount[]> {
-        const response: AxiosResponse<IAccount[]> = await httpClient.get(`/${queryKey}`);
+        const response: AxiosResponse<IAccount[]> = await httpClient.get(`/${apiEndpoint}`);
         return response.data;
     },
 
@@ -43,7 +43,7 @@ export const accountService = {
         data: ICreateAccount
     ): Promise<IAccount> {
         const response = await httpClient.post<IAccount>(
-        `/${queryKey}`,
+        `/${apiEndpoint}`,
         data
         );
         return response.data;

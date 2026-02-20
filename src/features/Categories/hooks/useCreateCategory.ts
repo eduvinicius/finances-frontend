@@ -12,7 +12,7 @@ export function useCreateCategory(): UseMutationResult<ICategory, Error, ICreate
 
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.categories,
+        queryKey: QUERY_KEYS.categories.all,
       });
     },
 

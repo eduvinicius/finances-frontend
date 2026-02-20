@@ -1,10 +1,10 @@
 import type { ICategory, ICreateCategoryRequest, CategoriesFiltersValues } from "@/shared/types/category.type";
 import type { AxiosResponse } from "axios";
 import { httpClient } from "@/shared/api/httpClient";
-import { QUERY_KEYS } from "@/shared/constants/queryKeys";
+import { QUERY_KEYS, getApiEndpoint } from "@/shared/constants/queryKeys";
 import type { IPaginatedBaseResponse, IPaginatedRequest } from "@/shared/types/pagination.types";
 
-const queryKey = QUERY_KEYS.categories.toString();
+const apiEndpoint = getApiEndpoint(QUERY_KEYS.categories.all);
 
 export const categoryService = {
 
@@ -26,7 +26,7 @@ export const categoryService = {
         
         if (filters?.toDate) params.toDate = filters.toDate.toISOString();
         
-        const response: AxiosResponse<IPaginatedBaseResponse<ICategory[]>> = await httpClient.get(`/${queryKey}/paginated`, {
+        const response: AxiosResponse<IPaginatedBaseResponse<ICategory[]>> = await httpClient.get(`/${apiEndpoint}/paginated`, {
             params
         });
         
@@ -37,7 +37,7 @@ export const categoryService = {
         data: ICreateCategoryRequest
     ): Promise<ICategory> {
         const response = await httpClient.post<ICategory>(
-        `/${queryKey}`,
+        `/${apiEndpoint}`,
         data
         );
         return response.data;
