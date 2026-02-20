@@ -383,8 +383,8 @@ export default defineConfig({
 
 ### Medium Priority
 7. ✅ Improve query keys structure (DONE)
-8. Add route loading states
-9. Enhance error interceptor
+8. ✅ Add route loading states (DONE)
+9. ✅ Enhance error interceptor (DONE)
 10. Add request logging for dev
 
 ### Low Priority (Nice to Have)
