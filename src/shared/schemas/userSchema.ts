@@ -1,9 +1,21 @@
 import { z } from "zod";
 
+const MAX_FILE_SIZE = 1024 * 1024; // 1MB
+const ACCEPTED_IMAGE_TYPES = new Set(["image/jpeg", "image/jpg", "image/png"]);
+
 export const userSchema = z.object({
     fullName: z.string().min(2, "O nome completo deve conter pelo menos 2 caracteres"),
     nickName: z.string().min(2, "O apelido deve conter pelo menos 2 caracteres"),
-    profileImageUrl: z.url("A URL da imagem de perfil deve ser válida").optional(),
+    profileImage: z
+        .instanceof(File, { message: "Selecione uma imagem válida" })
+        .refine((file) => file.size <= MAX_FILE_SIZE, {
+            message: "O tamanho da imagem deve ser menor que 1MB",
+        })
+        .refine((file) => ACCEPTED_IMAGE_TYPES.has(file.type), {
+            message: "A imagem deve ser do tipo JPEG, JPG ou PNG",
+        })
+        .optional()
+        .nullable(),
     email: z.email("O email deve ser válido"),
     documentNumber: z.string().min(11, "O número do documento deve conter pelo menos 11 caracteres").optional(),
     phoneNumber: z.string().min(10, "O número de telefone deve conter pelo menos 10 caracteres").optional(),

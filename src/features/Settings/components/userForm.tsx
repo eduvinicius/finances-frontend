@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button/button";
 import { Calendar } from "@/components/ui/Calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/Popover";
+import { FileUpload } from "@/components/ui/FileUpload";
 import { cn } from "@/lib/utils";
 import type { DateFieldProps, FormFieldProps, IFormBaseProps } from "@/shared/types/formBase.types";
 import type { UserFormValues } from "@/shared/types/user.types";
@@ -105,7 +106,7 @@ export function UserForm({
         defaultValues: {
             fullName: "",
             nickName: "",
-            profileImageUrl: "",
+            profileImage: null,
             email: "",
             documentNumber: "",
             phoneNumber: "",
@@ -144,16 +145,6 @@ export function UserForm({
                     control={control} 
                     error={errors.birthDate?.message} 
                 />
-                <FormField
-                    id="profileImageUrl"
-                    label="URL da Foto de Perfil (Opcional)"
-                    type="url"
-                    placeholder="https://exemplo.com/foto.jpg"
-                    error={errors.profileImageUrl?.message}
-                    register={register}
-                    fieldName="profileImageUrl"
-                />
-
                 <FormField
                     id="email"
                     label="Email"
@@ -231,7 +222,23 @@ export function UserForm({
                     fieldName="country"
                 />
             </FieldSet>
-            <div className="flex items-center justify-end w-full">
+            <div className="flex items-center justify-between w-full">
+                <div className="max-w-[50%]">
+                    <Controller
+                        name="profileImage"
+                        control={control}
+                        render={({ field }) => (
+                            <FileUpload
+                                id="profileImage"
+                                label="Foto de Perfil (Opcional)"
+                                value={field.value}
+                                onChange={field.onChange}
+                                error={errors.profileImage?.message}
+                                helperText="Envie uma imagem PNG, JPG ou JPEG com no máximo 1MB"
+                            />
+                        )}
+                    />
+                </div>
                 <Button 
                     type="submit" 
                     className="" 
