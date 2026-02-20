@@ -5,11 +5,6 @@ export interface IFormBaseProps<T> {
     loading?: boolean;
 }
 
-export interface FormSectionProps {
-    title: string;
-    children: React.ReactNode;
-}
-
 export interface FormFieldProps<T extends FieldValues> {
     id: string;
     label: string;

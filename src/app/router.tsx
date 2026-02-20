@@ -4,7 +4,6 @@ import { PrivateRoute } from "./privateRoute";
 import { Login } from "@/features/auth/pages/login";
 import { Layout } from "@/features/Layout";
 
-// Lazy load feature modules for better performance
 const Home = lazy(() => import("@/features/Home").then(m => ({ default: m.Home })));
 const Account = lazy(() => import("@/features/Account/pages").then(m => ({ default: m.Account })));
 const Transactions = lazy(() => import("@/features/Transactions").then(m => ({ default: m.Transactions })));

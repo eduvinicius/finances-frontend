@@ -1,8 +1,13 @@
+import { UserForm } from "./components";
+
 export function Settings() {
+
+    const handleSubmit = (data: any) => {
+        console.log(data);
+    }
     return (
-        <div>
-            <h1>Settings</h1>
-            <p>This is the settings page.</p>
-        </div>
+        <UserForm 
+            onSubmit={handleSubmit}
+        />
     );
 }
