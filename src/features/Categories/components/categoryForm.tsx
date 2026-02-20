@@ -1,28 +1,36 @@
-import { Controller, useForm } from "react-hook-form";
-import type { IAccountFormProps, AccountFormValues } from "../types/account.types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { accountSchema } from "../schemas/accountSchema";
+import { Button } from "@/components/ui/Button";
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/Field";
 import { Input } from "@/components/ui/Input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/InputSelect/";
-import { ACCOUNT_TYPE_OPTIONS } from "../constants/accountTypeOptions.const";
-import { Button } from "@/components/ui/Button/button";
+import { Textarea } from "@/components/ui/InputGroup/textarea";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/InputSelect";
+import { categorySchema } from "@/shared/schemas/categorySchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, Controller } from "react-hook-form";
+import { TRANSACTION_TYPE_OPTIONS } from "@/shared/constants/transactionTypeOptions.const";
+import type { CategoryFormValues } from "@/shared/types/category.type";
+import type { IFormBaseProps } from "@/shared/types/formBase.types";
 
-export function AccountForm({ 
+export function CategoryForm({ 
     onSubmit, 
     loading 
-}: Readonly<IAccountFormProps>) {
+}: Readonly<IFormBaseProps<CategoryFormValues>>) {
     const {
         register,
         handleSubmit,
         control,
         formState: { errors },
-    } = useForm<AccountFormValues>({
-        resolver: zodResolver(accountSchema),
+    } = useForm<CategoryFormValues>({
+        resolver: zodResolver(categorySchema),
         mode: "onTouched",
         defaultValues: {
             name: "",
-            balance: 0,
+            description: "",
         },
     });
 
@@ -35,7 +43,7 @@ export function AccountForm({
                         <Input
                             id="name"
                             type="text"
-                            placeholder="Digite o nome da conta"
+                            placeholder="Digite o nome da categoria"
                             aria-invalid={!!errors.name}
                             {...register("name")}
                         />
@@ -46,17 +54,16 @@ export function AccountForm({
                     </Field>
 
                     <Field>
-                        <FieldLabel htmlFor="balance">Quantidade</FieldLabel>
-                        <Input
-                            id="balance"
-                            type="number"
-                            placeholder="Digite o saldo da conta"
-                            aria-invalid={!!errors.balance}
-                            {...register("balance", { valueAsNumber: true })}
+                        <FieldLabel htmlFor="description">Descrição</FieldLabel>
+                        <Textarea
+                            id="description"
+                            placeholder="Digite a descrição da categoria"
+                            aria-invalid={!!errors.description}
+                            {...register("description")}
                         />
                         <FieldDescription
-                            className={errors.balance ? "text-red-500" : ""}>
-                            {errors.balance ? errors.balance.message : ""}
+                            className={errors.description ? "text-red-500" : ""}>
+                            {errors.description ? errors.description.message : ""}
                         </FieldDescription>
                     </Field>
 
@@ -78,7 +85,7 @@ export function AccountForm({
                                         <SelectValue placeholder="Selecione o tipo" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        {ACCOUNT_TYPE_OPTIONS.map((option) => (
+                                        {TRANSACTION_TYPE_OPTIONS.map((option) => (
                                             <SelectItem
                                                 key={option.value}
                                                 value={option.value.toString()}
@@ -101,7 +108,7 @@ export function AccountForm({
                     type="submit" 
                     className="w-full" 
                     disabled={loading}>
-                    {loading ? "Salvando..." : "Salvar Conta"}
+                    {loading ? "Salvando..." : "Salvar Categoria"}
                 </Button>
             </FieldSet>
         </form>

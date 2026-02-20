@@ -3,15 +3,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { userSchema } from "../../schemas/userSchema";
+import { userSchema } from "@/shared/schemas/userSchema";
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/Field";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button/button";
 import { Calendar } from "@/components/ui/Calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/Popover";
 import { cn } from "@/lib/utils";
-import type { DateFieldProps, FormFieldProps, FormSectionProps, IFormBaseProps } from "../../types/formBase.types";
-import type { UserFormValues } from "../../types/user.types";
+import type { DateFieldProps, FormFieldProps, FormSectionProps, IFormBaseProps } from "@/shared/types/formBase.types";
+import type { UserFormValues } from "@/shared/types/user.types";
 
 function FormSection({ title, children }: Readonly<FormSectionProps>) {
     return (

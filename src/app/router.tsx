@@ -21,6 +21,7 @@ export const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      { index: true, element: <Home /> },
       { path: "home", element: <Home /> },
       { path: "account", element: <Account /> },
       { path: "transactions", element: <Transactions /> },

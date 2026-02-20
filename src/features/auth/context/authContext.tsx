@@ -2,27 +2,28 @@ import { useMemo, useState } from "react";
 import { AuthContext } from "../hooks/useAuth";
 import type { AuthContextType } from "@/shared/types/authContext.type";
 import type { LoginResponse } from "@/shared/types/login.type";
+import { storage, STORAGE_KEYS } from "@/shared/utils/storage";
 
 export function AuthProvider({ children }: Readonly<{ children: React.ReactNode }>) {
 
  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    const userData = localStorage.getItem("userData");
-    return !!userData;
+    return storage.has(STORAGE_KEYS.USER_DATA);
   });
 
   const login = (userData: LoginResponse) => {
-    localStorage.setItem("userData", JSON.stringify(userData));
-    setIsAuthenticated(true);
+    const success = storage.set(STORAGE_KEYS.USER_DATA, userData);
+    if (success) {
+      setIsAuthenticated(true);
+    }
   };
 
   const logout = () => {
-    localStorage.removeItem("userData");
+    storage.remove(STORAGE_KEYS.USER_DATA);
     setIsAuthenticated(false);
   };
 
   const getUserData = (): LoginResponse | null => {
-    const userData = localStorage.getItem("userData");
-    return userData ? JSON.parse(userData) : null;
+    return storage.get<LoginResponse>(STORAGE_KEYS.USER_DATA);
   };
 
   const value = useMemo<AuthContextType>(

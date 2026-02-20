@@ -1,12 +1,14 @@
 import { toast } from "sonner";
 import { forceLogout } from "../utils/logout";
 import { httpClient } from "./httpClient";
+import { storage, STORAGE_KEYS } from "../utils/storage";
+import type { LoginResponse } from "../types/login.type";
 
 httpClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")!).token : null;
-
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  const userData = storage.get<LoginResponse>(STORAGE_KEYS.USER_DATA);
+  
+  if (userData?.token) {
+    config.headers.Authorization = `Bearer ${userData.token}`;
   }
 
   return config;

@@ -1,4 +1,4 @@
-import { LoginForm } from "@/shared/forms/loginForm";
+import { LoginForm } from "../components";
 import type { LoginFormValues } from "@/shared/types/login.type";
 import { useLogin } from "../hooks/useLogin";
 import { useEffect } from "react";

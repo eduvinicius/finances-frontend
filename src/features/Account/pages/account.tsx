@@ -5,8 +5,7 @@ import type { AccountFiltersValues, AccountFormValues } from "@/shared/types/acc
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/Dialog";
 import { Button } from "@/components/ui/Button";
 import { Spinner } from "@/components/ui/Spinner";
-import { AccountForm } from "@/shared/forms/accountForm";
-import { AccountFilters, AccountsList, AccountsListSkeleton } from "../components";
+import { AccountForm, AccountFilters, AccountsList, AccountsListSkeleton } from "../components";
 import { toast } from "sonner";
 import { AppPaginator } from "@/components/ui/Paginator/appPaginator";
 

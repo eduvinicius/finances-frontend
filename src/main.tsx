@@ -5,12 +5,15 @@ import './styles/global.css'
 import './shared/api/auth.interceptor.ts'
 import { AppProviders } from './app/providers.tsx'
 import { Toaster } from './components/ui/Toast/index.ts'
+import { ErrorBoundary } from './components/ErrorBoundary'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <AppProviders>
-      <App />
-      <Toaster />
-    </AppProviders>
+    <ErrorBoundary>
+      <AppProviders>
+        <App />
+        <Toaster />
+      </AppProviders>
+    </ErrorBoundary>
   </StrictMode>,
 )
