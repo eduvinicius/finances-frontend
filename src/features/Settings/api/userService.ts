@@ -4,6 +4,7 @@ import type { IUserApiResponse, UserFormValues } from "@/shared/types/user.types
 
 const getCurrentUserEndpoint = getApiEndpoint(QUERY_KEYS.auth.getCurrentUser());
 const updateUserEndpoint = getApiEndpoint(QUERY_KEYS.auth.updateUser());
+const uploadProfileImageEndpoint = getApiEndpoint(QUERY_KEYS.auth.updateProfileImage());
 
 export const userService = {
 
@@ -32,5 +33,18 @@ export const userService = {
         }
 
         return data as UserFormValues;
+    },
+
+    async uploadProfileImage(file: File) {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const response = await httpClient.post<{ imageUrl: string }>(`/${uploadProfileImageEndpoint}`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+
+        return response.data.imageUrl;
     }
 }

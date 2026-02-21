@@ -20,6 +20,7 @@ export function NavMain({
       <SidebarMenu>
         {items.map((item) => (
           <SidebarMenuItem 
+            className="cursor-pointer hover:bg-(--green-300)"
             key={item.id}>
             <Link 
               to={item.url}>
