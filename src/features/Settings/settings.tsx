@@ -1,5 +1,5 @@
 import { UserForm } from "./components";
-import { useUser } from "./hooks/useUser";
+import { useUser } from "../../hooks/useUser";
 import type { UserFormValues } from "@/shared/types/user.types";
 import { useEditUser } from "./hooks/useEditUser";
 import { Spinner } from "@/components/ui/Spinner";
@@ -25,7 +25,7 @@ export function Settings() {
     return (
         <UserForm 
             onSubmit={handleSubmit}
-            initialValues={user}
+            initialValues={user as UserFormValues}
         />
     );
 }

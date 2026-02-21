@@ -1,8 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { lazy } from "react";
-import { PrivateRoute } from "./privateRoute";
 import { Login } from "@/features/auth/pages/login";
-import { Layout } from "@/features/Layout";
+import { ProtectedLayout } from "@/features/Layout";
 
 const Home = lazy(() => import("@/features/Home").then(m => ({ default: m.Home })));
 const Account = lazy(() => import("@/features/Account/pages").then(m => ({ default: m.Account })));
@@ -13,22 +12,18 @@ const Settings = lazy(() => import("@/features/Settings").then(m => ({ default: 
 export const router = createBrowserRouter([
   {
     path: "/login",
-    element: <Login />,
+    Component: Login,
   },
   {
     path: "/",
-    element: (
-      <PrivateRoute>
-        <Layout />
-      </PrivateRoute>
-    ),
+    Component: ProtectedLayout,
     children: [
-      { index: true, element: <Home /> },
-      { path: "home", element: <Home /> },
-      { path: "account", element: <Account /> },
-      { path: "transactions", element: <Transactions /> },
-      { path: "categories", element: <Categories /> },
-      { path: "settings", element: <Settings /> },
+      { index: true, Component: Home },
+      { path: "home", Component: Home },
+      { path: "account", Component: Account },
+      { path: "transactions", Component: Transactions },
+      { path: "categories", Component: Categories },
+      { path: "settings", Component: Settings },
     ],
   },
 ]);

@@ -11,13 +11,11 @@ import {
   SidebarRail,
 } from "@/components/ui/SideBar"
 import { ROUTES } from "@/shared/constants/routes.cons"
-import { useAuth } from "@/features/auth/hooks/useAuth"
-import type { LoginResponse } from "@/shared/types/login.type"
+import { useUser } from "@/hooks/useUser"
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-
-  const { getUserData } = useAuth()
-  const userData: LoginResponse | null = getUserData()
+  
+  const { data: userData } = useUser();
 
   return (
     <Sidebar collapsible="icon" {...props}>

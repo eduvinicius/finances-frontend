@@ -23,13 +23,13 @@ import {
 } from "@/components/ui/SideBar"
 import { useSidebar } from "@/hooks/useSideBar"
 import { useAuth } from "@/features/auth/hooks/useAuth"
-import type { LoginResponse } from "@/shared/types/login.type"
 import { MENU_ITEMS } from "@/shared/constants/menuItems.const"
+import type { IUserApiResponse } from "@/shared/types/user.types"
 
 export function NavUser({
   user,
 }: Readonly<{
-  user: LoginResponse | null
+  user: IUserApiResponse | undefined
 }>) {
 
   const { isMobile } = useSidebar()
@@ -54,7 +54,7 @@ export function NavUser({
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user?.fullName}</span>
-                <span className="truncate text-xs">{user?.nickName}</span>
+                <span className="truncate text-xs">{user?.nickname}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -74,7 +74,7 @@ export function NavUser({
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user?.fullName}</span>
-                  <span className="truncate text-xs">{user?.nickName}</span>
+                  <span className="truncate text-xs">{user?.nickname}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
