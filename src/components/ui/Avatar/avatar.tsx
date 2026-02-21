@@ -1,15 +1,15 @@
-"use client"
-
-import * as React from "react"
+import type { ComponentProps } from "react"
 import { Avatar as AvatarPrimitive } from "radix-ui"
 import { cn } from "@/lib/utils"
+import type { AvatarSize } from "@/shared/types/avatar.types"
+import { AvatarSizeEnum } from "@/shared/enums/avatarEnum"
 
 export function Avatar({
   className,
-  size = "default",
+  size = AvatarSizeEnum.DEFAULT,
   ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Root> & {
-  size?: "default" | "sm" | "lg"
+}: ComponentProps<typeof AvatarPrimitive.Root> & {
+  size?: AvatarSize
 }) {
   return (
     <AvatarPrimitive.Root

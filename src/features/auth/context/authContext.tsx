@@ -1,9 +1,10 @@
 import { useMemo, useState } from "react";
 import { AuthContext } from "../hooks/useAuth";
-import type { AuthContextType } from "@/shared/types/authContext.type";
+import type { IAuthContextType } from "@/shared/types/authContext.type";
 import { storage, STORAGE_KEYS } from "@/shared/utils/storage";
+import type { IReactNode } from "@/shared/types/reactTypes";
 
-export function AuthProvider({ children }: Readonly<{ children: React.ReactNode }>) {
+export function AuthProvider({ children }: Readonly<IReactNode>) {
 
  const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return storage.has(STORAGE_KEYS.TOKEN);
@@ -11,9 +12,7 @@ export function AuthProvider({ children }: Readonly<{ children: React.ReactNode 
 
   const login = (token: string) => {
     const success = storage.set(STORAGE_KEYS.TOKEN, token);
-    if (success) {
-      setIsAuthenticated(true);
-    }
+    if (success) setIsAuthenticated(true);
   };
 
   const logout = () => {
@@ -25,7 +24,7 @@ export function AuthProvider({ children }: Readonly<{ children: React.ReactNode 
     return storage.get<string>(STORAGE_KEYS.TOKEN);
   };
 
-  const value = useMemo<AuthContextType>(
+  const value = useMemo<IAuthContextType>(
     () => ({ isAuthenticated, login, logout, getUserToken }),
     [isAuthenticated]
   );

@@ -1,7 +1,4 @@
-"use client"
-
-import * as React from "react"
-
+import type { ComponentProps, CSSProperties } from "react"
 import { cn } from "@/lib/utils"
 import {
   Sheet,
@@ -12,22 +9,24 @@ import {
 } from "@/components/ui/Sheet"
 import { useSidebar } from "@/hooks/useSideBar"
 import { SIDEBAR_WIDTH_MOBILE } from "@/shared/constants/sideBar.const"
+import type { SidebarCollapsible, SidebarSide, SidebarVariant } from "@/shared/types/sideBarContext.type"
+import { SidebarCollapsibleEnum, SidebarSideEnum, SidebarVariantEnum } from "@/shared/enums/sideBarEnum"
 
 function Sidebar({
-  side = "left",
-  variant = "sidebar",
-  collapsible = "offcanvas",
+  side = SidebarSideEnum.LEFT,
+  variant = SidebarVariantEnum.SIDEBAR,
+  collapsible = SidebarCollapsibleEnum.OFFCANVAS,
   className,
   children,
   ...props
-}: React.ComponentProps<"div"> & {
-  side?: "left" | "right"
-  variant?: "sidebar" | "floating" | "inset"
-  collapsible?: "offcanvas" | "icon" | "none"
+}: ComponentProps<"div"> & {
+  side?: SidebarSide
+  variant?: SidebarVariant
+  collapsible?: SidebarCollapsible
 }) {
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
 
-  if (collapsible === "none") {
+  if (collapsible === SidebarCollapsibleEnum.NONE) {
     return (
       <div
         data-slot="sidebar"
@@ -53,7 +52,7 @@ function Sidebar({
           style={
             {
               "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
-            } as React.CSSProperties
+            } as CSSProperties
           }
           side={side}
         >
@@ -83,7 +82,7 @@ function Sidebar({
           "relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear",
           "group-data-[collapsible=offcanvas]:w-0",
           "group-data-[side=right]:rotate-180",
-          variant === "floating" || variant === "inset"
+          variant === SidebarVariantEnum.FLOATING || variant === SidebarVariantEnum.INSET
             ? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]"
             : "group-data-[collapsible=icon]:w-(--sidebar-width-icon)"
         )}
@@ -92,11 +91,11 @@ function Sidebar({
         data-slot="sidebar-container"
         className={cn(
           "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex",
-          side === "left"
+          side === SidebarSideEnum.LEFT
             ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
             : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
           // Adjust the padding for floating and inset variants.
-          variant === "floating" || variant === "inset"
+          variant === SidebarVariantEnum.FLOATING || variant === SidebarVariantEnum.INSET
             ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]"
             : "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l",
           className

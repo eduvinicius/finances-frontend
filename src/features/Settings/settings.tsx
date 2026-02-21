@@ -26,7 +26,6 @@ export function Settings() {
 
     return (
         <div className="space-y-6 p-6">
-            {/* Profile Image Section */}
             <Card className="max-w-[30%]">
                 <CardContent>
                     <ProfileImageUpload currentImageUrl={user?.profileImageUrl} />
@@ -35,7 +34,6 @@ export function Settings() {
 
             <Separator />
 
-            {/* User Information Section */}
             <Card>
                 <CardHeader>
                     <CardTitle title="Informações Pessoais" />

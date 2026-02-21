@@ -1,8 +1,8 @@
+import type { AxiosError } from "axios";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProvider } from "@/features/auth/context/authContext";
 import { ENV } from "@/shared/constants/env";
-import type { AxiosError } from "axios";
 
 const queryClient = new QueryClient({
   defaultOptions: {

@@ -1,9 +1,9 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
 import { Tooltip as TooltipPrimitive } from "radix-ui"
 
 function Tooltip({
   ...props
-}: Readonly<React.ComponentProps<typeof TooltipPrimitive.Root>>) {
+}: Readonly<ComponentProps<typeof TooltipPrimitive.Root>>) {
   return <TooltipPrimitive.Root data-slot="tooltip" {...props} />
 }
 

@@ -1,5 +1,5 @@
-import { createBrowserRouter } from "react-router-dom";
 import { lazy } from "react";
+import { createBrowserRouter } from "react-router-dom";
 import { Login } from "@/features/auth/pages/login";
 import { ProtectedLayout } from "@/features/Layout";
 
@@ -19,7 +19,6 @@ export const router = createBrowserRouter([
     Component: ProtectedLayout,
     children: [
       { index: true, Component: Home },
-      { path: "home", Component: Home },
       { path: "account", Component: Account },
       { path: "transactions", Component: Transactions },
       { path: "categories", Component: Categories },

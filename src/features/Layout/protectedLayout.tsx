@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "@/features/auth/hooks/useAuth";
-import { Header } from "@/components/Header";
 import { SidebarProvider } from "@/shared/contexts/sidebar/sideBarContext";
+import { Header } from "@/components/Header";
 import { SidebarTrigger } from "@/components/ui/SideBar";
 import { AppSidebar } from "@/components/AppSideBar";
 

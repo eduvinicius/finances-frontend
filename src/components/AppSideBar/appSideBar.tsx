@@ -1,7 +1,4 @@
-"use client"
-
-import * as React from "react"
-
+import type { ComponentProps } from "react"
 import { NavMain } from "@/components/AppSideBar/nav-main"
 import { NavUser } from "@/components/AppSideBar/nav-user"
 import {
@@ -13,7 +10,7 @@ import {
 import { ROUTES } from "@/shared/constants/routes.cons"
 import { useUser } from "@/hooks/useUser"
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   
   const { data: userData } = useUser();
 

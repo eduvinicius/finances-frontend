@@ -1,11 +1,9 @@
-"use client"
-
-import * as React from "react"
-
+import type { ComponentProps } from "react"
 import { cn } from "@/lib/utils"
 import { useSidebar } from "@/hooks/useSideBar"
 
-function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
+function SidebarRail({ className, ...props }: ComponentProps<"button">) {
+  
   const { toggleSidebar } = useSidebar()
 
   return (

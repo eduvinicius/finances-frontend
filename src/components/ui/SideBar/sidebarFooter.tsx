@@ -1,10 +1,7 @@
-"use client"
-
-import * as React from "react"
-
+import type { ComponentProps } from "react"
 import { cn } from "@/lib/utils"
 
-function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
+function SidebarFooter({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       data-slot="sidebar-footer"

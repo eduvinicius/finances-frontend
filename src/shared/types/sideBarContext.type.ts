@@ -1,4 +1,7 @@
 export type SidebarState = "expanded" | "collapsed"
+export type SidebarVariant = "sidebar" | "floating" | "inset"
+export type SidebarCollapsible = "offcanvas" | "icon" | "none"
+export type SidebarSide = "left" | "right"
 
 export interface SidebarContextProps {
   state: SidebarState

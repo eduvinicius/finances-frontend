@@ -1,3 +1,4 @@
+import { useLocation, Link } from "react-router-dom"
 import {
   SidebarGroup,
   SidebarMenu,
@@ -5,7 +6,6 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/SideBar"
 import type { IRoute } from "@/shared/types/routes.types"
-import { useLocation, Link } from "react-router-dom"
 
 export function NavMain({
   items,

@@ -1,6 +1,4 @@
-"use client"
 
-import * as React from "react"
 import { Slot } from "radix-ui"
 import { type VariantProps } from "class-variance-authority"
 
@@ -12,6 +10,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/Tooltip"
 import { sidebarMenuButtonVariants } from "@/components/ui/SideBar/sidebarMenuButtonVariants"
+import type { ComponentProps } from "react"
 
 function SidebarMenuButton({
   asChild = false,
@@ -21,10 +20,10 @@ function SidebarMenuButton({
   tooltip,
   className,
   ...props
-}: React.ComponentProps<"button"> & {
+}: ComponentProps<"button"> & {
   asChild?: boolean
   isActive?: boolean
-  tooltip?: string | React.ComponentProps<typeof TooltipContent>
+  tooltip?: string | ComponentProps<typeof TooltipContent>
 } & VariantProps<typeof sidebarMenuButtonVariants>) {
   const Comp = asChild ? Slot.Root : "button"
   const { isMobile, state } = useSidebar()

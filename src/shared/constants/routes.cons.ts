@@ -4,11 +4,10 @@ import { AiOutlineTransaction } from "react-icons/ai";
 import { MdAccountBalance } from "react-icons/md";
 import { TbCategoryFilled } from "react-icons/tb";
 
-
 export const ROUTES: IRoute[] = [
   {
     id: "home",
-    url: "/home",
+    url: "/",
     label: "Home",
     icon: IoIosHome,
   },
