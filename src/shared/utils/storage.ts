@@ -46,7 +46,7 @@ export const storage = {
 };
 
 export const STORAGE_KEYS = {
-  USER_DATA: 'userData',
+  TOKEN: 'token',
   THEME: 'theme',
   SIDEBAR_STATE: 'sidebar_state',
 } as const;

@@ -10,9 +10,5 @@ export interface LoginFormProps {
 };
 
 export interface LoginResponse {
-  profileImageUrl: string;
-  fullName: string;
-  nickName: string;
-  userId: string;
   token: string;
 }

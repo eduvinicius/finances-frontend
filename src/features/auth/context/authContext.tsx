@@ -7,23 +7,23 @@ import { storage, STORAGE_KEYS } from "@/shared/utils/storage";
 export function AuthProvider({ children }: Readonly<{ children: React.ReactNode }>) {
 
  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return storage.has(STORAGE_KEYS.USER_DATA);
+    return storage.has(STORAGE_KEYS.TOKEN);
   });
 
   const login = (userData: LoginResponse) => {
-    const success = storage.set(STORAGE_KEYS.USER_DATA, userData);
+    const success = storage.set(STORAGE_KEYS.TOKEN, userData.token);
     if (success) {
       setIsAuthenticated(true);
     }
   };
 
   const logout = () => {
-    storage.remove(STORAGE_KEYS.USER_DATA);
+    storage.remove(STORAGE_KEYS.TOKEN);
     setIsAuthenticated(false);
   };
 
   const getUserData = (): LoginResponse | null => {
-    return storage.get<LoginResponse>(STORAGE_KEYS.USER_DATA);
+    return storage.get<LoginResponse>(STORAGE_KEYS.TOKEN);
   };
 
   const value = useMemo<AuthContextType>(

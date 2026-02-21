@@ -1,24 +1,29 @@
 import { z } from "zod";
-
-const MAX_FILE_SIZE = 1024 * 1024; // 1MB
-const ACCEPTED_IMAGE_TYPES = new Set(["image/jpeg", "image/jpg", "image/png"]);
+import { isValidCPF } from "../utils/cpfValidation";
+import { isValidPhoneNumber } from "../utils/phoneNumberMask";
 
 export const userSchema = z.object({
     fullName: z.string().min(2, "O nome completo deve conter pelo menos 2 caracteres"),
-    nickName: z.string().min(2, "O apelido deve conter pelo menos 2 caracteres"),
-    profileImage: z
-        .instanceof(File, { message: "Selecione uma imagem válida" })
-        .refine((file) => file.size <= MAX_FILE_SIZE, {
-            message: "O tamanho da imagem deve ser menor que 1MB",
-        })
-        .refine((file) => ACCEPTED_IMAGE_TYPES.has(file.type), {
-            message: "A imagem deve ser do tipo JPEG, JPG ou PNG",
-        })
-        .optional()
-        .nullable(),
+    nickname: z.string().min(2, "O apelido deve conter pelo menos 2 caracteres"),
     email: z.email("O email deve ser válido"),
-    documentNumber: z.string().min(11, "O número do documento deve conter pelo menos 11 caracteres").optional(),
-    phoneNumber: z.string().min(10, "O número de telefone deve conter pelo menos 10 caracteres").optional(),
+    documentNumber: z
+        .string()
+        .optional()
+        .refine(
+            (value) => !value || value === "" || isValidCPF(value),
+            {
+                message: "CPF inválido. Digite um CPF válido no formato XXX.XXX.XXX-XX",
+            }
+        ),
+    phoneNumber: z
+        .string()
+        .optional()
+        .refine(
+            (value) => !value || value === "" || isValidPhoneNumber(value),
+            {
+                message: "Telefone inválido. Digite um número válido no formato (XX) XXXXX-XXXX",
+            }
+        ),
     address: z.string().min(5, "O endereço deve conter pelo menos 5 caracteres").optional(),
     city: z.string().min(2, "A cidade deve conter pelo menos 2 caracteres").optional(),
     state: z.string().min(2, "O estado deve conter pelo menos 2 caracteres").optional(),

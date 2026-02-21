@@ -90,7 +90,7 @@ export function FileUpload({
                     />
                     
                     {previewUrl ? (
-                        <div className="relative w-full h-48 border-2 border-gray-600 rounded-lg overflow-hidden">
+                        <div className="relative max-h-150 max-w-150 border-2 border-gray-600 rounded-lg overflow-hidden">
                             <img
                                 src={previewUrl}
                                 alt="Preview"

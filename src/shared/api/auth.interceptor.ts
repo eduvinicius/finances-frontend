@@ -5,7 +5,7 @@ import { storage, STORAGE_KEYS } from "../utils/storage";
 import type { LoginResponse } from "../types/login.type";
 
 httpClient.interceptors.request.use((config) => {
-  const userData = storage.get<LoginResponse>(STORAGE_KEYS.USER_DATA);
+  const userData = storage.get<LoginResponse>(STORAGE_KEYS.TOKEN);
   
   if (userData?.token) {
     config.headers.Authorization = `Bearer ${userData.token}`;

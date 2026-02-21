@@ -1,112 +1,30 @@
-import { Controller, useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarIcon } from "lucide-react";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
 import { userSchema } from "@/shared/schemas/userSchema";
-import { Field, FieldDescription, FieldLabel, FieldSet } from "@/components/ui/Field";
-import { Input } from "@/components/ui/Input";
+import { FieldSet } from "@/components/ui/Field";
 import { Button } from "@/components/ui/Button/button";
-import { Calendar } from "@/components/ui/Calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/Popover";
-import { FileUpload } from "@/components/ui/FileUpload";
-import { cn } from "@/lib/utils";
-import type { DateFieldProps, FormFieldProps, IFormBaseProps } from "@/shared/types/formBase.types";
+import type { IFormBaseProps } from "@/shared/types/formBase.types";
 import type { UserFormValues } from "@/shared/types/user.types";
-
-function FormField({ 
-    id, 
-    label, 
-    type, 
-    placeholder, 
-    error, 
-    helperText, 
-    register, 
-    fieldName 
-}: Readonly<FormFieldProps<UserFormValues>>) {
-    return (
-        <Field>
-            <FieldLabel htmlFor={id}>{label}</FieldLabel>
-            <Input
-                id={id}
-                type={type}
-                placeholder={placeholder}
-                aria-invalid={!!error}
-                {...register(fieldName)}
-            />
-            <FieldDescription className={error ? "text-red-500" : ""}>
-                {error || helperText || ""}
-            </FieldDescription>
-        </Field>
-    );
-}
-
-function BirthDateField({ control, error }: Readonly<DateFieldProps<UserFormValues>>) {
-    const currentYear = new Date().getFullYear();
-    const startDate = new Date(1900, 0, 1);
-    const endDate = new Date(currentYear, 11, 31);
-
-    return (
-        <Field>
-            <FieldLabel htmlFor="birthDate">Data de Nascimento</FieldLabel>
-            <Controller
-                name="birthDate"
-                control={control}
-                render={({ field }) => (
-                    <Popover>
-                        <PopoverTrigger className="text-white" asChild>
-                            <Button
-                                variant="outline"
-                                className={cn(
-                                    "w-full justify-start text-left font-normal bg-transparent hover:bg-transparent",
-                                    !field.value && "text-muted-foreground"
-                                )}
-                                type="button"
-                            >
-                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                {field.value ? (
-                                    format(field.value, "PPP", { locale: ptBR })
-                                ) : (
-                                    <span>Selecione a data</span>
-                                )}
-                            </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                            <Calendar
-                                mode="single"
-                                selected={field.value}
-                                onSelect={field.onChange}
-                                captionLayout="dropdown-years"
-                                startMonth={startDate}
-                                endMonth={endDate}
-                            />
-                        </PopoverContent>
-                    </Popover>
-                )}
-            />
-            <FieldDescription className={error ? "text-red-500" : ""}>
-                {error || ""}
-            </FieldDescription>
-        </Field>
-    );
-}
+import { CPFField, FormField, PhoneField } from "@/components/FieldForms";
+import { BirthDateField } from "@/components/FieldForms/birthDateField";
 
 export function UserForm({ 
     onSubmit, 
-    loading = false
+    loading = false,
+    initialValues
 }: Readonly<IFormBaseProps<UserFormValues>>) {
     const {
-        register,
         handleSubmit,
         control,
+        reset,
         formState: { errors },
     } = useForm<UserFormValues>({
         resolver: zodResolver(userSchema),
         mode: "onTouched",
-        defaultValues: {
+        defaultValues: initialValues || {
             fullName: "",
-            nickName: "",
-            profileImage: null,
+            nickname: "",
             email: "",
             documentNumber: "",
             phoneNumber: "",
@@ -117,6 +35,12 @@ export function UserForm({
             country: "",
         },
     });
+
+    useEffect(() => {
+        if (initialValues) {
+            reset(initialValues);
+        }
+    }, [initialValues, reset]);
 
     return (
         <form 
@@ -129,17 +53,17 @@ export function UserForm({
                     type="text"
                     placeholder="Digite seu nome completo"
                     error={errors.fullName?.message}
-                    register={register}
+                    control={control}
                     fieldName="fullName"
                 />
                 <FormField
-                    id="nickName"
+                    id="nickname"
                     label="Apelido"
                     type="text"
                     placeholder="Digite seu apelido"
-                    error={errors.nickName?.message}
-                    register={register}
-                    fieldName="nickName"
+                    error={errors.nickname?.message}
+                    control={control}
+                    fieldName="nickname"
                 />
                 <BirthDateField 
                     control={control} 
@@ -151,27 +75,17 @@ export function UserForm({
                     type="email"
                     placeholder="seu@email.com"
                     error={errors.email?.message}
-                    register={register}
+                    control={control}
                     fieldName="email"
                 />
-                <FormField
-                    id="phoneNumber"
-                    label="Telefone (Opcional)"
-                    type="tel"
-                    placeholder="(00) 00000-0000"
-                    error={errors.phoneNumber?.message}
-                    register={register}
-                    fieldName="phoneNumber"
+                <PhoneField 
+                    control={control} 
+                    error={errors.phoneNumber?.message} 
                 />
 
-                <FormField
-                    id="documentNumber"
-                    label="Número do Documento (Opcional)"
-                    type="text"
-                    placeholder="000.000.000-00"
-                    error={errors.documentNumber?.message}
-                    register={register}
-                    fieldName="documentNumber"
+                <CPFField 
+                    control={control} 
+                    error={errors.documentNumber?.message} 
                 />
 
                 <FormField
@@ -180,7 +94,7 @@ export function UserForm({
                     type="text"
                     placeholder="Rua, número, complemento"
                     error={errors.address?.message}
-                    register={register}
+                    control={control}
                     fieldName="address"
                 />
 
@@ -190,7 +104,7 @@ export function UserForm({
                     type="text"
                     placeholder="Cidade"
                     error={errors.city?.message}
-                    register={register}
+                    control={control}
                     fieldName="city"
                 />
                 <FormField
@@ -199,7 +113,7 @@ export function UserForm({
                     type="text"
                     placeholder="UF"
                     error={errors.state?.message}
-                    register={register}
+                    control={control}
                     fieldName="state"
                 />
 
@@ -209,7 +123,7 @@ export function UserForm({
                     type="text"
                     placeholder="00000-000"
                     error={errors.postalCode?.message}
-                    register={register}
+                    control={control}
                     fieldName="postalCode"
                 />
                 <FormField
@@ -218,32 +132,16 @@ export function UserForm({
                     type="text"
                     placeholder="Brasil"
                     error={errors.country?.message}
-                    register={register}
+                    control={control}
                     fieldName="country"
                 />
             </FieldSet>
-            <div className="flex items-center justify-between w-full">
-                <div className="max-w-[50%]">
-                    <Controller
-                        name="profileImage"
-                        control={control}
-                        render={({ field }) => (
-                            <FileUpload
-                                id="profileImage"
-                                label="Foto de Perfil (Opcional)"
-                                value={field.value}
-                                onChange={field.onChange}
-                                error={errors.profileImage?.message}
-                                helperText="Envie uma imagem PNG, JPG ou JPEG com no máximo 1MB"
-                            />
-                        )}
-                    />
-                </div>
+            <div className="flex items-center justify-end w-full">
                 <Button 
                     type="submit" 
                     className="" 
                     disabled={loading}>
-                    {loading ? "Salvando..." : "Salvar Usuário"}
+                    {loading ? "Editando..." : "Editar Usuário"}
                 </Button>
             </div>
         </form>

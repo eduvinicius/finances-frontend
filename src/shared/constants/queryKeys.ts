@@ -12,7 +12,10 @@ export const QUERY_KEYS = {
 
   auth: {
     all: ['auth'] as const,
+    currentUser: ['current-user'] as const,
     login: () => [...QUERY_KEYS.auth.all, 'login'] as const,
+    getCurrentUser: () => [...QUERY_KEYS.auth.all, 'current-user'] as const,
+    updateUser: () => [...QUERY_KEYS.auth.all, 'update-user'] as const,
   },
 
   accounts: {
@@ -35,5 +38,5 @@ export const QUERY_KEYS = {
 } as const;
 
 export const getApiEndpoint = (queryKey: readonly unknown[]): string => {
-  return queryKey[0] as string;
+  return queryKey.filter(item => typeof item === 'string').join('/');
 };
