@@ -1,6 +1,7 @@
 "use client"
 
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { Slot } from "radix-ui"
 
 import { cn } from "@/lib/utils"
@@ -11,7 +12,7 @@ function SidebarMenuSubButton({
   isActive = false,
   className,
   ...props
-}: React.ComponentProps<"a"> & {
+}: ComponentProps<"a"> & {
   asChild?: boolean
   size?: "sm" | "md"
   isActive?: boolean

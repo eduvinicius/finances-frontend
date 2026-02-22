@@ -1,3 +1,4 @@
+import type { ComponentProps } from "react"
 import { type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
@@ -7,7 +8,7 @@ function Field({
   className,
   orientation = "vertical",
   ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof fieldVariants>) {
+}: ComponentProps<"div"> & VariantProps<typeof fieldVariants>) {
   return (
     <div
       data-slot="field"

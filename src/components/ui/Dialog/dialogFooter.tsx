@@ -1,5 +1,7 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { Dialog as DialogPrimitive } from "radix-ui"
+
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/Button"
 
@@ -8,7 +10,7 @@ export function DialogFooter({
   showCloseButton = false,
   children,
   ...props
-}: React.ComponentProps<"div"> & {
+}: ComponentProps<"div"> & {
   showCloseButton?: boolean
 }) {
   return (

@@ -1,6 +1,7 @@
 "use client"
 
-import * as React from "react"
+import { useState } from "react"
+import type { ComponentProps, CSSProperties } from "react"
 
 import { cn } from "@/lib/utils"
 import { Skeleton } from "@/components/ui/Skeleton/skeleton"
@@ -9,11 +10,11 @@ function SidebarMenuSkeleton({
   className,
   showIcon = false,
   ...props
-}: React.ComponentProps<"div"> & {
+}: ComponentProps<"div"> & {
   showIcon?: boolean
 }) {
   // Random width between 50 to 90%.
-  const [width] = React.useState(() => `${Math.floor(Math.random() * 40) + 50}%`)
+  const [width] = useState(() => `${Math.floor(Math.random() * 40) + 50}%`)
 
   return (
     <div
@@ -34,7 +35,7 @@ function SidebarMenuSkeleton({
         style={
           {
             "--skeleton-width": width,
-          } as React.CSSProperties
+          } as CSSProperties
         }
       />
     </div>

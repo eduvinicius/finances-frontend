@@ -1,6 +1,7 @@
 "use client"
 
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { Slot } from "radix-ui"
 
 import { cn } from "@/lib/utils"
@@ -9,7 +10,7 @@ function SidebarGroupLabel({
   className,
   asChild = false,
   ...props
-}: React.ComponentProps<"div"> & { asChild?: boolean }) {
+}: ComponentProps<"div"> & { asChild?: boolean }) {
   const Comp = asChild ? Slot.Root : "div"
 
   return (

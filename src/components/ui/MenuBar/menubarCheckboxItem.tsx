@@ -1,6 +1,8 @@
-import * as React from "react"
-import { Menubar as MenubarPrimitive } from "radix-ui"
+import type { ComponentProps } from "react"
+
 import { IoCheckmark } from "react-icons/io5"
+import { Menubar as MenubarPrimitive } from "radix-ui"
+
 import { cn } from "@/lib/utils"
 
 export function MenubarCheckboxItem({
@@ -8,7 +10,7 @@ export function MenubarCheckboxItem({
   children,
   checked,
   ...props
-}: React.ComponentProps<typeof MenubarPrimitive.CheckboxItem>) {
+}: ComponentProps<typeof MenubarPrimitive.CheckboxItem>) {
   return (
     <MenubarPrimitive.CheckboxItem
       data-slot="menubar-checkbox-item"

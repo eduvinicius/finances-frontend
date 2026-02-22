@@ -1,3 +1,5 @@
+import type { ComponentProps, ReactNode } from "react"
+
 import { cn } from "@/lib/utils"
 import { Separator } from "@/components/ui/Separator/separator"
 
@@ -5,8 +7,8 @@ function FieldSeparator({
   children,
   className,
   ...props
-}: React.ComponentProps<"div"> & {
-  children?: React.ReactNode
+}: ComponentProps<"div"> & {
+  children?: ReactNode
 }) {
   return (
     <div

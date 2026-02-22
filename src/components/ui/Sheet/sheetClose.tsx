@@ -1,11 +1,12 @@
 "use client"
 
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { Dialog as SheetPrimitive } from "radix-ui"
 
 function SheetClose({
   ...props
-}: React.ComponentProps<typeof SheetPrimitive.Close>) {
+}: ComponentProps<typeof SheetPrimitive.Close>) {
   return <SheetPrimitive.Close data-slot="sheet-close" {...props} />
 }
 

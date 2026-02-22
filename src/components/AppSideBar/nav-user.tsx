@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 import {
   ChevronsUpDown,
 } from "lucide-react"
@@ -7,6 +9,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/Avatar"
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,16 +19,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/DropdownMenu"
+
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/SideBar"
+
 import { useSidebar } from "@/hooks/useSideBar"
 import { useAuth } from "@/features/auth/hooks/useAuth"
 import { MENU_ITEMS } from "@/shared/constants/menuItems.const"
 import type { IUserApiResponse } from "@/shared/types/user.types"
-import { Link } from "react-router-dom"
 
 export function NavUser({
   user,

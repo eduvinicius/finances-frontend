@@ -1,17 +1,13 @@
-import { Component, type ReactNode } from 'react';
-
-interface Props {
-  children: ReactNode;
-  fallback?: ReactNode;
-}
+import type { IReactNode } from '@/shared/types/reactTypes';
+import { Component } from 'react';
 
 interface State {
   hasError: boolean;
   error?: Error;
 }
 
-export class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
+export class ErrorBoundary extends Component<IReactNode, State> {
+  constructor(props: IReactNode) {
     super(props);
     this.state = { hasError: false };
   }

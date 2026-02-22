@@ -1,9 +1,7 @@
-"use client"
-
-import * as React from "react"
 import { cn } from "@/lib/utils"
+import type { ComponentProps } from "react"
 
-export function AvatarGroup({ className, ...props }: React.ComponentProps<"div">) {
+export function AvatarGroup({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       data-slot="avatar-group"

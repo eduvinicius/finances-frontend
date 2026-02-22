@@ -1,6 +1,9 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { Select as SelectPrimitive } from "radix-ui"
+
 import { cn } from "@/lib/utils"
+
 import { SelectScrollUpButton } from "./selectScrollUpButton"
 import { SelectScrollDownButton } from "./selectScrollDownButton"
 
@@ -10,7 +13,7 @@ export function SelectContent({
   position = "item-aligned",
   align = "center",
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Content>) {
+}: ComponentProps<typeof SelectPrimitive.Content>) {
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content

@@ -1,11 +1,13 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { Dialog as DialogPrimitive } from "radix-ui"
+
 import { cn } from "@/lib/utils"
 
 export function DialogOverlay({
   className,
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Overlay>) {
+}: ComponentProps<typeof DialogPrimitive.Overlay>) {
   return (
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"

@@ -1,16 +1,17 @@
+import type { ComponentProps } from "react"
 
-import { Slot } from "radix-ui"
 import { type VariantProps } from "class-variance-authority"
+import { Slot } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 import { useSidebar } from "@/hooks/useSideBar"
+
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/Tooltip"
 import { sidebarMenuButtonVariants } from "@/components/ui/SideBar/sidebarMenuButtonVariants"
-import type { ComponentProps } from "react"
 
 function SidebarMenuButton({
   asChild = false,

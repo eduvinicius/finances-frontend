@@ -1,8 +1,8 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@/lib/utils"
 
-function CardTitle({ title, className, ...props }: { title: string } & React.ComponentProps<"h1">) {
+function CardTitle({ title, className, ...props }: { title: string } & ComponentProps<"h1">) {
   return (
     <h1
       data-slot="card-title"

@@ -1,10 +1,12 @@
 "use client"
 
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { XIcon } from "lucide-react"
 import { Dialog as SheetPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
+
 import { SheetPortal } from "@/components/ui/Sheet/sheetPortal"
 import { SheetOverlay } from "@/components/ui/Sheet/sheetOverlay"
 
@@ -14,7 +16,7 @@ function SheetContent({
   side = "right",
   showCloseButton = true,
   ...props
-}: React.ComponentProps<typeof SheetPrimitive.Content> & {
+}: ComponentProps<typeof SheetPrimitive.Content> & {
   side?: "top" | "right" | "bottom" | "left"
   showCloseButton?: boolean
 }) {

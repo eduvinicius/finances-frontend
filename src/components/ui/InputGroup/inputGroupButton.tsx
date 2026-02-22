@@ -1,9 +1,11 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/Button"
 import { inputGroupButtonVariants } from "@/components/ui/InputGroup/inputGroupButtonVariants"
+
+import { Button } from "@/components/ui/Button"
 
 function InputGroupButton({
   className,
@@ -11,7 +13,7 @@ function InputGroupButton({
   variant = "ghost",
   size = "xs",
   ...props
-}: Omit<React.ComponentProps<typeof Button>, "size"> &
+}: Omit<ComponentProps<typeof Button>, "size"> &
   VariantProps<typeof inputGroupButtonVariants>) {
   return (
     <Button

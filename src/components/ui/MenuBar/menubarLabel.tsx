@@ -1,12 +1,14 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { Menubar as MenubarPrimitive } from "radix-ui"
+
 import { cn } from "@/lib/utils"
 
 export function MenubarLabel({
   className,
   inset,
   ...props
-}: React.ComponentProps<typeof MenubarPrimitive.Label> & {
+}: ComponentProps<typeof MenubarPrimitive.Label> & {
   inset?: boolean
 }) {
   return (

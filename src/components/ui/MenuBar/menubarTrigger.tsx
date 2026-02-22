@@ -1,11 +1,13 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { Menubar as MenubarPrimitive } from "radix-ui"
+
 import { cn } from "@/lib/utils"
 
 export function MenubarTrigger({
   className,
   ...props
-}: React.ComponentProps<typeof MenubarPrimitive.Trigger>) {
+}: ComponentProps<typeof MenubarPrimitive.Trigger>) {
   return (
     <MenubarPrimitive.Trigger
       data-slot="menubar-trigger"

@@ -1,4 +1,5 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { Popover as PopoverPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
@@ -8,7 +9,7 @@ function PopoverContent({
   align = "center",
   sideOffset = 4,
   ...props
-}: Readonly<React.ComponentProps<typeof PopoverPrimitive.Content>>) {
+}: Readonly<ComponentProps<typeof PopoverPrimitive.Content>>) {
   return (
     <PopoverPrimitive.Portal>
       <PopoverPrimitive.Content

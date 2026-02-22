@@ -1,13 +1,15 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { CheckIcon } from "lucide-react"
 import { Select as SelectPrimitive } from "radix-ui"
+
 import { cn } from "@/lib/utils"
 
 export function SelectItem({
   className,
   children,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Item>) {
+}: ComponentProps<typeof SelectPrimitive.Item>) {
   return (
     <SelectPrimitive.Item
       data-slot="select-item"

@@ -1,6 +1,7 @@
 "use client"
 
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { Dialog as SheetPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
@@ -8,7 +9,7 @@ import { cn } from "@/lib/utils"
 function SheetOverlay({
   className,
   ...props
-}: React.ComponentProps<typeof SheetPrimitive.Overlay>) {
+}: ComponentProps<typeof SheetPrimitive.Overlay>) {
   return (
     <SheetPrimitive.Overlay
       data-slot="sheet-overlay"

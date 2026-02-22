@@ -1,11 +1,13 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { Menubar as MenubarPrimitive } from "radix-ui"
+
 import { cn } from "@/lib/utils"
 
 export function MenubarSubContent({
   className,
   ...props
-}: React.ComponentProps<typeof MenubarPrimitive.SubContent>) {
+}: ComponentProps<typeof MenubarPrimitive.SubContent>) {
   return (
     <MenubarPrimitive.SubContent
       data-slot="menubar-sub-content"

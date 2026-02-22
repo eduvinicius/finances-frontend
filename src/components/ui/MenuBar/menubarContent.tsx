@@ -1,6 +1,9 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { Menubar as MenubarPrimitive } from "radix-ui"
+
 import { cn } from "@/lib/utils"
+
 import { MenubarPortal } from "./menubarPortal"
 
 export function MenubarContent({
@@ -9,7 +12,7 @@ export function MenubarContent({
   alignOffset = -4,
   sideOffset = 8,
   ...props
-}: React.ComponentProps<typeof MenubarPrimitive.Content>) {
+}: ComponentProps<typeof MenubarPrimitive.Content>) {
   return (
     <MenubarPortal>
       <MenubarPrimitive.Content

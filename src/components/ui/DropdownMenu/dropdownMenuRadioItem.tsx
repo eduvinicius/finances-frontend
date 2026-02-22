@@ -1,13 +1,15 @@
-import * as React from "react"
-import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui"
+import type { ComponentProps } from "react"
+
 import { FaCircle } from "react-icons/fa"
+import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui"
+
 import { cn } from "@/lib/utils"
 
 export function DropdownMenuRadioItem({
   className,
   children,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.RadioItem>) {
+}: ComponentProps<typeof DropdownMenuPrimitive.RadioItem>) {
   return (
     <DropdownMenuPrimitive.RadioItem
       data-slot="dropdown-menu-radio-item"

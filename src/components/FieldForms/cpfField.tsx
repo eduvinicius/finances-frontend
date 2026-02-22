@@ -1,8 +1,8 @@
-import type { UserFormValues } from "@/shared/types/user.types";
 import { Controller, type Control } from "react-hook-form";
+import type { UserFormValues } from "@/shared/types/user.types";
+import { unformatCPF } from "@/shared/utils/cpfValidation";
 import { Field, FieldDescription, FieldLabel } from "../ui/Field";
 import { Input } from "../ui/Input";
-import { unformatCPF } from "@/shared/utils/cpfValidation";
 
 export function CPFField({ 
     control, 

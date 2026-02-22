@@ -1,3 +1,6 @@
+import type { ReactNode } from "react";
+
 export interface IReactNode {
-    children: React.ReactNode;
+    children: ReactNode;
+    fallback?: ReactNode;
 }

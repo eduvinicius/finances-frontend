@@ -21,7 +21,7 @@ export function Login() {
     }, [error]);
 
     if (isAuthenticated) {
-        return <Navigate to="/home" replace />;
+        return <Navigate to="/" replace />;
     }
 
     return (

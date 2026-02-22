@@ -1,5 +1,5 @@
-import * as React from "react"
+import type { ComponentProps } from "react";
 
-export function Breadcrumb({ ...props }: React.ComponentProps<"nav">) {
+export function Breadcrumb({ ...props }: ComponentProps<"nav">) {
   return <nav aria-label="breadcrumb" data-slot="breadcrumb" {...props} />
 }

@@ -1,9 +1,7 @@
-"use client"
-
-import * as React from "react"
 import { cn } from "@/lib/utils"
+import type { ComponentProps } from "react"
 
-export function AvatarBadge({ className, ...props }: React.ComponentProps<"span">) {
+export function AvatarBadge({ className, ...props }: ComponentProps<"span">) {
   return (
     <span
       data-slot="avatar-badge"

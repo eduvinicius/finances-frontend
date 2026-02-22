@@ -1,12 +1,10 @@
-"use client"
-
-import * as React from "react"
 import { cn } from "@/lib/utils"
+import type { ComponentProps } from "react"
 
 export function AvatarGroupCount({
   className,
   ...props
-}: React.ComponentProps<"div">) {
+}: ComponentProps<"div">) {
   return (
     <div
       data-slot="avatar-group-count"

@@ -1,8 +1,8 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@/lib/utils"
 
-function InputGroup({ className, ...props }: React.ComponentProps<"div">) {
+function InputGroup({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       data-slot="input-group"

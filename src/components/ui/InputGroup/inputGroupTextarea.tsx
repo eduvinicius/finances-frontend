@@ -1,12 +1,13 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@/lib/utils"
+
 import { Textarea } from "@/components/ui/InputGroup/textarea"
 
 function InputGroupTextarea({
   className,
   ...props
-}: React.ComponentProps<"textarea">) {
+}: ComponentProps<"textarea">) {
   return (
     <Textarea
       data-slot="input-group-control"

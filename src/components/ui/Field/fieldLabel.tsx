@@ -1,10 +1,12 @@
+import type { ComponentProps } from "react"
+
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/Field/label"
 
 function FieldLabel({
   className,
   ...props
-}: React.ComponentProps<typeof Label>) {
+}: ComponentProps<typeof Label>) {
   return (
     <Label
       data-slot="field-label"

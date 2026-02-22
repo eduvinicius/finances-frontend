@@ -1,8 +1,8 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@/lib/utils"
 
-export function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
+export function Pagination({ className, ...props }: ComponentProps<"nav">) {
   return (
     <nav
       role="navigation"

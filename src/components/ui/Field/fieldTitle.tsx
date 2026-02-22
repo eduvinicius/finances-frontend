@@ -1,6 +1,8 @@
+import type { ComponentProps } from "react"
+
 import { cn } from "@/lib/utils"
 
-function FieldTitle({ className, ...props }: React.ComponentProps<"div">) {
+function FieldTitle({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       data-slot="field-label"

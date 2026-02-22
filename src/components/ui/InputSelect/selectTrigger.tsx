@@ -1,6 +1,8 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { ChevronDownIcon } from "lucide-react"
 import { Select as SelectPrimitive } from "radix-ui"
+
 import { cn } from "@/lib/utils"
 
 export function SelectTrigger({
@@ -8,7 +10,7 @@ export function SelectTrigger({
   size = "default",
   children,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
+}: ComponentProps<typeof SelectPrimitive.Trigger> & {
   size?: "sm" | "default"
 }) {
   return (

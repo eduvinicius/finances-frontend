@@ -1,6 +1,7 @@
 "use client"
 
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { Slot } from "radix-ui"
 
 import { cn } from "@/lib/utils"
@@ -10,7 +11,7 @@ function SidebarMenuAction({
   asChild = false,
   showOnHover = false,
   ...props
-}: React.ComponentProps<"button"> & {
+}: ComponentProps<"button"> & {
   asChild?: boolean
   showOnHover?: boolean
 }) {

@@ -1,11 +1,13 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui"
+
 import { cn } from "@/lib/utils"
 
 export function DropdownMenuSubContent({
   className,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.SubContent>) {
+}: ComponentProps<typeof DropdownMenuPrimitive.SubContent>) {
   return (
     <DropdownMenuPrimitive.SubContent
       data-slot="dropdown-menu-sub-content"

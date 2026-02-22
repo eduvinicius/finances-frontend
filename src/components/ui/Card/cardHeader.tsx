@@ -1,6 +1,8 @@
+import type { ComponentProps } from "react"
+
 import { cn } from "@/lib/utils";
 
-export function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
+export function CardHeader({ className, ...props }: ComponentProps<"div">) {
   return (
     <header
       data-slot="card-header"

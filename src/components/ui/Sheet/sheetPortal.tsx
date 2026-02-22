@@ -1,11 +1,12 @@
 "use client"
 
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { Dialog as SheetPrimitive } from "radix-ui"
 
 function SheetPortal({
   ...props
-}: Readonly<React.ComponentProps<typeof SheetPrimitive.Portal>>) {
+}: Readonly<ComponentProps<typeof SheetPrimitive.Portal>>) {
   return <SheetPrimitive.Portal data-slot="sheet-portal" {...props} />
 }
 

@@ -1,8 +1,9 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { Dialog as DialogPrimitive } from "radix-ui"
 
 export function DialogPortal({
   ...props
-}: Readonly<React.ComponentProps<typeof DialogPrimitive.Portal>>) {
+}: Readonly<ComponentProps<typeof DialogPrimitive.Portal>>) {
   return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />
 }

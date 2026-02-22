@@ -1,8 +1,8 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@/lib/utils"
 
-function CardDescription({ description, className, ...props }: { description: string } & React.ComponentProps<"p">) {
+function CardDescription({ description, className, ...props }: { description: string } & ComponentProps<"p">) {
   return (
     <p
       data-slot="card-description"

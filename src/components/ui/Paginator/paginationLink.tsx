@@ -1,12 +1,12 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants, type Button } from "@/components/ui/Button"
 
 export type PaginationLinkProps = {
   isActive?: boolean
-} & Pick<React.ComponentProps<typeof Button>, "size"> &
-  React.ComponentProps<"a">
+} & Pick<ComponentProps<typeof Button>, "size"> &
+  ComponentProps<"a">
 
 export function PaginationLink({
   className,

@@ -1,14 +1,15 @@
 "use client"
 
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@/lib/utils"
+
 import { Input } from "../Input"
 
 function SidebarInput({
   className,
   ...props
-}: React.ComponentProps<typeof Input>) {
+}: ComponentProps<typeof Input>) {
   return (
     <Input
       data-slot="sidebar-input"

@@ -1,6 +1,8 @@
-import * as React from "react"
-import { Menubar as MenubarPrimitive } from "radix-ui"
+import type { ComponentProps } from "react"
+
 import { IoChevronForward } from "react-icons/io5"
+import { Menubar as MenubarPrimitive } from "radix-ui"
+
 import { cn } from "@/lib/utils"
 
 export function MenubarSubTrigger({
@@ -8,7 +10,7 @@ export function MenubarSubTrigger({
   inset,
   children,
   ...props
-}: React.ComponentProps<typeof MenubarPrimitive.SubTrigger> & {
+}: ComponentProps<typeof MenubarPrimitive.SubTrigger> & {
   inset?: boolean
 }) {
   return (

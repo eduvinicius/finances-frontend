@@ -1,6 +1,8 @@
+import type { ComponentProps } from "react"
+
 import { cn } from "@/lib/utils"
 
-function FieldDescription({ className, ...props }: React.ComponentProps<"p">) {
+function FieldDescription({ className, ...props }: ComponentProps<"p">) {
   return (
     <p
       data-slot="field-description"

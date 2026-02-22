@@ -1,6 +1,8 @@
+import type { ComponentProps } from "react"
+
 import { cn } from "@/lib/utils"
 
-function FieldSet({ className, ...props }: React.ComponentProps<"fieldset">) {
+function FieldSet({ className, ...props }: ComponentProps<"fieldset">) {
   return (
     <fieldset
       data-slot="field-set"

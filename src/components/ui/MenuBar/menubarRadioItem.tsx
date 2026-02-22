@@ -1,12 +1,15 @@
-import { cn } from "@/lib/utils"
-import { Menubar as MenubarPrimitive } from "radix-ui"
+import type { ComponentProps } from "react"
+
 import { AiOutlineCiCircle } from "react-icons/ai"
+import { Menubar as MenubarPrimitive } from "radix-ui"
+
+import { cn } from "@/lib/utils"
 
 export function MenubarRadioItem({
   className,
   children,
   ...props
-}: Readonly<React.ComponentProps<typeof MenubarPrimitive.RadioItem>>) {
+}: Readonly<ComponentProps<typeof MenubarPrimitive.RadioItem>>) {
   return (
     <MenubarPrimitive.RadioItem
       data-slot="menubar-radio-item"

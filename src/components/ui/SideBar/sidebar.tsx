@@ -1,5 +1,11 @@
 import type { ComponentProps, CSSProperties } from "react"
+
 import { cn } from "@/lib/utils"
+import { useSidebar } from "@/hooks/useSideBar"
+import { SIDEBAR_WIDTH_MOBILE } from "@/shared/constants/sideBar.const"
+import { SidebarCollapsibleEnum, SidebarSideEnum, SidebarVariantEnum } from "@/shared/enums/sideBarEnum"
+import type { SidebarCollapsible, SidebarSide, SidebarVariant } from "@/shared/types/sideBarContext.type"
+
 import {
   Sheet,
   SheetContent,
@@ -7,10 +13,6 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/Sheet"
-import { useSidebar } from "@/hooks/useSideBar"
-import { SIDEBAR_WIDTH_MOBILE } from "@/shared/constants/sideBar.const"
-import type { SidebarCollapsible, SidebarSide, SidebarVariant } from "@/shared/types/sideBarContext.type"
-import { SidebarCollapsibleEnum, SidebarSideEnum, SidebarVariantEnum } from "@/shared/enums/sideBarEnum"
 
 function Sidebar({
   side = SidebarSideEnum.LEFT,

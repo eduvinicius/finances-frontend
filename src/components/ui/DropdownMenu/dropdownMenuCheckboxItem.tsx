@@ -1,6 +1,8 @@
-import * as React from "react"
-import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui"
+import type { ComponentProps } from "react"
+
 import { IoCheckmark } from "react-icons/io5"
+import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui"
+
 import { cn } from "@/lib/utils"
 
 export function DropdownMenuCheckboxItem({
@@ -8,7 +10,7 @@ export function DropdownMenuCheckboxItem({
   children,
   checked,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.CheckboxItem>) {
+}: ComponentProps<typeof DropdownMenuPrimitive.CheckboxItem>) {
   return (
     <DropdownMenuPrimitive.CheckboxItem
       data-slot="dropdown-menu-checkbox-item"

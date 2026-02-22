@@ -1,12 +1,13 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@/lib/utils"
+
 import { Input } from "@/components/ui/Input"
 
 function InputGroupInput({
   className,
   ...props
-}: React.ComponentProps<"input">) {
+}: ComponentProps<"input">) {
   return (
     <Input
       data-slot="input-group-control"

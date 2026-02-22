@@ -1,13 +1,15 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { ChevronRightIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+
 import { PaginationLink } from "./paginationLink"
 
 export function PaginationNext({
   className,
   ...props
-}: React.ComponentProps<typeof PaginationLink>) {
+}: ComponentProps<typeof PaginationLink>) {
   return (
     <PaginationLink
       aria-label="Go to next page"

@@ -1,9 +1,10 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { Popover as PopoverPrimitive } from "radix-ui"
 
 function Popover({
   ...props
-}: Readonly<React.ComponentProps<typeof PopoverPrimitive.Root>>) {
+}: Readonly<ComponentProps<typeof PopoverPrimitive.Root>>) {
   return <PopoverPrimitive.Root data-slot="popover" {...props} />
 }
 

@@ -1,10 +1,12 @@
+import type { ComponentProps } from "react"
+
 import { cn } from "@/lib/utils"
 
 function FieldLegend({
   className,
   variant = "legend",
   ...props
-}: React.ComponentProps<"legend"> & { variant?: "legend" | "label" }) {
+}: ComponentProps<"legend"> & { variant?: "legend" | "label" }) {
   return (
     <legend
       data-slot="field-legend"

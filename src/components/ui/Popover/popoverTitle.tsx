@@ -1,8 +1,8 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
 
 import { cn } from "@/lib/utils"
 
-function PopoverTitle({ className, ...props }: Readonly<React.ComponentProps<"h2">>) {
+function PopoverTitle({ className, ...props }: Readonly<ComponentProps<"h2">>) {
   return (
     <div
       data-slot="popover-title"

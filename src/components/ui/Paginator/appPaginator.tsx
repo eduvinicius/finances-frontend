@@ -1,3 +1,5 @@
+import type { MouseEvent } from "react"
+
 import {
   Pagination,
   PaginationContent,
@@ -63,7 +65,7 @@ export function AppPaginator({
   }
 
   const handlePageClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
+    e: MouseEvent<HTMLAnchorElement>,
     page: number
   ) => {
     e.preventDefault()
@@ -72,14 +74,14 @@ export function AppPaginator({
     }
   }
 
-  const handlePrevious = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handlePrevious = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     if (canGoPrevious) {
       onPageChange(currentPage - 1)
     }
   }
 
-  const handleNext = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleNext = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     if (canGoNext) {
       onPageChange(currentPage + 1)

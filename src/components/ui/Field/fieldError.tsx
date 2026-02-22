@@ -1,4 +1,6 @@
 import { useMemo } from "react"
+import type { ComponentProps } from "react"
+
 import { cn } from "@/lib/utils"
 
 function FieldError({
@@ -6,7 +8,7 @@ function FieldError({
   children,
   errors,
   ...props
-}: React.ComponentProps<"div"> & {
+}: ComponentProps<"div"> & {
   errors?: Array<{ id: string; message?: string } | undefined>
 }) {
   const content = useMemo(() => {

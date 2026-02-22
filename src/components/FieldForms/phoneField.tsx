@@ -1,8 +1,8 @@
-import type { UserFormValues } from "@/shared/types/user.types";
 import { Controller, type Control } from "react-hook-form";
+import type { UserFormValues } from "@/shared/types/user.types";
+import { formatPhoneNumber } from "@/shared/utils/phoneNumberMask";
 import { Field, FieldDescription, FieldLabel } from "../ui/Field";
 import { Input } from "../ui/Input";
-import { formatPhoneNumber } from "@/shared/utils/phoneNumberMask";
 
 export function PhoneField({ 
     control, 

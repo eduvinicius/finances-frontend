@@ -1,8 +1,8 @@
-import type { UserFormValues } from "@/shared/types/user.types";
 import { Controller } from "react-hook-form";
+import type { UserFormValues } from "@/shared/types/user.types";
+import type { FormFieldProps } from "@/shared/types/formBase.types";
 import { Field, FieldDescription, FieldLabel } from "../ui/Field";
 import { Input } from "../ui/Input";
-import type { FormFieldProps } from "@/shared/types/formBase.types";
 
 export function FormField({ 
     id, 

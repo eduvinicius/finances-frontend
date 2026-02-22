@@ -1,7 +1,8 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { cn } from "@/lib/utils"
 
-export function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
+export function DialogHeader({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       data-slot="dialog-header"

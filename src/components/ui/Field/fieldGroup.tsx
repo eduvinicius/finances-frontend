@@ -1,6 +1,8 @@
+import type { ComponentProps } from "react"
+
 import { cn } from "@/lib/utils"
 
-function FieldGroup({ className, ...props }: React.ComponentProps<"div">) {
+function FieldGroup({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       data-slot="field-group"

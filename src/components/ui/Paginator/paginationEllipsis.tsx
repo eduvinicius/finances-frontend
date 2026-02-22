@@ -1,4 +1,5 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { MoreHorizontalIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -6,7 +7,7 @@ import { cn } from "@/lib/utils"
 export function PaginationEllipsis({
   className,
   ...props
-}: React.ComponentProps<"span">) {
+}: ComponentProps<"span">) {
   return (
     <span
       aria-hidden

@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react"
+
 import {
   MdCheckCircle,
   MdInfo,
@@ -28,7 +30,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
           "--normal-text": "var(--popover-foreground)",
           "--normal-border": "var(--border)",
           "--border-radius": "20px",
-        } as React.CSSProperties
+        } as CSSProperties
       }
       {...props}
     />

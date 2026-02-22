@@ -1,10 +1,11 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { cn } from "@/lib/utils"
 
 export function DropdownMenuShortcut({
   className,
   ...props
-}: React.ComponentProps<"span">) {
+}: ComponentProps<"span">) {
   return (
     <span
       data-slot="dropdown-menu-shortcut"

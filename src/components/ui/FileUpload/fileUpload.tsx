@@ -1,4 +1,6 @@
 import { useCallback, useState } from "react";
+import type { ChangeEvent } from "react";
+
 import { Upload, X, ImageIcon } from "lucide-react";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/Field";
 import { Button } from "@/components/ui/Button/button";
@@ -31,7 +33,7 @@ export function FileUpload({
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const [validationError, setValidationError] = useState<string | null>(null);
 
-    const handleFileChange = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = useCallback(async (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0] || null;
         
         if (!file) {

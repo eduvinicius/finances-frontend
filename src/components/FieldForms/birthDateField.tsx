@@ -1,14 +1,14 @@
-import type { UserFormValues } from "@/shared/types/user.types";
+import { CalendarIcon } from "lucide-react";
 import { Controller } from "react-hook-form";
-import { Field, FieldDescription, FieldLabel } from "../ui/Field";
+import { cn } from "@/lib/utils";
+import { ptBR } from "date-fns/locale";
+import { format } from "date-fns";
+import type { UserFormValues } from "@/shared/types/user.types";
 import type { DateFieldProps } from "@/shared/types/formBase.types";
+import { Field, FieldDescription, FieldLabel } from "../ui/Field";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/Popover";
 import { Button } from "../ui/Button";
-import { cn } from "@/lib/utils";
-import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/Calendar";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
 
 export function BirthDateField({ control, error }: Readonly<DateFieldProps<UserFormValues>>) {
     const currentYear = new Date().getFullYear();

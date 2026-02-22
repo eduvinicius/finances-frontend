@@ -1,7 +1,10 @@
-import * as React from "react"
+import type { ComponentProps } from "react"
+
 import { XIcon } from "lucide-react"
 import { Dialog as DialogPrimitive } from "radix-ui"
+
 import { cn } from "@/lib/utils"
+
 import { DialogPortal } from "./dialogPortal"
 import { DialogOverlay } from "./dialogOverlay"
 
@@ -10,7 +13,7 @@ export function DialogContent({
   children,
   showCloseButton = true,
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Content> & {
+}: ComponentProps<typeof DialogPrimitive.Content> & {
   showCloseButton?: boolean
 }) {
   return (
