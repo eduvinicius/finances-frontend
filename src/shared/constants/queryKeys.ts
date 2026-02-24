@@ -24,8 +24,6 @@ export const QUERY_KEYS = {
     lists: () => [...QUERY_KEYS.accounts.all, 'list'] as const,
     list: (pagination: IPaginatedRequest, filters?: AccountFiltersValues) =>
       [...QUERY_KEYS.accounts.lists(), pagination, filters] as const,
-    details: () => [...QUERY_KEYS.accounts.all, 'detail'] as const,
-    detail: (id: number) => [...QUERY_KEYS.accounts.details(), id] as const,
   },
 
   categories: {
@@ -33,9 +31,12 @@ export const QUERY_KEYS = {
     lists: () => [...QUERY_KEYS.categories.all, 'list'] as const,
     list: (pagination: IPaginatedRequest, filters?: CategoriesFiltersValues) =>
       [...QUERY_KEYS.categories.lists(), pagination, filters] as const,
-    details: () => [...QUERY_KEYS.categories.all, 'detail'] as const,
-    detail: (id: number) => [...QUERY_KEYS.categories.details(), id] as const,
   },
+
+  transactions: {
+    all: ['transactions'] as const,
+    getAll: () => [...QUERY_KEYS.transactions.all, 'getAll'] as const,
+  }
 } as const;
 
 export const getApiEndpoint = (queryKey: readonly unknown[]): string => {
