@@ -20,10 +20,9 @@ export const transactionsFiltersSchema = z.object({
 );
 
 export const transactionFormSchema = z.object({
-    accountId: z.string(),
-    categoryId: z.string(),
+    accountId: z.string().min(1, "A conta é obrigatória"),
+    categoryId: z.string().min(1, "A categoria é obrigatória"),
     amount: z.number().min(0, "O valor deve ser maior ou igual a 0"),
-    type: z.number(),
+    type: z.number().min(1, "Selecione um tipo de transação válido"),
     description: z.string().max(255, "A descrição deve ter no máximo 255 caracteres"),
-    date: z.date(),
 });

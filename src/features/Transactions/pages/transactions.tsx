@@ -1,14 +1,12 @@
-import { Button } from "@/components/ui/Button/button";
-import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/Dialog";
-import { Dialog } from "@/components/ui/Dialog/dialog";
-import { DialogTrigger } from "@/components/ui/Dialog/dialogTrigger";
-import { Spinner } from "@/components/ui/Spinner";
-import type { TransactionFiltersValues, TransactionFormValues } from "@/shared/types/transactions.types";
 import { useMemo, useState } from "react";
-import { useGetAllTransactions } from "../hooks/useGetAllTransactions";
+import { toast } from "sonner";
 import { useCreateTransaction } from "../hooks/useCreateTransaction";
+import { useGetAllTransactions } from "../hooks/useGetAllTransactions";
+import { Spinner } from "@/components/ui/Spinner";
 import { TransactionsForm } from "../components";
-
+import { AppPaginator } from "@/components/ui/Paginator/appPaginator";
+import { AppDialog } from "@/components/AppDialog";
+import type { TransactionFiltersValues, TransactionFormValues } from "@/shared/types/transactions.types";
 
 export function Transactions() {
 
@@ -25,40 +23,42 @@ export function Transactions() {
   );
 
   const handleFormSubmit = (formData: TransactionFormValues) => {
-      mutate(formData, {
-          onSuccess: () => {
-              setIsDialogOpen(false);
-          },
-      });
+    console.log("Form data submitted:", formData);
+    //   mutate(formData, {
+    //       onSuccess: () => {
+    //           setIsDialogOpen(false);
+    //       },
+    //   });
   };
 
   return (
     <>
       <header className="flex justify-between items-center">
         <h1 className="text-3xl font-bold text-center">Transações</h1>
-        <Dialog 
-            open={isDialogOpen} 
-            onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-                <Button>Nova Transação</Button>
-            </DialogTrigger>
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>Criar Nova Transação</DialogTitle>
-                    <DialogDescription>
-                        Preencha os campos abaixo para criar uma nova transação.
-                    </DialogDescription>
-                </DialogHeader>
-                {isPending ? (
-                    <Spinner className="mx-auto my-4 w-10 h-10" />
-                ) : (
-                    <TransactionsForm />
-                    // <TransactionsForm onSubmit={handleFormSubmit} />
-                )}
-            </DialogContent>
-        </Dialog>
+         <AppDialog
+            buttonText="Nova Transação"
+            headerTitle="Criar Nova Transação"
+            description="Preencha os campos abaixo para criar uma nova transação."
+            component={ isPending ? <Spinner className="mx-auto my-4 w-10 h-10" /> : <TransactionsForm onSubmit={handleFormSubmit} /> }
+            isDialogOpen={isDialogOpen}
+            setIsDialogOpen={setIsDialogOpen}
+         />
       </header>
-      <div></div>
+
+        {/* {isLoading ? <TransactionsListSkeleton /> : <TransactionsList data={data?.items ?? []} />} */}
+        {data?.totalCount === 0 && !isLoading && (
+            <p className="text-center text-muted-foreground mt-10">Nenhuma transação encontrada. Crie sua primeira transação!</p>
+        )}
+
+        {error && toast.error(`Erro ao carregar transações: ${error.message}`)}
+
+        {totalPages >= 1 && (
+            <AppPaginator
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+            />
+        )}
     </>
   );
 }

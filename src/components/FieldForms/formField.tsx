@@ -1,10 +1,9 @@
-import { Controller } from "react-hook-form";
-import type { UserFormValues } from "@/shared/types/user.types";
+import { Controller, type FieldValues, type Path } from "react-hook-form";
 import type { FormFieldProps } from "@/shared/types/formBase.types";
 import { Field, FieldDescription, FieldLabel } from "../ui/Field";
 import { Input } from "../ui/Input";
 
-export function FormField({ 
+export function FormField <T extends FieldValues>({ 
     id, 
     label, 
     type, 
@@ -13,12 +12,12 @@ export function FormField({
     helperText, 
     control,
     fieldName 
-}: Readonly<FormFieldProps<UserFormValues>>) {
+}: Readonly<FormFieldProps<T>>) {
     return (
         <Field>
             <FieldLabel htmlFor={id}>{label}</FieldLabel>
             <Controller 
-                name={fieldName}
+                name={fieldName as Path<T>}
                 control={control}
                 render={({ field }) => (
                     <Input
@@ -26,8 +25,15 @@ export function FormField({
                         type={type}
                         placeholder={placeholder}
                         aria-invalid={!!error}
-                        value={typeof field.value === "string" ? field.value : ""}
-                        onChange={field.onChange}
+                        value={field.value ?? ""}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            if (type === "number") {
+                                field.onChange(value === "" ? "" : Number(value));
+                                return
+                            } 
+                            field.onChange(value);
+                        }}
                     />
                 )}
             />

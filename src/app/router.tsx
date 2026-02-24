@@ -5,7 +5,7 @@ import { ProtectedLayout } from "@/features/Layout";
 
 const Home = lazy(() => import("@/features/Home").then(m => ({ default: m.Home })));
 const Account = lazy(() => import("@/features/Account/pages").then(m => ({ default: m.Account })));
-const Transactions = lazy(() => import("@/features/Transactions").then(m => ({ default: m.Transactions })));
+const Transactions = lazy(() => import("@/features/Transactions/pages").then(m => ({ default: m.Transactions })));
 const Categories = lazy(() => import("@/features/Categories/pages").then(m => ({ default: m.Categories })));
 const Settings = lazy(() => import("@/features/Settings").then(m => ({ default: m.Settings })));
 

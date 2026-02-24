@@ -33,6 +33,11 @@ export const categoryService = {
         return response.data;
     },
 
+    async getAllCategories(): Promise<ICategory[]> {
+        const response = await httpClient.get<ICategory[]>(`/${apiEndpoint}`);
+        return response.data;
+    },
+
     async createCategory(
         data: ICreateCategoryRequest
     ): Promise<ICategory> {

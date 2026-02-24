@@ -34,8 +34,9 @@ export const QUERY_KEYS = {
   },
 
   transactions: {
-    all: ['transactions'] as const,
-    getAll: () => [...QUERY_KEYS.transactions.all, 'getAll'] as const,
+    path: ['transactions'] as const,
+    getAll: () => [...QUERY_KEYS.transactions.path, 'getAll'] as const,
+    getById: (id: string) => [...QUERY_KEYS.transactions.path, `/${id}`] as const,
   }
 } as const;
 
