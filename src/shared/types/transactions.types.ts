@@ -4,6 +4,7 @@ import type { transactionFormSchema, transactionsFiltersSchema } from "../schema
 import type { IAccount } from "./account.types";
 import type { ICategory } from "./category.type";
 import type { IPaginatedBaseResponse, IPaginatedRequest } from "./pagination.types";
+import type { ISelectBaseProps } from "./selectBase.types";
 
 export type TransactionFiltersValues = z.infer<typeof transactionsFiltersSchema>;
 export type TransactionFormValues = z.infer<typeof transactionFormSchema>;
@@ -25,4 +26,14 @@ export interface ITransaction {
     type: TransactionTypeEnum;
     description: string;
     createdAt: Date;
+}
+
+export interface ITransacionColumns extends ITransaction {
+    [key: string]: unknown
+}
+
+export interface ITransactionComboboxProps {
+    accountsOptions: ISelectBaseProps<string>[];
+    categoriesOptions: ISelectBaseProps<string>[];
+    transactionTypeOptions: ISelectBaseProps<TransactionTypeEnum>[];
 }

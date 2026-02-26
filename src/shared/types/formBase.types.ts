@@ -1,9 +1,10 @@
 import type { Control, FieldValues, UseFormRegister } from "react-hook-form";
 
-export interface IFormBaseProps<T> {
+export interface IFormBaseProps<T, K = unknown> {
     onSubmit: (data: T) => void;
     loading?: boolean;
     initialValues?: T;
+    selectOptions?: K
 }
 
 export interface FormFieldProps<T extends FieldValues> {

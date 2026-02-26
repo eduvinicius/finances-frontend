@@ -5,18 +5,15 @@ import { SelectFormField } from "@/components/FieldForms/selectFormField";
 import { Button } from "@/components/ui/Button";
 import { FieldGroup } from "@/components/ui/Field";
 import { FieldSet } from "@/components/ui/Field/fieldSet";
-import { Spinner } from "@/components/ui/Spinner";
-import { useGetAllAccounts } from "@/features/Account/hooks/useGetAllAccounts";
-import { useGetAllCategories } from "@/features/Categories/hooks/useGetAllCategories";
-import { TRANSACTION_TYPE_OPTIONS } from "@/shared/constants/transactionTypeOptions.const";
 import { transactionFormSchema } from "@/shared/schemas/transactionsSchema";
 import type { IFormBaseProps } from "@/shared/types/formBase.types";
-import type { TransactionFormValues } from "@/shared/types/transactions.types";
+import type { ITransactionComboboxProps, TransactionFormValues } from "@/shared/types/transactions.types";
 
 export function TransactionsForm({
   onSubmit,
   loading,
-}: Readonly<IFormBaseProps<TransactionFormValues>>) {
+  selectOptions,
+}: Readonly<IFormBaseProps<TransactionFormValues, ITransactionComboboxProps>>) {
 
   const {
       handleSubmit,
@@ -33,58 +30,31 @@ export function TransactionsForm({
         description: "",
       },
   });
-
-  const { data: accounts, isLoading: accountsLoading } = useGetAllAccounts();
-
-  const { data: categories, isLoading: categoriesLoading } = useGetAllCategories();
-
-  const accountOptions = accounts?.map(account => ({
-    label: account.name,
-    value: account.id,
-  })) ?? [];
-
-  const categoryOptions = categories?.map(category => ({
-    label: category.name,
-    value: category.id,
-  })) ?? [];
-
-  const transactionTypeOptions = TRANSACTION_TYPE_OPTIONS.map(option => ({
-    label: option.label,
-    value: option.value,
-  }));
   
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
         <FieldSet className="space-y-4">
             <FieldGroup>
-                {accountsLoading ? (
-                  <Spinner className="mx-auto my-4 w-4 h-4" />
-                ) : 
-                  <SelectFormField<TransactionFormValues>
-                      id="accountType"
-                      label="Conta"
-                      placeholder="Selecione a conta"
-                      fieldName="accountId"
-                      control={control}
-                      options={accountOptions}
-                      error={errors.accountId?.message}
-                  />
-                }
+                <SelectFormField<TransactionFormValues>
+                    id="accountType"
+                    label="Conta"
+                    placeholder="Selecione a conta"
+                    fieldName="accountId"
+                    control={control}
+                    options={selectOptions?.accountsOptions ?? []}
+                    error={errors.accountId?.message}
+                />
 
-                {categoriesLoading ? (
-                  <Spinner className="mx-auto my-4 w-4 h-4" />
-                ) :
-                  <SelectFormField<TransactionFormValues>
-                      id="categoryType"
-                      label="Categoria"
-                      placeholder="Selecione a categoria"
-                      fieldName="categoryId"
-                      control={control}
-                      options={categoryOptions}
-                      error={errors.categoryId?.message}
-                  />
-                }
-
+                <SelectFormField<TransactionFormValues>
+                    id="categoryType"
+                    label="Categoria"
+                    placeholder="Selecione a categoria"
+                    fieldName="categoryId"
+                    control={control}
+                    options={selectOptions?.categoriesOptions ?? []}
+                    error={errors.categoryId?.message}
+                />
+                  
                 <FormField
                     id="amount"
                     label="Valor"
@@ -110,7 +80,7 @@ export function TransactionsForm({
                       placeholder="Selecione o tipo"
                       fieldName="type"
                       control={control}
-                      options={transactionTypeOptions}
+                      options={selectOptions?.transactionTypeOptions ?? []}
                       error={errors.type?.message}
                   />
             </FieldGroup>
