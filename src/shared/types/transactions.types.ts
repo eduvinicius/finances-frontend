@@ -13,9 +13,8 @@ export interface ITransactionFilterDto extends TransactionFiltersValues, IPagina
 export interface ITransactionService {
     getTransactions: (pagination: IPaginatedRequest, filters: TransactionFiltersValues) => Promise<IPaginatedBaseResponse<ITransaction[]>>;
     getTransactionById: (id: string) => Promise<ITransaction>;
-    createTransaction: (data: ICreateTransactionRequest) => Promise<ITransaction>;
+    createTransaction: (data: TransactionFormValues) => Promise<ITransaction>;
 }
-
 export interface ITransaction {
     id: string;
     accountId: string;
@@ -25,15 +24,5 @@ export interface ITransaction {
     amount: number;
     type: TransactionTypeEnum;
     description: string;
-    date: Date;
     createdAt: Date;
-}
-
-export interface ICreateTransactionRequest {
-    accountId: string;
-    categoryId: string;
-    amount: number;
-    type: TransactionTypeEnum;
-    description: string;
-    date: Date;
 }

@@ -23,12 +23,11 @@ export function Transactions() {
   );
 
   const handleFormSubmit = (formData: TransactionFormValues) => {
-    console.log("Form data submitted:", formData);
-    //   mutate(formData, {
-    //       onSuccess: () => {
-    //           setIsDialogOpen(false);
-    //       },
-    //   });
+      mutate(formData, {
+          onSuccess: () => {
+              setIsDialogOpen(false);
+          },
+      });
   };
 
   return (

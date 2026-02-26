@@ -9,7 +9,7 @@ export interface IFormBaseProps<T> {
 export interface FormFieldProps<T extends FieldValues> {
     id: string;
     label: string;
-    type: string;
+    type?: string;
     placeholder: string;
     error?: string;
     helperText?: string;

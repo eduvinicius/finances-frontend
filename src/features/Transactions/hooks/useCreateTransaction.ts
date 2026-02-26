@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient, type UseMutationResult } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { transactionService } from "../api/transactionService";
-import type { ICreateTransactionRequest, ITransaction } from "@/shared/types/transactions.types";
+import type { ITransaction, TransactionFormValues } from "@/shared/types/transactions.types";
 import { QUERY_KEYS } from "@/shared/constants/queryKeys";
 
-export function useCreateTransaction():UseMutationResult<ITransaction, Error, ICreateTransactionRequest> {
+export function useCreateTransaction():UseMutationResult<ITransaction, Error, TransactionFormValues> {
     const queryClient = useQueryClient();
 
     return useMutation({

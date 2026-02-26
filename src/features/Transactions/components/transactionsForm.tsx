@@ -1,10 +1,10 @@
-import { FormField } from "@/components/FieldForms";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormField, TextAreaFormField } from "@/components/FieldForms";
 import { SelectFormField } from "@/components/FieldForms/selectFormField";
 import { Button } from "@/components/ui/Button";
-import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui/Field";
+import { FieldGroup } from "@/components/ui/Field";
 import { FieldSet } from "@/components/ui/Field/fieldSet";
-import { Textarea } from "@/components/ui/InputGroup/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/InputSelect";
 import { Spinner } from "@/components/ui/Spinner";
 import { useGetAllAccounts } from "@/features/Account/hooks/useGetAllAccounts";
 import { useGetAllCategories } from "@/features/Categories/hooks/useGetAllCategories";
@@ -13,16 +13,12 @@ import { transactionFormSchema } from "@/shared/schemas/transactionsSchema";
 import type { IFormBaseProps } from "@/shared/types/formBase.types";
 import type { TransactionFormValues } from "@/shared/types/transactions.types";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm } from "react-hook-form";
-
 export function TransactionsForm({
   onSubmit,
   loading,
 }: Readonly<IFormBaseProps<TransactionFormValues>>) {
 
   const {
-      register,
       handleSubmit,
       control,
       formState: { errors },
@@ -99,19 +95,14 @@ export function TransactionsForm({
                     fieldName="amount"
                 />
 
-                <Field>
-                    <FieldLabel htmlFor="description">Descrição</FieldLabel>
-                    <Textarea
-                        id="description"
-                        placeholder="Digite a descrição da transação"
-                        aria-invalid={!!errors.description}
-                        {...register("description")}
-                    />
-                    <FieldDescription
-                        className={errors.description ? "text-red-500" : ""}>
-                        {errors.description ? errors.description.message : ""}
-                    </FieldDescription>
-                </Field>
+                <TextAreaFormField<TransactionFormValues>
+                    id="description"
+                    label="Descrição"
+                    placeholder="Digite uma descrição para a transação"
+                    fieldName="description"
+                    control={control}
+                    error={errors.description?.message}
+                />
 
                 <SelectFormField<TransactionFormValues>
                       id="type"
@@ -122,7 +113,6 @@ export function TransactionsForm({
                       options={transactionTypeOptions}
                       error={errors.type?.message}
                   />
-
             </FieldGroup>
 
             <Button 
