@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { CalendarIcon, XIcon } from "lucide-react";
-import { Controller, type Control, type FieldValues, type Path } from "react-hook-form";
+import { Controller, useWatch, type Control, type FieldValues, type Path } from "react-hook-form";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import type { DateRange } from "react-day-picker";
@@ -30,16 +29,27 @@ export function DateRangeField<T extends FieldValues>({
     helperText,
     className,
 }: Readonly<DateRangeFieldProps<T>>) {
-    const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
+
+    const fromValue = useWatch({ control, name: fromFieldName });
+    const toValue = useWatch({ control, name: toFieldName });
+
+    const dateRange: DateRange | undefined =
+        fromValue || toValue
+        ? {
+            from: fromValue ?? undefined,
+            to: toValue ?? undefined,
+            }
+        : undefined;
+
 
     const getDateRangeText = () => {
         if (dateRange?.from && dateRange?.to) {
-            return `${format(dateRange.from, "dd/MM/yyyy", { locale: ptBR })} - ${format(dateRange.to, "dd/MM/yyyy", { locale: ptBR })}`;
+            return <span className="text-white">{`${format(dateRange.from, "dd/MM/yyyy", { locale: ptBR })} - ${format(dateRange.to, "dd/MM/yyyy", { locale: ptBR })}`}</span>;
         }
         if (dateRange?.from) {
-            return format(dateRange.from, "dd/MM/yyyy", { locale: ptBR });
+            return <span className="text-white">{format(dateRange.from, "dd/MM/yyyy", { locale: ptBR })}</span>;
         }
-        return "Selecione um período";
+        return <span className="text-white">Selecione o período</span>;
     };
 
     return (
@@ -54,35 +64,37 @@ export function DateRangeField<T extends FieldValues>({
                         control={control}
                         render={({ field: toField }) => (
                             <Popover>
-                                <PopoverTrigger asChild>
-                                    <Button
-                                        variant="outline"
-                                        id={id}
-                                        className="justify-start px-2.5 font-normal w-full bg-transparent hover:bg-(--green-300)"
-                                        type="button"
-                                    >
-                                        <CalendarIcon color="white" />
-                                        {getDateRangeText()}
-                                        {dateRange?.from && (
-                                            <XIcon
-                                                className="ml-auto size-4 opacity-50 hover:opacity-100"
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    setDateRange(undefined);
-                                                    fromField.onChange(undefined);
-                                                    toField.onChange(undefined);
-                                                }}
-                                            />
-                                        )}
-                                    </Button>
-                                </PopoverTrigger>
+                                <div className="relative flex w-full items-center">
+                                    <PopoverTrigger asChild>
+                                        <Button
+                                            variant="outline"
+                                            id={id}
+                                            className="justify-start px-2.5 font-normal w-full bg-transparent hover:bg-(--green-300)"
+                                            type="button"
+                                        >
+                                            <CalendarIcon color="white" />
+                                            {getDateRangeText()}
+                                        </Button>
+                                    </PopoverTrigger>
+                                    {dateRange?.from && (
+                                        <button
+                                            type="button"
+                                            className="absolute right-2 opacity-50 hover:opacity-100"
+                                            onClick={() => {
+                                                fromField.onChange(undefined);
+                                                toField.onChange(undefined);
+                                            }}
+                                        >
+                                            <XIcon className="size-4 cursor-pointer" />
+                                        </button>
+                                    )}
+                                </div>
                                 <PopoverContent className="w-auto p-0" align="start">
                                     <Calendar
                                         mode="range"
                                         defaultMonth={dateRange?.from}
                                         selected={dateRange}
                                         onSelect={(range) => {
-                                            setDateRange(range);
                                             fromField.onChange(range?.from);
                                             toField.onChange(range?.to);
                                         }}

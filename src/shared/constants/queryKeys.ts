@@ -7,6 +7,7 @@
 import type { AccountFiltersValues } from "../types/account.types";
 import type { CategoriesFiltersValues } from "../types/category.type";
 import type { IPaginatedRequest } from "../types/pagination.types";
+import type { TransactionFiltersValues } from "../types/transactions.types";
 
 export const QUERY_KEYS = {
 
@@ -35,7 +36,9 @@ export const QUERY_KEYS = {
 
   transactions: {
     path: ['transactions'] as const,
-    getAll: () => [...QUERY_KEYS.transactions.path, 'getAll'] as const,
+    lists: () => [...QUERY_KEYS.transactions.path, 'list'] as const,
+    list: (pagination: IPaginatedRequest, filters?: TransactionFiltersValues) =>
+      [...QUERY_KEYS.transactions.lists(), pagination, filters] as const,
     getById: (id: string) => [...QUERY_KEYS.transactions.path, `/${id}`] as const,
   }
 } as const;

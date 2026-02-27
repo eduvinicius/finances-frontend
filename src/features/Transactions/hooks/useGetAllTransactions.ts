@@ -10,7 +10,7 @@ export function useGetAllTransactions(
 ): UseQueryResult<IPaginatedBaseResponse<ITransaction[]>, Error> {
 
     return useQuery({
-        queryKey: QUERY_KEYS.transactions.getAll(),
+        queryKey: QUERY_KEYS.transactions.list(pagination, filters),
         queryFn: () => transactionService.getTransactions(pagination, filters),
     });
 

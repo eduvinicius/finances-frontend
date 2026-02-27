@@ -5,19 +5,18 @@ import type { ITransaction, ITransactionFilterDto, ITransactionService, Transact
 import type { AxiosResponse } from "axios";
 
 const transactionApiEndpoint = getApiEndpoint(QUERY_KEYS.transactions.path);
-const transactionGetAllEndpoint = getApiEndpoint(QUERY_KEYS.transactions.getAll());
 const transactionGetByIdEndpoint = (id: string) => getApiEndpoint(QUERY_KEYS.transactions.getById(id));
 
 export const transactionService: ITransactionService = {
 
     async getTransactions(
         pagination: IPaginatedRequest,
-        filters: TransactionFiltersValues
+        filters?: TransactionFiltersValues
     ): Promise<IPaginatedBaseResponse<ITransaction[]>> {
 
         const payload: ITransactionFilterDto = buildTransactionFilters(pagination, filters);
 
-        const response: AxiosResponse<IPaginatedBaseResponse<ITransaction[]>> = await httpClient.post(`/${transactionGetAllEndpoint}`, payload);
+        const response: AxiosResponse<IPaginatedBaseResponse<ITransaction[]>> = await httpClient.post(`/${transactionApiEndpoint}/getAll`, payload);
 
         return response.data;
     },
@@ -33,7 +32,7 @@ export const transactionService: ITransactionService = {
     }
 };
 
-const buildTransactionFilters = (pagination: IPaginatedRequest, filters: TransactionFiltersValues): ITransactionFilterDto => {
+const buildTransactionFilters = (pagination: IPaginatedRequest, filters?: TransactionFiltersValues): ITransactionFilterDto => {
 
     const payload: ITransactionFilterDto = {
         ...filters,

@@ -18,24 +18,16 @@ export function Transactions() {
   const pageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState<TransactionFiltersValues | undefined>(undefined);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { data, isLoading, error } = useGetAllTransactions({ page: currentPage, pageSize }, filters ?? {});
   const { mutate, isPending } = useCreateTransaction();
   const { data: categories, isLoading: categoriesLoading } = useGetAllCategories();
   const { data: accounts, isLoading: accountsLoading } = useGetAllAccounts();
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const totalPages = useMemo(
       () => Math.ceil((data?.totalCount ?? 0) / pageSize),
       [data?.totalCount, pageSize]
   );
-
-  const handleFormSubmit = (formData: TransactionFormValues) => {
-      mutate(formData, {
-          onSuccess: () => {
-              setIsDialogOpen(false);
-          },
-      });
-  };
 
   const selectComboboxOptions = useMemo(() => {
     return {
@@ -56,6 +48,25 @@ export function Transactions() {
     }
   }, [categories, accounts]);
 
+
+  const handleFormSubmit = (formData: TransactionFormValues) => {
+      mutate(formData, {
+          onSuccess: () => {
+              setIsDialogOpen(false);
+          },
+      });
+  };
+
+  const filterTransactions = (filters: TransactionFiltersValues) => {
+      setFilters(filters);
+      setCurrentPage(1);
+  };
+
+  const handleClearFilters = () => {
+      setFilters(undefined);
+      setCurrentPage(1);
+  };
+
   return (
     <>
       <header className="flex justify-between items-center">
@@ -64,13 +75,21 @@ export function Transactions() {
             buttonText="Nova Transação"
             headerTitle="Criar Nova Transação"
             description="Preencha os campos abaixo para criar uma nova transação."
-            component={ isPending ? <Spinner className="mx-auto my-4 w-10 h-10" /> : <TransactionsForm onSubmit={handleFormSubmit} selectOptions={selectComboboxOptions} /> }
+            component={ isPending ? 
+              <Spinner className="mx-auto my-4 w-10 h-10" /> : 
+              <TransactionsForm onSubmit={handleFormSubmit} selectOptions={selectComboboxOptions} /> 
+            }
             isDialogOpen={isDialogOpen}
             setIsDialogOpen={setIsDialogOpen}
          />
       </header>
-      {categoriesLoading && accountsLoading ? <Spinner className="mx-auto my-4 w-10 h-10" /> : (
-        <TransactionFilters onFilter={setFilters} selectOptions={selectComboboxOptions} />
+      {categoriesLoading && accountsLoading ? 
+        <Spinner className="mx-auto my-4 w-10 h-10" /> : (
+        <TransactionFilters 
+          onFilter={filterTransactions} 
+          onClear={handleClearFilters}
+          loading={isLoading}
+          selectOptions={selectComboboxOptions} />
       )}
         {isLoading ? (
           <TransactionTableSkeleton />

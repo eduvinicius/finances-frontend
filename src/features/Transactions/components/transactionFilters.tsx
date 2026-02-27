@@ -34,11 +34,7 @@ export function TransactionFilters({
             categoryIds: [],
             type: [],
         })
-
-        reset({
-            fromDate: undefined,
-            toDate: undefined,
-        });
+        
         if (onClear) {
             onClear()
         }
