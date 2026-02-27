@@ -18,7 +18,7 @@ export function Transactions() {
   const pageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState<TransactionFiltersValues | undefined>(undefined);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const { data, isLoading, error } = useGetAllTransactions({ page: currentPage, pageSize }, filters ?? {});
   const { mutate, isPending } = useCreateTransaction();
   const { data: categories, isLoading: categoriesLoading } = useGetAllCategories();
@@ -52,7 +52,7 @@ export function Transactions() {
   const handleFormSubmit = (formData: TransactionFormValues) => {
       mutate(formData, {
           onSuccess: () => {
-              setIsDialogOpen(false);
+              setIsCreateDialogOpen(false);
           },
       });
   };
@@ -75,12 +75,13 @@ export function Transactions() {
             buttonText="Nova Transação"
             headerTitle="Criar Nova Transação"
             description="Preencha os campos abaixo para criar uma nova transação."
+            dialogType="button"
             component={ isPending ? 
               <Spinner className="mx-auto my-4 w-10 h-10" /> : 
               <TransactionsForm onSubmit={handleFormSubmit} selectOptions={selectComboboxOptions} /> 
             }
-            isDialogOpen={isDialogOpen}
-            setIsDialogOpen={setIsDialogOpen}
+            isDialogOpen={isCreateDialogOpen}
+            setIsDialogOpen={setIsCreateDialogOpen}
          />
       </header>
       {categoriesLoading && accountsLoading ? 

@@ -1,5 +1,8 @@
+type DialogType = "button" | "icon";
+
 export interface IAppDialogProps {
-    buttonText: string;
+    dialogType: DialogType;
+    buttonText?: string;
     headerTitle: string;
     description: string;
     component: React.ReactNode;

@@ -1,5 +1,6 @@
 import { TRANSACTION_TYPE_STRINGS } from "@/shared/constants/transactionTypeOptions.const";
 import type { ITransaction } from "@/shared/types/transactions.types";
+import { TransactionDetailsCell } from "../components";
 
 export const TRANSACTIONS_COLUMNS = [
   { header: "Conta", accessor: (row: ITransaction) => row.account?.name ?? "Sem conta" },
@@ -8,4 +9,9 @@ export const TRANSACTIONS_COLUMNS = [
   { header: "Valor", accessor: (row: ITransaction) => `R$ ${row.amount.toFixed(2)}` },
   { header: "Data", accessor: (row: ITransaction) => new Date(row.createdAt).toLocaleDateString() },
   { header: "Categoria", accessor: (row: ITransaction) => row.category?.name ?? "Sem categoria" },
+  {
+    header: "Detalhes",
+    accessor: (row: ITransaction) => row,
+    cell: (_value: unknown, row: ITransaction) => <TransactionDetailsCell transaction={row} />,
+  },
 ];
