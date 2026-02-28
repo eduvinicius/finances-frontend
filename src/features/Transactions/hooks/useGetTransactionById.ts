@@ -6,7 +6,7 @@ import { QUERY_KEYS } from "@/shared/constants/queryKeys";
 export function useGetTransactionById(id: string): UseQueryResult<ITransaction, Error> {
 
     return useQuery({
-        queryKey: QUERY_KEYS.transactions.getById(id),
+        queryKey: QUERY_KEYS.transactions.byId(id),
         queryFn: () => transactionService.getTransactionById(id),
     });
 

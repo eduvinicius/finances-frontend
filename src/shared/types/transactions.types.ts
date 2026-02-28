@@ -12,7 +12,7 @@ export type TransactionFormValues = z.infer<typeof transactionFormSchema>;
 export interface ITransactionFilterDto extends TransactionFiltersValues, IPaginatedRequest {}
 
 export interface ITransactionService {
-    getTransactions: (pagination: IPaginatedRequest, filters: TransactionFiltersValues) => Promise<IPaginatedBaseResponse<ITransaction[]>>;
+    getTransactions: (pagination: IPaginatedRequest, filters?: TransactionFiltersValues) => Promise<IPaginatedBaseResponse<ITransaction[]>>;
     getTransactionById: (id: string) => Promise<ITransaction>;
     createTransaction: (data: TransactionFormValues) => Promise<ITransaction>;
 }

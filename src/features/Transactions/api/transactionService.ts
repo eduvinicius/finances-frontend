@@ -4,8 +4,8 @@ import type { IPaginatedBaseResponse, IPaginatedRequest } from "@/shared/types/p
 import type { ITransaction, ITransactionFilterDto, ITransactionService, TransactionFiltersValues, TransactionFormValues } from "@/shared/types/transactions.types";
 import type { AxiosResponse } from "axios";
 
-const transactionApiEndpoint = getApiEndpoint(QUERY_KEYS.transactions.path);
-const transactionGetByIdEndpoint = (id: string) => getApiEndpoint(QUERY_KEYS.transactions.getById(id));
+const baseEndpoint = getApiEndpoint(QUERY_KEYS.transactions.all);
+const filteredEndpoint = getApiEndpoint(QUERY_KEYS.transactions.filtered());
 
 export const transactionService: ITransactionService = {
 
@@ -16,18 +16,18 @@ export const transactionService: ITransactionService = {
 
         const payload: ITransactionFilterDto = buildTransactionFilters(pagination, filters);
 
-        const response: AxiosResponse<IPaginatedBaseResponse<ITransaction[]>> = await httpClient.post(`/${transactionApiEndpoint}/getAll`, payload);
+        const response: AxiosResponse<IPaginatedBaseResponse<ITransaction[]>> = await httpClient.post(`/${filteredEndpoint}`, payload);
 
         return response.data;
     },
 
     async getTransactionById(id: string): Promise<ITransaction> {
-        const response: AxiosResponse<ITransaction> = await httpClient.get(`/${transactionGetByIdEndpoint(id)}`);
+        const response: AxiosResponse<ITransaction> = await httpClient.get(`/${baseEndpoint}/${id}`);
         return response.data;
     },
 
     async createTransaction(data: TransactionFormValues): Promise<ITransaction> {
-        const response: AxiosResponse<ITransaction> = await httpClient.post(`/${transactionApiEndpoint}`, data);
+        const response: AxiosResponse<ITransaction> = await httpClient.post(`/${baseEndpoint}`, data);
         return response.data;
     }
 };

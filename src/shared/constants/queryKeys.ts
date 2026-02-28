@@ -37,11 +37,11 @@ export const QUERY_KEYS = {
   },
 
   transactions: {
-    path: ['transactions'] as const,
-    lists: () => [...QUERY_KEYS.transactions.path, 'list'] as const,
-    list: (pagination: IPaginatedRequest, filters?: TransactionFiltersValues) =>
-      [...QUERY_KEYS.transactions.lists(), pagination, filters] as const,
-    getById: (id: string) => [...QUERY_KEYS.transactions.path, `/${id}`] as const,
+    all: ['transactions'] as const,
+    filtered: () => [...QUERY_KEYS.transactions.all, 'getAll'] as const,
+    filteredList: (pagination: IPaginatedRequest, filters?: TransactionFiltersValues) =>
+      [...QUERY_KEYS.transactions.filtered(), pagination, filters] as const,
+    byId: (id: string) => [...QUERY_KEYS.transactions.all, id] as const,
   }
 } as const;
 
