@@ -9,7 +9,7 @@ export function useGetAccounts(
     filters?: AccountFiltersValues
 ): UseQueryResult<IPaginatedBaseResponse<IAccount[]>, Error> {
   return useQuery({
-    queryKey: QUERY_KEYS.accounts.list(pagination, filters),
+    queryKey: QUERY_KEYS.accounts.paginatedList(pagination, filters),
     queryFn: () => accountService.getAccountsPaginated(pagination, filters),
   });
 }

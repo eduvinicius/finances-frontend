@@ -22,9 +22,10 @@ export const QUERY_KEYS = {
 
   accounts: {
     all: ['accounts'] as const,
-    lists: () => [...QUERY_KEYS.accounts.all, 'list'] as const,
-    list: (pagination: IPaginatedRequest, filters?: AccountFiltersValues) =>
-      [...QUERY_KEYS.accounts.lists(), pagination, filters] as const,
+    getAll: () => [...QUERY_KEYS.accounts.all] as const,
+    paginated: () => [...QUERY_KEYS.accounts.all, 'paginated'] as const,
+    paginatedList: (pagination: IPaginatedRequest, filters?: AccountFiltersValues) =>
+      [...QUERY_KEYS.accounts.paginated(), pagination, filters] as const,
   },
 
   categories: {

@@ -8,7 +8,7 @@ export type AccountFormValues = z.infer<typeof accountSchema>;
 export type AccountFiltersValues = z.infer<typeof accountFiltersSchema>;
 
 export interface IAccountService {
-    getAccountsPaginated : (pagination: IPaginatedRequest, filters: AccountFiltersValues) => Promise<IPaginatedBaseResponse<IAccount[]>>;
+    getAccountsPaginated : (pagination: IPaginatedRequest, filters?: AccountFiltersValues) => Promise<IPaginatedBaseResponse<IAccount[]>>;
     getAllAccounts: () => Promise<IAccount[]>;
     createAccount: (data: ICreateAccount) => Promise<IAccount>;
 }

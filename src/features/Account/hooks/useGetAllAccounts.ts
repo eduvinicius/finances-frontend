@@ -5,7 +5,7 @@ import type { IAccount } from "@/shared/types/account.types";
 
 export function useGetAllAccounts(): UseQueryResult<IAccount[], Error> {
     return useQuery({
-        queryKey: QUERY_KEYS.accounts.all,
+        queryKey: QUERY_KEYS.accounts.getAll(),
         queryFn: accountService.getAllAccounts
     })
 }
