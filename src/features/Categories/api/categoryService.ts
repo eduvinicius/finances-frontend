@@ -1,4 +1,4 @@
-import type { ICategory, ICreateCategoryRequest, CategoriesFiltersValues } from "@/shared/types/category.type";
+import type { ICategory, ICreateCategoryRequest, CategoriesFiltersValues, ICategoryService } from "@/shared/types/category.type";
 import type { AxiosResponse } from "axios";
 import { httpClient } from "@/shared/api/httpClient";
 import { QUERY_KEYS, getApiEndpoint } from "@/shared/constants/queryKeys";
@@ -6,7 +6,7 @@ import type { IPaginatedBaseResponse, IPaginatedRequest } from "@/shared/types/p
 
 const apiEndpoint = getApiEndpoint(QUERY_KEYS.categories.all);
 
-export const categoryService = {
+export const categoryService: ICategoryService = {
 
     async getCategoriesPaginated(
         pagination: IPaginatedRequest,

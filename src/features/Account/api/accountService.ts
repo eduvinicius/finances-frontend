@@ -1,12 +1,12 @@
 import { httpClient } from "@/shared/api/httpClient";
 import { QUERY_KEYS, getApiEndpoint } from "@/shared/constants/queryKeys";
-import type { AccountFiltersValues, IAccount, ICreateAccount } from "@/shared/types/account.types";
+import type { AccountFiltersValues, IAccount, IAccountService, ICreateAccount } from "@/shared/types/account.types";
 import type { IPaginatedBaseResponse, IPaginatedRequest } from "@/shared/types/pagination.types";
 import type { AxiosResponse } from "axios";
 
 const apiEndpoint = getApiEndpoint(QUERY_KEYS.accounts.all);
 
-export const accountService = {
+export const accountService: IAccountService = {
 
     async getAccountsPaginated(
         pagination: IPaginatedRequest,
