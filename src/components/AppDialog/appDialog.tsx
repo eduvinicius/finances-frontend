@@ -2,6 +2,7 @@ import { TbListDetails } from "react-icons/tb";
 import { Button } from "../ui/Button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/Dialog";
 import type { IAppDialogProps } from "@/shared/types/dialog.types";
+import { UiElementEnum } from "@/shared/enums/uiElementEnum";
 
 export function AppDialog(props: Readonly<IAppDialogProps>) {
     return (
@@ -9,7 +10,7 @@ export function AppDialog(props: Readonly<IAppDialogProps>) {
             open={props.isDialogOpen} 
             onOpenChange={props.setIsDialogOpen}>
             <DialogTrigger asChild>
-                {props.dialogType === "button" ? (
+                {props.dialogType === UiElementEnum.BUTTON ? (
                     <Button>{props.buttonText}</Button>
                 ) : (
                     <TbListDetails size={18} className="cursor-pointer" />

@@ -1,17 +1,15 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
-import { useCreateTransaction } from "../hooks/useCreateTransaction";
-import { useGetAllTransactions } from "../hooks/useGetAllTransactions";
 import { Spinner } from "@/components/ui/Spinner";
-import { TransactionFilters, TransactionsForm, TransactionTableSkeleton } from "../components";
 import { AppPaginator } from "@/components/ui/Paginator/appPaginator";
 import { AppDialog } from "@/components/AppDialog";
-import type { ITransacionColumns, TransactionFiltersValues, TransactionFormValues } from "@/shared/types/transactions.types";
 import { AppTable } from "@/components/ui/Table/appTable";
+import type { ITransacionColumns, TransactionFiltersValues, TransactionFormValues } from "@/shared/types/transactions.types";
+import { useCreateTransaction } from "../hooks/useCreateTransaction";
+import { useGetAllTransactions } from "../hooks/useGetAllTransactions";
+import { useTransactionSelectOptions } from "../hooks/useTransactionSelectOptions";
+import { TransactionFilters, TransactionsForm, TransactionTableSkeleton } from "../components";
 import { TRANSACTIONS_COLUMNS } from "../constants/transactionColumns.const";
-import { useGetAllCategories } from "@/features/Categories/hooks/useGetAllCategories";
-import { useGetAllAccounts } from "@/features/Account/hooks/useGetAllAccounts";
-import { TRANSACTION_TYPE_OPTIONS } from "@/shared/constants/transactionTypeOptions.const";
 
 export function Transactions() {
 
@@ -21,33 +19,9 @@ export function Transactions() {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const { data, isLoading, error } = useGetAllTransactions({ page: currentPage, pageSize }, filters ?? {});
   const { mutate, isPending } = useCreateTransaction();
-  const { data: categories, isLoading: categoriesLoading } = useGetAllCategories();
-  const { data: accounts, isLoading: accountsLoading } = useGetAllAccounts();
+  const { selectOptions, isLoading: selectOptionsLoading } = useTransactionSelectOptions();
 
-  const totalPages = useMemo(
-      () => Math.ceil((data?.totalCount ?? 0) / pageSize),
-      [data?.totalCount, pageSize]
-  );
-
-  const selectComboboxOptions = useMemo(() => {
-    return {
-      categoriesOptions: categories?.map(category => ({
-        label: category.name,
-        value: category.id,
-      })) ?? [],
-
-      accountsOptions: accounts?.map(account => ({
-        label: account.name,
-        value: account.id,
-      })) ?? [],
-
-      transactionTypeOptions: TRANSACTION_TYPE_OPTIONS.map(option => ({
-        label: option.label,
-        value: option.value,
-      })) ?? [],
-    }
-  }, [categories, accounts]);
-
+  const totalPages = Math.ceil((data?.totalCount ?? 0) / pageSize);
 
   const handleFormSubmit = (formData: TransactionFormValues) => {
       mutate(formData, {
@@ -78,19 +52,19 @@ export function Transactions() {
             dialogType="button"
             component={ isPending ? 
               <Spinner className="mx-auto my-4 w-10 h-10" /> : 
-              <TransactionsForm onSubmit={handleFormSubmit} selectOptions={selectComboboxOptions} /> 
+              <TransactionsForm onSubmit={handleFormSubmit} selectOptions={selectOptions} /> 
             }
             isDialogOpen={isCreateDialogOpen}
             setIsDialogOpen={setIsCreateDialogOpen}
          />
       </header>
-      {categoriesLoading && accountsLoading ? 
+      {selectOptionsLoading ? 
         <Spinner className="mx-auto my-4 w-10 h-10" /> : (
         <TransactionFilters 
           onFilter={filterTransactions} 
           onClear={handleClearFilters}
           loading={isLoading}
-          selectOptions={selectComboboxOptions} />
+          selectOptions={selectOptions} />
       )}
         {isLoading ? (
           <TransactionTableSkeleton />

@@ -1,8 +1,8 @@
-import { CalendarIcon, XIcon } from "lucide-react";
 import { Controller, useWatch, type Control, type FieldValues, type Path } from "react-hook-form";
+import type { DateRange } from "react-day-picker";
+import { CalendarIcon, XIcon } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import type { DateRange } from "react-day-picker";
 import { Field, FieldDescription, FieldLabel } from "../ui/Field";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/Popover";
 import { Button } from "../ui/Button";
