@@ -30,9 +30,10 @@ export const QUERY_KEYS = {
 
   categories: {
     all: ['categories'] as const,
-    lists: () => [...QUERY_KEYS.categories.all, 'list'] as const,
-    list: (pagination: IPaginatedRequest, filters?: CategoriesFiltersValues) =>
-      [...QUERY_KEYS.categories.lists(), pagination, filters] as const,
+    getAll: () => [...QUERY_KEYS.categories.all] as const,
+    paginated: () => [...QUERY_KEYS.categories.all, 'paginated'] as const,
+    paginatedList: (pagination: IPaginatedRequest, filters?: CategoriesFiltersValues) =>
+      [...QUERY_KEYS.categories.paginated(), pagination, filters] as const,
   },
 
   transactions: {

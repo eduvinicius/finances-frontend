@@ -9,7 +9,7 @@ export function useCategories(
   filters?: CategoriesFiltersValues
 ): UseQueryResult<IPaginatedBaseResponse<ICategory[]>, Error> {
   return useQuery({
-    queryKey: QUERY_KEYS.categories.list(pagination, filters),
+    queryKey: QUERY_KEYS.categories.paginatedList(pagination, filters),
     queryFn: () => categoryService.getCategoriesPaginated(pagination, filters),
   });
 }
