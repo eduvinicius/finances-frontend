@@ -1,14 +1,14 @@
 import { getApiEndpoint, QUERY_KEYS } from "@/shared/constants/queryKeys";
 import { httpClient } from "@/shared/api/httpClient";
-import type { IUserApiResponse, UserFormValues } from "@/shared/types/user.types";
+import type { IUserApiResponse, IUserService, UserFormValues } from "@/shared/types/user.types";
 
 const getCurrentUserEndpoint = getApiEndpoint(QUERY_KEYS.auth.getCurrentUser());
 const updateUserEndpoint = getApiEndpoint(QUERY_KEYS.auth.updateUser());
 const uploadProfileImageEndpoint = getApiEndpoint(QUERY_KEYS.auth.updateProfileImage());
 
-export const userService = {
+export const userService: IUserService = {
 
-    async getCurrentUser() {
+    async getCurrentUser(): Promise<IUserApiResponse> {
         const response = await httpClient.get<IUserApiResponse>(`/${getCurrentUserEndpoint}`);
         const data = response.data;
         
@@ -19,7 +19,7 @@ export const userService = {
         return data;
     },
 
-    async updateUser(userData: UserFormValues) {
+    async updateUser(userData: UserFormValues): Promise<UserFormValues> {
 
         const payload = {
             ...userData,
@@ -35,7 +35,7 @@ export const userService = {
         return data as UserFormValues;
     },
 
-    async uploadProfileImage(file: File) {
+    async uploadProfileImage(file: File): Promise<string> {
         const formData = new FormData();
         formData.append('file', file);
 
