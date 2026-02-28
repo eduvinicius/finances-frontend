@@ -2,6 +2,7 @@ import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { Login } from "@/features/auth/pages/login";
 import { ProtectedLayout } from "@/features/Layout";
+import { NotFound } from "@/features/NotFound";
 
 const Home = lazy(() => import("@/features/Home").then(m => ({ default: m.Home })));
 const Account = lazy(() => import("@/features/Account/pages").then(m => ({ default: m.Account })));
@@ -23,6 +24,8 @@ export const router = createBrowserRouter([
       { path: "transactions", Component: Transactions },
       { path: "categories", Component: Categories },
       { path: "settings", Component: Settings },
+      { path: "*", Component: NotFound },
     ],
   },
+  { path: "*", Component: NotFound },
 ]);
