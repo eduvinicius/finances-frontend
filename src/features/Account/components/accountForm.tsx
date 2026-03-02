@@ -1,19 +1,18 @@
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import type { IAccountFormProps, AccountFormValues } from "@/shared/types/account.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { accountSchema } from "@/shared/schemas/accountSchema";
-import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/Field";
-import { Input } from "@/components/ui/Input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/InputSelect/";
+import { FieldGroup, FieldSet } from "@/components/ui/Field";
 import { ACCOUNT_TYPE_OPTIONS } from "@/shared/constants/accountTypeOptions.const";
 import { Button } from "@/components/ui/Button/button";
+import { FormField } from "@/components/FieldForms/formField";
+import { SelectFormField } from "@/components/FieldForms/selectFormField";
 
 export function AccountForm({ 
     onSubmit, 
     loading 
 }: Readonly<IAccountFormProps>) {
     const {
-        register,
         handleSubmit,
         control,
         formState: { errors },
@@ -30,71 +29,35 @@ export function AccountForm({
         <form onSubmit={handleSubmit(onSubmit)}>
             <FieldSet className="space-y-4">
                 <FieldGroup>
-                    <Field>
-                        <FieldLabel htmlFor="name">Nome</FieldLabel>
-                        <Input
-                            id="name"
-                            type="text"
-                            placeholder="Digite o nome da conta"
-                            aria-invalid={!!errors.name}
-                            {...register("name")}
-                        />
-                        <FieldDescription
-                            className={errors.name ? "text-red-500" : ""}>
-                            {errors.name ? errors.name.message : ""}
-                        </FieldDescription>
-                    </Field>
+                    <FormField
+                        id="name"
+                        label="Nome"
+                        type="text"
+                        placeholder="Digite o nome da conta"
+                        error={errors.name?.message}
+                        control={control}
+                        fieldName="name"
+                    />
 
-                    <Field>
-                        <FieldLabel htmlFor="balance">Quantidade</FieldLabel>
-                        <Input
-                            id="balance"
-                            type="number"
-                            placeholder="Digite o saldo da conta"
-                            aria-invalid={!!errors.balance}
-                            {...register("balance", { valueAsNumber: true })}
-                        />
-                        <FieldDescription
-                            className={errors.balance ? "text-red-500" : ""}>
-                            {errors.balance ? errors.balance.message : ""}
-                        </FieldDescription>
-                    </Field>
+                    <FormField
+                        id="balance"
+                        label="Saldo"
+                        type="number"
+                        placeholder="Digite o saldo da conta"
+                        error={errors.balance?.message}
+                        control={control}
+                        fieldName="balance"
+                    />
 
-                    <Field>
-                        <FieldLabel htmlFor="type">Tipo de Transação</FieldLabel>
-                        <Controller
-                            name="type"
-                            control={control}
-                            render={({ field }) => (
-                                <Select
-                                    value={field.value?.toString() ?? ""}
-                                    onValueChange={(value) => field.onChange(Number(value))}
-                                >
-                                    <SelectTrigger
-                                        id="type"
-                                        className="w-full"
-                                        aria-invalid={!!errors.type}
-                                    >
-                                        <SelectValue placeholder="Selecione o tipo" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        {ACCOUNT_TYPE_OPTIONS.map((option) => (
-                                            <SelectItem
-                                                key={option.value}
-                                                value={option.value.toString()}
-                                            >
-                                                {option.label}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                            )}
-                        />
-                        <FieldDescription
-                            className={errors.type ? "text-red-500" : ""}>
-                            {errors.type ? errors.type.message : ""}
-                        </FieldDescription>
-                    </Field>
+                    <SelectFormField<AccountFormValues>
+                        id="type"
+                        label="Tipo de Conta"
+                        placeholder="Selecione o tipo"
+                        fieldName="type"
+                        control={control}
+                        options={ACCOUNT_TYPE_OPTIONS ?? []}
+                        error={errors.type?.message}
+                    />
                 </FieldGroup>
 
                 <Button 

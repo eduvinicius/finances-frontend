@@ -1,20 +1,12 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useCategories } from "../hooks/useCategories";
-import { Button } from "@/components/ui/Button";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/Dialog";
 import type { CategoriesFiltersValues, CategoryFormValues } from "@/shared/types/category.type";
 import { useCreateCategory } from "../hooks/useCreateCategory";
 import { Spinner } from "@/components/ui/Spinner";
 import { CategoryForm, CategoriesFilters, CategoriesList,  CategoriesListSkeleton  } from "../components";
 import { toast } from "sonner";
 import { AppPaginator } from "@/components/ui/Paginator/appPaginator";
+import { AppDialog } from "@/components/AppDialog/appDialog";
 
 export function Categories() {
 
@@ -25,10 +17,7 @@ export function Categories() {
     const { mutate, isPending } = useCreateCategory();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    const totalPages = useMemo(
-        () => Math.ceil((data?.totalCount ?? 0) / pageSize),
-        [data?.totalCount, pageSize]
-    );
+    const totalPages = Math.ceil((data?.totalCount ?? 0) / pageSize);
     
     const handleFormSubmit = (formData: CategoryFormValues) => {
         mutate(formData, {
@@ -52,26 +41,18 @@ export function Categories() {
         <>
             <header className="flex justify-between items-center">
                 <h1 className="text-3xl font-bold text-center">Categorias</h1>
-                <Dialog 
-                    open={isDialogOpen} 
-                    onOpenChange={setIsDialogOpen}>
-                    <DialogTrigger asChild>
-                        <Button>Nova Categoria</Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                        <DialogHeader>
-                            <DialogTitle>Criar Nova Categoria</DialogTitle>
-                            <DialogDescription>
-                                Preencha os campos abaixo para criar uma nova categoria.
-                            </DialogDescription>
-                        </DialogHeader>
-                        {isPending ? (
-                            <Spinner className="mx-auto my-4 w-10 h-10" />
-                        ) : (
-                            <CategoryForm onSubmit={handleFormSubmit} />
-                        )}
-                    </DialogContent>
-                </Dialog>
+                <AppDialog
+                buttonText="Nova Categoria"
+                headerTitle="Criar Nova Categoria"
+                description="Preencha os campos abaixo para criar uma nova categoria."
+                dialogType="button"
+                component={ isPending ? 
+                    <Spinner className="mx-auto my-4 w-10 h-10" /> : 
+                    <CategoryForm onSubmit={handleFormSubmit} /> 
+                }
+                isDialogOpen={isDialogOpen}
+                setIsDialogOpen={setIsDialogOpen}
+                />
             </header>
             <CategoriesFilters 
                 onFilter={filterCategories} 

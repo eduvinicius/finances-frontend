@@ -1,40 +1,12 @@
-"use client"
-
-import * as React from "react"
-import { useState } from "react"
 import { Button } from "@/components/ui/Button"
-import { Calendar } from "@/components/ui/Calendar"
-import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/Field"
-import { Input } from "@/components/ui/Input"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/Popover"
-import {
-    Combobox,
-    ComboboxChip,
-    ComboboxChips,
-    ComboboxChipsInput,
-    ComboboxContent,
-    ComboboxEmpty,
-    ComboboxItem,
-    ComboboxList,
-    ComboboxValue,
-    useComboboxAnchor,
-} from "@/components/ui/Combobox"
+import { FieldGroup, FieldSet } from "@/components/ui/Field"
 import { categoriesFiltersSchema } from "@/shared/schemas/categoriesFiltersSchema"
-
 import { TRANSACTION_TYPE_OPTIONS } from "@/shared/constants/transactionTypeOptions.const"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm, Controller } from "react-hook-form"
-import { format } from "date-fns"
-import { CalendarIcon, XIcon } from "lucide-react"
-import type { DateRange } from "react-day-picker"
-import type { TransactionTypeEnum } from "@/shared/enums/transactionTypeEnum"
-import type { ISelectBaseProps } from "@/shared/types/selectBase.types"
+import { useForm } from "react-hook-form"
 import type { IFiltersBaseProps } from "@/shared/types/filtersBase.types"
 import type { CategoriesFiltersValues } from "@/shared/types/category.type"
+import { ComboboxField, DateRangeField, FormField } from "@/components/FieldForms"
 
 export function CategoriesFilters({
     onFilter,
@@ -56,179 +28,46 @@ export function CategoriesFilters({
         },
     })
 
-    const [dateRange, setDateRange] = useState<DateRange | undefined>();
-    const anchor = useComboboxAnchor();
-
     const handleClearFilters = () => {
         reset({
             name: "",
             transactionType: [],
         })
-
-        setDateRange(undefined)
         
         if (onClear) {
             onClear()
         }
     }
 
-    const getDateRangeText = () => {
-        if (!dateRange?.from) {
-            return <span className="text-white">Selecione o período</span>
-        }
-        
-        if (dateRange.to) {
-            return (
-                <span className="text-white">
-                    {format(dateRange.from, "dd/MM/yyyy")} -{" "}
-                    {format(dateRange.to, "dd/MM/yyyy")}
-                </span>
-            )
-        }
-        
-        return <span className="text-white">{format(dateRange.from, "dd/MM/yyyy")}</span>
-    }
-
     return (
         <form onSubmit={handleSubmit(onFilter)} className="w-full p-4 mt-4 bg-(--green-200) rounded-md shadow-sm border">
             <FieldSet className="space-y-4">
-                <FieldGroup className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-                    <Field>
-                        <FieldLabel htmlFor="name">Nome</FieldLabel>
-                        <Controller
-                            name="name"
-                            control={control}
-                            render={({ field }) => (
-                                <Input
-                                    id="name"
-                                    type="text"
-                                    placeholder="Buscar por nome..."
-                                    aria-invalid={!!errors.name}
-                                    value={field.value || ""}
-                                    onChange={field.onChange}
-                                    onBlur={field.onBlur}
-                                />
-                            )}
-                        />
-                        <FieldDescription className={errors.name ? "text-red-500" : ""}>
-                            {errors.name ? errors.name.message : ""}
-                        </FieldDescription>
-                    </Field>
-
-                    <Field>
-                        <FieldLabel htmlFor="transactionType">Tipo de Transação</FieldLabel>
-                        <Controller
-                            name="transactionType"
-                            control={control}
-                            render={({ field }) => {
-                                const selectedOptions = TRANSACTION_TYPE_OPTIONS.filter(
-                                    option => field.value?.includes(option.value)
-                                )
-                                
-                                return (
-                                    <Combobox
-                                        multiple
-                                        autoHighlight
-                                        value={selectedOptions}
-                                        onValueChange={(value: ISelectBaseProps<TransactionTypeEnum>[]) => {
-                                            const numericValues = value.map(item => item.value)
-                                            field.onChange(numericValues)
-                                        }}
-                                    >
-                                        <ComboboxChips ref={anchor} className="w-full">
-                                            <ComboboxValue>
-                                                {(values: ISelectBaseProps<TransactionTypeEnum>[]) => (
-                                                    <React.Fragment>
-                                                        {values.map((value) => (
-                                                            <ComboboxChip key={value.value}>{value.label}</ComboboxChip>
-                                                        ))}
-                                                        <ComboboxChipsInput />
-                                                    </React.Fragment>
-                                                )}
-                                            </ComboboxValue>
-                                        </ComboboxChips>
-                                        <ComboboxContent anchor={anchor}>
-                                            <ComboboxList>
-                                                {TRANSACTION_TYPE_OPTIONS.map((option) => (
-                                                    <ComboboxItem
-                                                        key={option.value}
-                                                        value={option}
-                                                    >
-                                                        {option.label}
-                                                    </ComboboxItem>
-                                                ))}
-                                                {TRANSACTION_TYPE_OPTIONS.length === 0 && (
-                                                    <ComboboxEmpty>Nenhum tipo encontrado</ComboboxEmpty>
-                                                )}
-                                            </ComboboxList>
-                                        </ComboboxContent>
-                                    </Combobox>
-                                )
-                            }}
-                        />
-                        <FieldDescription
-                            className={errors.transactionType ? "text-red-500" : ""}
-                        >
-                            {errors.transactionType ? errors.transactionType.message : ""}
-                        </FieldDescription>
-                    </Field>
-
-                    <Field className="md:col-span-2 lg:col-span-2">
-                        <FieldLabel htmlFor="date-range">Período</FieldLabel>
-                        <Controller
-                            name="fromDate"
-                            control={control}
-                            render={({ field: fromField }) => (
-                                <Controller
-                                    name="toDate"
-                                    control={control}
-                                    render={({ field: toField }) => (
-                                        <Popover>
-                                            <PopoverTrigger asChild>
-                                                <Button
-                                                    variant="outline"
-                                                    id="date-range"
-                                                    className="justify-start px-2.5 font-normal w-full bg-transparent hover:bg-(--green-300) "
-                                                >
-                                                    <CalendarIcon
-                                                        color="white"
-                                                     />
-                                                    {getDateRangeText()}
-                                                    {dateRange?.from && (
-                                                        <XIcon
-                                                            className="ml-auto size-4 opacity-50 hover:opacity-100"
-                                                            onClick={(e) => {
-                                                                e.stopPropagation()
-                                                                setDateRange(undefined)
-                                                                fromField.onChange(undefined)
-                                                                toField.onChange(undefined)
-                                                            }}
-                                                        />
-                                                    )}
-                                                </Button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="w-auto p-0" align="start">
-                                                <Calendar
-                                                    mode="range"
-                                                    defaultMonth={dateRange?.from}
-                                                    selected={dateRange}
-                                                    onSelect={(range) => {
-                                                        setDateRange(range)
-                                                        fromField.onChange(range?.from)
-                                                        toField.onChange(range?.to)
-                                                    }}
-                                                    numberOfMonths={2}
-                                                />
-                                            </PopoverContent>
-                                        </Popover>
-                                    )}
-                                />
-                            )}
-                        />
-                        <FieldDescription className={errors.fromDate ? "text-red-500" : ""}>
-                            {errors.fromDate ? errors.fromDate.message : ""}
-                        </FieldDescription>
-                    </Field>
+                <FieldGroup className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                     <FormField
+                         id="name"
+                         label="Nome"
+                         type="text"
+                         placeholder="Buscar por nome..."
+                         error={errors.name?.message}
+                         control={control}
+                         fieldName="name"
+                     />
+ 
+                     <ComboboxField
+                         id="transactionType"
+                         label="Tipo de Transação"
+                         fieldName="transactionType"
+                         control={control}
+                         options={TRANSACTION_TYPE_OPTIONS ?? []}
+                         error={errors.transactionType?.message}
+                     />
+ 
+                     <DateRangeField
+                         fromFieldName="fromDate"
+                         toFieldName="toDate"
+                         control={control}
+                         error={errors.fromDate?.message || errors.toDate?.message}
+                     />
                 </FieldGroup>
 
                 <div className="flex gap-2 justify-end">
