@@ -7,15 +7,15 @@ import type { ISelectBaseFromHooksProps } from "@/shared/types/selectBase.types"
 import type { TransactionTypeEnum } from "@/shared/enums/transactionTypeEnum";
 
 export function useTransactionSelectOptions(): ISelectBaseFromHooksProps<string, TransactionTypeEnum> {
-    const { data: categories, isLoading: categoriesLoading } = useGetAllCategories();
-    const { data: accounts, isLoading: accountsLoading } = useGetAllAccounts();
+  const { data: categories, isLoading: categoriesLoading } = useGetAllCategories();
+  const { data: accounts, isLoading: accountsLoading } = useGetAllAccounts();
 
-    return {
-        selectOptions: {
-            categoriesOptions: categories ? mapCategoriesToSelectOptions(categories) : [],
-            accountsOptions: accounts ? mapAccountsToSelectOptions(accounts) : [],
-            transactionTypeOptions: TRANSACTION_TYPE_OPTIONS,
-        },
-        isLoading: categoriesLoading || accountsLoading,
-    };
+  return {
+    selectOptions: {
+      categoriesOptions: categories ? mapCategoriesToSelectOptions(categories) : [],
+      accountsOptions: accounts ? mapAccountsToSelectOptions(accounts) : [],
+      transactionTypeOptions: TRANSACTION_TYPE_OPTIONS,
+    },
+    isLoading: categoriesLoading || accountsLoading,
+  };
 }

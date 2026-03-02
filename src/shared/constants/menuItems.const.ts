@@ -4,24 +4,24 @@ import { IoIosNotifications } from "react-icons/io";
 import type { IMenuOption } from "../types/menu.type";
 
 export const MENU_ITEMS: IMenuOption[] = [
-    {
-        id: "my_account",
-        label: "Minha Conta",
-        url: "/settings",
-        icon: IoSettingsOutline,
-        divider: true,
-    },
-    {
-        id: "notifications",
-        label: "Notificações",
-        url: "/notifications",
-        icon: IoIosNotifications,
-        divider: true,
-    },
-    {
-        id: "logout",
-        label: "Sair",
-        icon: RiLogoutCircleLine,
-        onClick: () => {}
-    }
+  {
+    id: "my_account",
+    label: "Minha Conta",
+    url: "/settings",
+    icon: IoSettingsOutline,
+    divider: true,
+  },
+  {
+    id: "notifications",
+    label: "Notificações",
+    url: "/notifications",
+    icon: IoIosNotifications,
+    divider: true,
+  },
+  {
+    id: "logout",
+    label: "Sair",
+    icon: RiLogoutCircleLine,
+    onClick: () => {}
+  }
 ]

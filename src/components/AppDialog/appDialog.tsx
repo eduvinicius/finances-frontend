@@ -5,7 +5,7 @@ import type { IAppDialogProps } from "@/shared/types/dialog.types";
 import { UiElementEnum } from "@/shared/enums/uiElementEnum";
 
 export function AppDialog(props: Readonly<IAppDialogProps>) {
-    return (
+  return (
         <Dialog 
             open={props.isDialogOpen} 
             onOpenChange={props.setIsDialogOpen}>
@@ -26,5 +26,5 @@ export function AppDialog(props: Readonly<IAppDialogProps>) {
                 {props.component}
             </DialogContent>
         </Dialog>
-    );
+  );
 }

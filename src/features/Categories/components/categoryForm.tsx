@@ -10,23 +10,23 @@ import { FormField, TextAreaFormField } from "@/components/FieldForms";
 import { SelectFormField } from "@/components/FieldForms/selectFormField";
 
 export function CategoryForm({ 
-    onSubmit, 
-    loading 
+  onSubmit, 
+  loading 
 }: Readonly<IFormBaseProps<CategoryFormValues>>) {
-    const {
-        handleSubmit,
-        control,
-        formState: { errors },
-    } = useForm<CategoryFormValues>({
-        resolver: zodResolver(categorySchema),
-        mode: "onTouched",
-        defaultValues: {
-            name: "",
-            description: "",
-        },
-    });
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<CategoryFormValues>({
+    resolver: zodResolver(categorySchema),
+    mode: "onTouched",
+    defaultValues: {
+      name: "",
+      description: "",
+    },
+  });
 
-    return (
+  return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <FieldSet className="space-y-4">
                 <FieldGroup>
@@ -68,5 +68,5 @@ export function CategoryForm({
                 </Button>
             </FieldSet>
         </form>
-    );
+  );
 }

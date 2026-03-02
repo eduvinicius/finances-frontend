@@ -9,23 +9,23 @@ import { FormField } from "@/components/FieldForms/formField";
 import { SelectFormField } from "@/components/FieldForms/selectFormField";
 
 export function AccountForm({ 
-    onSubmit, 
-    loading 
+  onSubmit, 
+  loading 
 }: Readonly<IAccountFormProps>) {
-    const {
-        handleSubmit,
-        control,
-        formState: { errors },
-    } = useForm<AccountFormValues>({
-        resolver: zodResolver(accountSchema),
-        mode: "onTouched",
-        defaultValues: {
-            name: "",
-            balance: 0,
-        },
-    });
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<AccountFormValues>({
+    resolver: zodResolver(accountSchema),
+    mode: "onTouched",
+    defaultValues: {
+      name: "",
+      balance: 0,
+    },
+  });
 
-    return (
+  return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <FieldSet className="space-y-4">
                 <FieldGroup>
@@ -68,5 +68,5 @@ export function AccountForm({
                 </Button>
             </FieldSet>
         </form>
-    );
+  );
 }

@@ -4,9 +4,9 @@ import { CardHeader } from "@/components/ui/Card/cardHeader";
 import { Skeleton } from "@/components/ui/Skeleton/skeleton";
 
 export function CategoriesListSkeleton () {
-    const skeletonCardIds = ['skeleton-1', 'skeleton-2', 'skeleton-3', 'skeleton-4', 'skeleton-5'];
+  const skeletonCardIds = ['skeleton-1', 'skeleton-2', 'skeleton-3', 'skeleton-4', 'skeleton-5'];
     
-    return (
+  return (
         <div className="grid grid-cols-5 gap-6 m-5">
             {skeletonCardIds.map((id) => (
                 <Card key={id} className="overflow-hidden">
@@ -25,5 +25,5 @@ export function CategoriesListSkeleton () {
                 </Card>
             ))}
         </div>
-    );
+  );
 }

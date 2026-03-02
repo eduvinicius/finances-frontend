@@ -41,7 +41,7 @@ export function NavUser({
   const { logout } = useAuth();
 
   const handleLogout = () => {
-      logout();
+    logout();
   };
 
   return (

@@ -5,10 +5,10 @@ import { Upload, X, ImageIcon } from "lucide-react";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/Field";
 import { Button } from "@/components/ui/Button/button";
 import { 
-    validateImageFile, 
-    createImagePreviewUrl, 
-    getAcceptedImageTypes,
-    formatFileSize 
+  validateImageFile, 
+  createImagePreviewUrl, 
+  getAcceptedImageTypes,
+  formatFileSize 
 } from "@/shared/utils/fileValidation";
 
 export interface FileUploadProps {
@@ -22,60 +22,60 @@ export interface FileUploadProps {
 }
 
 export function FileUpload({ 
-    id, 
-    label, 
-    value, 
-    onChange, 
-    error, 
-    helperText,
-    disabled = false 
+  id, 
+  label, 
+  value, 
+  onChange, 
+  error, 
+  helperText,
+  disabled = false 
 }: Readonly<FileUploadProps>) {
-    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-    const [validationError, setValidationError] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [validationError, setValidationError] = useState<string | null>(null);
 
-    const handleFileChange = useCallback(async (event: ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0] || null;
+  const handleFileChange = useCallback(async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] || null;
         
-        if (!file) {
-            setPreviewUrl(null);
-            setValidationError(null);
-            onChange(null);
-            return;
-        }
+    if (!file) {
+      setPreviewUrl(null);
+      setValidationError(null);
+      onChange(null);
+      return;
+    }
 
-        const validation = validateImageFile(file);
+    const validation = validateImageFile(file);
         
-        if (!validation.isValid) {
-            setValidationError(validation.error);
-            setPreviewUrl(null);
-            onChange(null);
-            // Reset the input
-            event.target.value = "";
-            return;
-        }
+    if (!validation.isValid) {
+      setValidationError(validation.error);
+      setPreviewUrl(null);
+      onChange(null);
+      // Reset the input
+      event.target.value = "";
+      return;
+    }
 
-        setValidationError(null);
+    setValidationError(null);
         
-        try {
-            const url = await createImagePreviewUrl(file);
-            setPreviewUrl(url);
-            onChange(file);
-        } catch {
-            setValidationError("Erro ao carregar preview da imagem");
-            setPreviewUrl(null);
-            onChange(null);
-        }
-    }, [onChange]);
+    try {
+      const url = await createImagePreviewUrl(file);
+      setPreviewUrl(url);
+      onChange(file);
+    } catch {
+      setValidationError("Erro ao carregar preview da imagem");
+      setPreviewUrl(null);
+      onChange(null);
+    }
+  }, [onChange]);
 
-    const handleRemoveFile = useCallback(() => {
-        setPreviewUrl(null);
-        setValidationError(null);
-        onChange(null);
-    }, [onChange]);
+  const handleRemoveFile = useCallback(() => {
+    setPreviewUrl(null);
+    setValidationError(null);
+    onChange(null);
+  }, [onChange]);
 
-    const displayError = error || validationError;
+  const displayError = error || validationError;
 
-    return (
+  return (
         <Field>
             <FieldLabel htmlFor={id}>{label}</FieldLabel>
             
@@ -147,5 +147,5 @@ export function FileUpload({
                 </FieldDescription>
             </div>
         </Field>
-    );
+  );
 }

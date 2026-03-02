@@ -2,9 +2,9 @@ import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Skeleton } from "@/components/ui/Skeleton/skeleton";
 
 export function AccountsListSkeleton () {
-    const skeletonCardIds = ['skeleton-1', 'skeleton-2', 'skeleton-3', 'skeleton-4', 'skeleton-5'];
+  const skeletonCardIds = ['skeleton-1', 'skeleton-2', 'skeleton-3', 'skeleton-4', 'skeleton-5'];
     
-    return (
+  return (
         <div className="grid grid-cols-5 gap-6 m-5">
             {skeletonCardIds.map((id) => (
                 <Card key={id} className="overflow-hidden">
@@ -23,5 +23,5 @@ export function AccountsListSkeleton () {
                 </Card>
             ))}
         </div>
-    );
+  );
 }

@@ -5,13 +5,13 @@ import type { ITransaction, TransactionFiltersValues } from "@/shared/types/tran
 import { QUERY_KEYS } from "@/shared/constants/queryKeys";
 
 export function useGetAllTransactions(
-    pagination: IPaginatedRequest,
-    filters: TransactionFiltersValues
+  pagination: IPaginatedRequest,
+  filters: TransactionFiltersValues
 ): UseQueryResult<IPaginatedBaseResponse<ITransaction[]>, Error> {
 
-    return useQuery({
-        queryKey: QUERY_KEYS.transactions.filteredList(pagination, filters),
-        queryFn: () => transactionService.getTransactions(pagination, filters),
-    });
+  return useQuery({
+    queryKey: QUERY_KEYS.transactions.filteredList(pagination, filters),
+    queryFn: () => transactionService.getTransactions(pagination, filters),
+  });
 
 }

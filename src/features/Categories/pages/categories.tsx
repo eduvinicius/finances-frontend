@@ -10,34 +10,34 @@ import { AppDialog } from "@/components/AppDialog/appDialog";
 
 export function Categories() {
 
-    const pageSize = 10;
-    const [currentPage, setCurrentPage] = useState(1);
-    const [filters, setFilters] = useState<CategoriesFiltersValues | undefined>(undefined);
-    const { data, isLoading, error } = useCategories({ page: currentPage, pageSize }, filters);
-    const { mutate, isPending } = useCreateCategory();
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const pageSize = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [filters, setFilters] = useState<CategoriesFiltersValues | undefined>(undefined);
+  const { data, isLoading, error } = useCategories({ page: currentPage, pageSize }, filters);
+  const { mutate, isPending } = useCreateCategory();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    const totalPages = Math.ceil((data?.totalCount ?? 0) / pageSize);
+  const totalPages = Math.ceil((data?.totalCount ?? 0) / pageSize);
     
-    const handleFormSubmit = (formData: CategoryFormValues) => {
-        mutate(formData, {
-            onSuccess: () => {
-                setIsDialogOpen(false);
-            },
-        });
-    };
+  const handleFormSubmit = (formData: CategoryFormValues) => {
+    mutate(formData, {
+      onSuccess: () => {
+        setIsDialogOpen(false);
+      },
+    });
+  };
 
-    const filterCategories = (filters: CategoriesFiltersValues) => {
-        setFilters(filters);
-        setCurrentPage(1);
-    }
+  const filterCategories = (filters: CategoriesFiltersValues) => {
+    setFilters(filters);
+    setCurrentPage(1);
+  }
 
-    const handleClearFilters = () => {
-        setFilters(undefined);
-        setCurrentPage(1);
-    }
+  const handleClearFilters = () => {
+    setFilters(undefined);
+    setCurrentPage(1);
+  }
 
-    return (
+  return (
         <>
             <header className="flex justify-between items-center">
                 <h1 className="text-3xl font-bold text-center">Categorias</h1>
@@ -72,5 +72,5 @@ export function Categories() {
                 />
             )}
         </>
-    );
+  );
 }

@@ -5,8 +5,8 @@ import type { AccountFiltersValues, IAccount } from "@/shared/types/account.type
 import type { IPaginatedBaseResponse, IPaginatedRequest } from "@/shared/types/pagination.types";
 
 export function useGetAccounts(
-    pagination: IPaginatedRequest,
-    filters?: AccountFiltersValues
+  pagination: IPaginatedRequest,
+  filters?: AccountFiltersValues
 ): UseQueryResult<IPaginatedBaseResponse<IAccount[]>, Error> {
   return useQuery({
     queryKey: QUERY_KEYS.accounts.paginatedList(pagination, filters),

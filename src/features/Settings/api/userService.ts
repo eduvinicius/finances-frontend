@@ -8,43 +8,43 @@ const uploadProfileImageEndpoint = getApiEndpoint(QUERY_KEYS.auth.updateProfileI
 
 export const userService: IUserService = {
 
-    async getCurrentUser(): Promise<IUserApiResponse> {
-        const response = await httpClient.get<IUserApiResponse>(`/${getCurrentUserEndpoint}`);
-        const data = response.data;
+  async getCurrentUser(): Promise<IUserApiResponse> {
+    const response = await httpClient.get<IUserApiResponse>(`/${getCurrentUserEndpoint}`);
+    const data = response.data;
         
-        if (data.birthDate && typeof data.birthDate === 'string') {
-            data.birthDate = new Date(data.birthDate);
-        }
-        
-        return data;
-    },
-
-    async updateUser(userData: UserFormValues): Promise<UserFormValues> {
-
-        const payload = {
-            ...userData,
-            birthDate: userData.birthDate ? new Date(userData.birthDate).toISOString() : null,
-        };
-
-        const response = await httpClient.put<IUserApiResponse>(`/${updateUserEndpoint}`, payload);
-        const data = response.data;
-        if (data.birthDate && typeof data.birthDate === 'string') {
-            data.birthDate = new Date(data.birthDate);
-        }
-
-        return data as UserFormValues;
-    },
-
-    async uploadProfileImage(file: File): Promise<string> {
-        const formData = new FormData();
-        formData.append('file', file);
-
-        const response = await httpClient.post<{ imageUrl: string }>(`/${uploadProfileImageEndpoint}`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-
-        return response.data.imageUrl;
+    if (data.birthDate && typeof data.birthDate === 'string') {
+      data.birthDate = new Date(data.birthDate);
     }
+        
+    return data;
+  },
+
+  async updateUser(userData: UserFormValues): Promise<UserFormValues> {
+
+    const payload = {
+      ...userData,
+      birthDate: userData.birthDate ? new Date(userData.birthDate).toISOString() : null,
+    };
+
+    const response = await httpClient.put<IUserApiResponse>(`/${updateUserEndpoint}`, payload);
+    const data = response.data;
+    if (data.birthDate && typeof data.birthDate === 'string') {
+      data.birthDate = new Date(data.birthDate);
+    }
+
+    return data as UserFormValues;
+  },
+
+  async uploadProfileImage(file: File): Promise<string> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await httpClient.post<{ imageUrl: string }>(`/${uploadProfileImageEndpoint}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return response.data.imageUrl;
+  }
 }

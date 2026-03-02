@@ -9,22 +9,22 @@ import { Separator } from "@/components/ui/Separator";
 
 export function Settings() {
 
-    const { data: user, isLoading, error } = useUser();
-    const { mutate, isPending } = useEditUser();
+  const { data: user, isLoading, error } = useUser();
+  const { mutate, isPending } = useEditUser();
 
-    const handleSubmit = (formData: UserFormValues) => {
-        mutate(formData);
-    }
+  const handleSubmit = (formData: UserFormValues) => {
+    mutate(formData);
+  }
 
-    if (isLoading || isPending) {
-        return <Spinner className="size-12 mx-auto" />;
-    }
+  if (isLoading || isPending) {
+    return <Spinner className="size-12 mx-auto" />;
+  }
 
-    if (error) {
-        toast.error(`Erro ao carregar dados do usuário: ${error.message}`);
-    }
+  if (error) {
+    toast.error(`Erro ao carregar dados do usuário: ${error.message}`);
+  }
 
-    return (
+  return (
         <div className="space-y-6 p-6">
             <Card className="max-w-[30%]">
                 <CardContent>
@@ -46,5 +46,5 @@ export function Settings() {
                 </CardContent>
             </Card>
         </div>
-    );
+  );
 }

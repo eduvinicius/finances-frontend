@@ -10,34 +10,34 @@ import { AppDialog } from "@/components/AppDialog/appDialog";
 
 export function Account() {
 
-    const pageSize = 10;
-    const [currentPage, setCurrentPage] = useState(1);
-    const [filters, setFilters] = useState<AccountFiltersValues | undefined>(undefined);
-    const { data, isLoading, error } = useGetAccounts({ page: currentPage, pageSize }, filters);
-    const { mutate, isPending } = useCreateAccount();
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const pageSize = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [filters, setFilters] = useState<AccountFiltersValues | undefined>(undefined);
+  const { data, isLoading, error } = useGetAccounts({ page: currentPage, pageSize }, filters);
+  const { mutate, isPending } = useCreateAccount();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    const totalPages = Math.ceil((data?.totalCount ?? 0) / pageSize);
+  const totalPages = Math.ceil((data?.totalCount ?? 0) / pageSize);
     
-    const handleFormSubmit = (formData: AccountFormValues) => {
-      mutate(formData, {
-        onSuccess: () => {
-          setIsDialogOpen(false);
-        },
-      });
-    };
+  const handleFormSubmit = (formData: AccountFormValues) => {
+    mutate(formData, {
+      onSuccess: () => {
+        setIsDialogOpen(false);
+      },
+    });
+  };
     
-    const filterAccounts = (filters: AccountFiltersValues) => {
-        setFilters(filters);
-        setCurrentPage(1);
-    }
+  const filterAccounts = (filters: AccountFiltersValues) => {
+    setFilters(filters);
+    setCurrentPage(1);
+  }
 
-    const handleClearFilters = () => {
-        setFilters(undefined);
-        setCurrentPage(1);
-    }
+  const handleClearFilters = () => {
+    setFilters(undefined);
+    setCurrentPage(1);
+  }
 
-    return (
+  return (
       <>
         <header className="flex justify-between items-center">
           <h1 className="text-3xl font-bold text-center">Contas</h1>
@@ -77,5 +77,5 @@ export function Account() {
           />
         )}
       </>
-    );
+  );
 }

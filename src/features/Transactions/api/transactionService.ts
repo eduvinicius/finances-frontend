@@ -9,45 +9,45 @@ const filteredEndpoint = getApiEndpoint(QUERY_KEYS.transactions.filtered());
 
 export const transactionService: ITransactionService = {
 
-    async getTransactions(
-        pagination: IPaginatedRequest,
-        filters?: TransactionFiltersValues
-    ): Promise<IPaginatedBaseResponse<ITransaction[]>> {
+  async getTransactions(
+    pagination: IPaginatedRequest,
+    filters?: TransactionFiltersValues
+  ): Promise<IPaginatedBaseResponse<ITransaction[]>> {
 
-        const payload: ITransactionFilterDto = buildTransactionFilters(pagination, filters);
+    const payload: ITransactionFilterDto = buildTransactionFilters(pagination, filters);
 
-        const response: AxiosResponse<IPaginatedBaseResponse<ITransaction[]>> = await httpClient.post(`/${filteredEndpoint}`, payload);
+    const response: AxiosResponse<IPaginatedBaseResponse<ITransaction[]>> = await httpClient.post(`/${filteredEndpoint}`, payload);
 
-        return response.data;
-    },
+    return response.data;
+  },
 
-    async getTransactionById(id: string): Promise<ITransaction> {
-        const response: AxiosResponse<ITransaction> = await httpClient.get(`/${baseEndpoint}/${id}`);
-        return response.data;
-    },
+  async getTransactionById(id: string): Promise<ITransaction> {
+    const response: AxiosResponse<ITransaction> = await httpClient.get(`/${baseEndpoint}/${id}`);
+    return response.data;
+  },
 
-    async createTransaction(data: TransactionFormValues): Promise<ITransaction> {
-        const response: AxiosResponse<ITransaction> = await httpClient.post(`/${baseEndpoint}`, data);
-        return response.data;
-    }
+  async createTransaction(data: TransactionFormValues): Promise<ITransaction> {
+    const response: AxiosResponse<ITransaction> = await httpClient.post(`/${baseEndpoint}`, data);
+    return response.data;
+  }
 };
 
 const buildTransactionFilters = (pagination: IPaginatedRequest, filters?: TransactionFiltersValues): ITransactionFilterDto => {
 
-    const payload: ITransactionFilterDto = {
-        ...filters,
-        ...pagination
-    };
+  const payload: ITransactionFilterDto = {
+    ...filters,
+    ...pagination
+  };
 
-    if (filters?.accountIds?.length) payload.accountIds = filters.accountIds;
+  if (filters?.accountIds?.length) payload.accountIds = filters.accountIds;
 
-    if (filters?.categoryIds?.length) payload.categoryIds = filters.categoryIds;
+  if (filters?.categoryIds?.length) payload.categoryIds = filters.categoryIds;
 
-    if (filters?.type?.length) payload.type = filters.type;
+  if (filters?.type?.length) payload.type = filters.type;
 
-    if (filters?.fromDate) payload.fromDate = filters.fromDate;
+  if (filters?.fromDate) payload.fromDate = filters.fromDate;
     
-    if (filters?.toDate) payload.toDate = filters.toDate;
+  if (filters?.toDate) payload.toDate = filters.toDate;
 
-    return payload;
+  return payload;
 };

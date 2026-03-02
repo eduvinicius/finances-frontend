@@ -6,7 +6,7 @@ import type { IReactNode } from "@/shared/types/reactTypes";
 
 export function AuthProvider({ children }: Readonly<IReactNode>) {
 
- const [isAuthenticated, setIsAuthenticated] = useState(() => {
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return storage.has(STORAGE_KEYS.TOKEN);
   });
 

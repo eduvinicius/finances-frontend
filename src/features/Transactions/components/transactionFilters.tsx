@@ -7,40 +7,40 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 export function TransactionFilters({
-    onFilter,
-    onClear,
-    loading = false,
-    selectOptions
+  onFilter,
+  onClear,
+  loading = false,
+  selectOptions
 }: Readonly<IFiltersBaseProps<TransactionFiltersValues, ITransactionComboboxProps> >) {
 
-    const {
-        handleSubmit,
-        control,
-        reset,
-        formState: { errors },
-    } = useForm<TransactionFiltersValues>({
-        resolver: zodResolver(transactionsFiltersSchema),
-        mode: "onTouched",
-        defaultValues: {
-            accountIds: [],
-            categoryIds: [],
-            type: [],
-        },
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<TransactionFiltersValues>({
+    resolver: zodResolver(transactionsFiltersSchema),
+    mode: "onTouched",
+    defaultValues: {
+      accountIds: [],
+      categoryIds: [],
+      type: [],
+    },
+  })
+
+  const handleClearFilters = () => {
+    reset({
+      accountIds: [],
+      categoryIds: [],
+      type: [],
     })
-
-    const handleClearFilters = () => {
-        reset({
-            accountIds: [],
-            categoryIds: [],
-            type: [],
-        })
         
-        if (onClear) {
-            onClear()
-        }
+    if (onClear) {
+      onClear()
     }
+  }
 
-    return (
+  return (
         <form onSubmit={handleSubmit(onFilter)} className="grid grid-cols-4 gap-4 w-full p-4 mt-4 bg-(--green-200) rounded-md shadow-sm border my-6">
             <ComboboxField
                 id="accountId"
@@ -90,5 +90,5 @@ export function TransactionFilters({
                 </Button>
             </div>
         </form>
-    )
+  )
 }

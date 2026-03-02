@@ -1,9 +1,9 @@
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/Card";
 import { TRANSACTION_TYPE_STRINGS } from "@/shared/constants/transactionTypeOptions.const";
 import { TransactionTypeEnum } from "@/shared/enums/transactionTypeEnum";
@@ -13,13 +13,13 @@ import { TbPigMoney } from "react-icons/tb";
 import { GiExpense } from "react-icons/gi";
 
 const ICON_BY_TYPE: Record<TransactionTypeEnum, React.ReactNode> = {
-    [TransactionTypeEnum.INCOME]: <FcMoneyTransfer size={48} />,
-    [TransactionTypeEnum.EXPENSE]: <GiExpense color="red" size={48} />,
-    [TransactionTypeEnum.INVESTMENT]: <TbPigMoney color="green" size={48} />,
+  [TransactionTypeEnum.INCOME]: <FcMoneyTransfer size={48} />,
+  [TransactionTypeEnum.EXPENSE]: <GiExpense color="red" size={48} />,
+  [TransactionTypeEnum.INVESTMENT]: <TbPigMoney color="green" size={48} />,
 };
 
 export function CategoriesList({ data }: Readonly<CategoriesListProps>) {
-    return (
+  return (
         <div className="grid grid-cols-4 gap-6 m-5">
             {data.map((category) => (
                 <Card key={category.id} className="overflow-hidden">
@@ -39,5 +39,5 @@ export function CategoriesList({ data }: Readonly<CategoriesListProps>) {
                 </Card>
             ))}
         </div>
-    );
+  );
 }

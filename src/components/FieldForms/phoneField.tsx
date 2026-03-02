@@ -5,13 +5,13 @@ import { Field, FieldDescription, FieldLabel } from "../ui/Field";
 import { Input } from "../ui/Input";
 
 export function PhoneField({ 
-    control, 
-    error 
+  control, 
+  error 
 }: Readonly<{ 
     control: Control<UserFormValues>; 
     error?: string;
 }>) {
-    return (
+  return (
         <Field>
             <FieldLabel htmlFor="phoneNumber">Telefone (Opcional)</FieldLabel>
             <Controller
@@ -25,8 +25,8 @@ export function PhoneField({
                         aria-invalid={!!error}
                         value={field.value || ""}
                         onChange={(e) => {
-                            const formatted = formatPhoneNumber(e.target.value);
-                            field.onChange(formatted);
+                          const formatted = formatPhoneNumber(e.target.value);
+                          field.onChange(formatted);
                         }}
                         onBlur={field.onBlur}
                         maxLength={15}
@@ -37,5 +37,5 @@ export function PhoneField({
                 {error || ""}
             </FieldDescription>
         </Field>
-    );
+  );
 }

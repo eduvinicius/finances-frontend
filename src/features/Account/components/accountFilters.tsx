@@ -10,37 +10,37 @@ import { FormField } from "@/components/FieldForms/formField"
 import { ComboboxField, DateRangeField } from "@/components/FieldForms"
 
 export function AccountFilters({
-    onFilter,
-    onClear,
-    loading = false,
+  onFilter,
+  onClear,
+  loading = false,
 }: Readonly<IFiltersBaseProps<AccountFiltersValues>>) {
 
-    const {
-        handleSubmit,
-        control,
-        reset,
-        formState: { errors },
-    } = useForm<AccountFiltersValues>({
-        resolver: zodResolver(accountFiltersSchema),
-        mode: "onTouched",
-        defaultValues: {
-            name: "",
-            accountType: [],
-        },
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<AccountFiltersValues>({
+    resolver: zodResolver(accountFiltersSchema),
+    mode: "onTouched",
+    defaultValues: {
+      name: "",
+      accountType: [],
+    },
+  })
+
+  const handleClearFilters = () => {
+    reset({
+      name: "",
+      accountType: [],
     })
-
-    const handleClearFilters = () => {
-        reset({
-            name: "",
-            accountType: [],
-        })
         
-        if (onClear) {
-            onClear()
-        }
+    if (onClear) {
+      onClear()
     }
+  }
 
-    return (
+  return (
         <form onSubmit={handleSubmit(onFilter)} className="w-full p-4 mt-4 bg-(--green-200) rounded-md shadow-sm border">
             <FieldSet className="space-y-4">
                 <FieldGroup className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -86,5 +86,5 @@ export function AccountFilters({
                 </div>
             </FieldSet>
         </form>
-    )
+  )
 }

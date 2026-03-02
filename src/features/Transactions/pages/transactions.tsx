@@ -24,21 +24,21 @@ export function Transactions() {
   const totalPages = Math.ceil((data?.totalCount ?? 0) / pageSize);
 
   const handleFormSubmit = (formData: TransactionFormValues) => {
-      mutate(formData, {
-          onSuccess: () => {
-              setIsCreateDialogOpen(false);
-          },
-      });
+    mutate(formData, {
+      onSuccess: () => {
+        setIsCreateDialogOpen(false);
+      },
+    });
   };
 
   const filterTransactions = (filters: TransactionFiltersValues) => {
-      setFilters(filters);
-      setCurrentPage(1);
+    setFilters(filters);
+    setCurrentPage(1);
   };
 
   const handleClearFilters = () => {
-      setFilters(undefined);
-      setCurrentPage(1);
+    setFilters(undefined);
+    setCurrentPage(1);
   };
 
   return (
@@ -65,7 +65,7 @@ export function Transactions() {
           onClear={handleClearFilters}
           loading={isLoading}
           selectOptions={selectOptions} />
-      )}
+        )}
         {isLoading ? (
           <TransactionTableSkeleton />
         ) : (

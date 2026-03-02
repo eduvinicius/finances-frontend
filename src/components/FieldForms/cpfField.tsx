@@ -5,13 +5,13 @@ import { Field, FieldDescription, FieldLabel } from "../ui/Field";
 import { Input } from "../ui/Input";
 
 export function CPFField({ 
-    control, 
-    error
+  control, 
+  error
 }: Readonly<{ 
     control: Control<UserFormValues>; 
     error?: string;
 }>) {
-    return (
+  return (
         <Field>
             <FieldLabel htmlFor="documentNumber">CPF</FieldLabel>
             <Controller
@@ -25,8 +25,8 @@ export function CPFField({
                         aria-invalid={!!error}
                         value={field.value || ""}
                         onChange={(e) => {
-                            const unformatted = unformatCPF(e.target.value);
-                            field.onChange(unformatted);
+                          const unformatted = unformatCPF(e.target.value);
+                          field.onChange(unformatted);
                         }}
                         onBlur={field.onBlur}
                         maxLength={14}
@@ -37,5 +37,5 @@ export function CPFField({
                 {error || ""}
             </FieldDescription>
         </Field>
-    );
+  );
 }

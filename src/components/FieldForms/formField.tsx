@@ -4,16 +4,16 @@ import { Field, FieldDescription, FieldLabel } from "../ui/Field";
 import { Input } from "../ui/Input";
 
 export function FormField <T extends FieldValues>({ 
-    id, 
-    label, 
-    type, 
-    placeholder, 
-    error, 
-    helperText, 
-    control,
-    fieldName 
+  id, 
+  label, 
+  type, 
+  placeholder, 
+  error, 
+  helperText, 
+  control,
+  fieldName 
 }: Readonly<FormFieldProps<T>>) {
-    return (
+  return (
         <Field>
             <FieldLabel htmlFor={id}>{label}</FieldLabel>
             <Controller 
@@ -27,12 +27,12 @@ export function FormField <T extends FieldValues>({
                         aria-invalid={!!error}
                         value={field.value ?? ""}
                         onChange={(e) => {
-                            const value = e.target.value;
-                            if (type === "number") {
-                                field.onChange(value === "" ? "" : Number(value));
-                                return
-                            } 
-                            field.onChange(value);
+                          const value = e.target.value;
+                          if (type === "number") {
+                            field.onChange(value === "" ? "" : Number(value));
+                            return
+                          } 
+                          field.onChange(value);
                         }}
                     />
                 )}
@@ -41,5 +41,5 @@ export function FormField <T extends FieldValues>({
                 {error || helperText || ""}
             </FieldDescription>
         </Field>
-    );
+  );
 }

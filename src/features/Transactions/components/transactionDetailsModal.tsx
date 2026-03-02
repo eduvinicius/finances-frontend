@@ -7,9 +7,9 @@ interface TransactionDetailsModalProps {
 }
 
 export function TransactionDetailsModal({ transaction }: Readonly<TransactionDetailsModalProps>) {
-    if (!transaction) return null;
+  if (!transaction) return null;
 
-    return (
+  return (
         <div className="flex flex-col gap-3 text-sm">
             <DetailRow label="Conta" value={transaction.account?.name ?? "Sem conta"} />
             <DetailRow label="Saldo da conta" value={`R$ ${transaction.account?.balance.toFixed(2) ?? "0.00"}`} />
@@ -21,7 +21,7 @@ export function TransactionDetailsModal({ transaction }: Readonly<TransactionDet
             <DetailRow label="Categoria" value={transaction.category?.name ?? "Sem categoria"} />
             <DetailRow label="Desc. da Categoria" value={transaction.category?.description ?? "Sem descrição"} />
         </div>
-    );
+  );
 }
 
 interface DetailRowProps {
@@ -30,10 +30,10 @@ interface DetailRowProps {
 }
 
 function DetailRow({ label, value }: Readonly<DetailRowProps>) {
-    return (
+  return (
         <div className="flex justify-between gap-4">
             <span className="text-muted-foreground font-medium">{label}</span>
             <span>{value}</span>
         </div>
-    );
+  );
 }

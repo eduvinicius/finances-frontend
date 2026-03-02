@@ -16,19 +16,19 @@ export function TransactionsForm({
 }: Readonly<IFormBaseProps<TransactionFormValues, ITransactionComboboxProps>>) {
 
   const {
-      handleSubmit,
-      control,
-      formState: { errors },
+    handleSubmit,
+    control,
+    formState: { errors },
   } = useForm<TransactionFormValues>({
-      resolver: zodResolver(transactionFormSchema),
-      mode: "onTouched",
-      defaultValues: {
-        accountId: "",
-        categoryId: "",
-        amount: 0,
-        type: 0,
-        description: "",
-      },
+    resolver: zodResolver(transactionFormSchema),
+    mode: "onTouched",
+    defaultValues: {
+      accountId: "",
+      categoryId: "",
+      amount: 0,
+      type: 0,
+      description: "",
+    },
   });
   
   return (

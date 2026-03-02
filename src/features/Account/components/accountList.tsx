@@ -4,7 +4,7 @@ import type { IAccountsListProps } from "@/shared/types/account.types";
 
 export function AccountsList({ data }: Readonly<IAccountsListProps>) {
 
-    return (
+  return (
         <div className="grid grid-cols-5 gap-6 m-5">
             {data.map((account) => (
                 <Card key={account.id} className="overflow-hidden">
@@ -26,5 +26,5 @@ export function AccountsList({ data }: Readonly<IAccountsListProps>) {
                 </Card>
             ))}
         </div>
-    );
+  );
 }

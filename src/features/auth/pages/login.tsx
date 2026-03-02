@@ -9,22 +9,22 @@ import { Navigate } from "react-router-dom";
 
 export function Login() {
 
-    const { mutate, isPending, error } = useLogin();
-    const { isAuthenticated } = useAuth();
+  const { mutate, isPending, error } = useLogin();
+  const { isAuthenticated } = useAuth();
       
-    const handleLoginSubmit = (data: LoginFormValues) => {
-        mutate(data);
-    };
+  const handleLoginSubmit = (data: LoginFormValues) => {
+    mutate(data);
+  };
 
-    useEffect(() => {
-        if (error) toast.error(getErrorMessage(error));
-    }, [error]);
+  useEffect(() => {
+    if (error) toast.error(getErrorMessage(error));
+  }, [error]);
 
-    if (isAuthenticated) {
-        return <Navigate to="/" replace />;
-    }
+  if (isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
 
-    return (
+  return (
         <div
             className="flex flex-col-reverse md:grid md:grid-cols-3 h-screen items-center justify-items-center px-4 md:px-0 gap-6 md:gap-0"
         >
@@ -40,5 +40,5 @@ export function Login() {
                 alt="Imagem login"
             />
         </div>
-    );
+  );
 }

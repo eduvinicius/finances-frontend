@@ -4,15 +4,15 @@ import { Field, FieldDescription, FieldLabel } from "../ui/Field";
 import { Textarea } from "../ui/InputGroup/textarea";
 
 export function TextAreaFormField<T extends FieldValues>({
-    id,
-    label,
-    placeholder,
-    error,
-    helperText,
-    control,
-    fieldName
+  id,
+  label,
+  placeholder,
+  error,
+  helperText,
+  control,
+  fieldName
 }: Readonly<FormFieldProps<T>>) {
-    return (
+  return (
         <Field>
             <FieldLabel htmlFor={id}>{label}</FieldLabel>
             <Controller
@@ -32,5 +32,5 @@ export function TextAreaFormField<T extends FieldValues>({
                 {error || helperText || ""}
             </FieldDescription>
         </Field>
-    )
+  )
 }

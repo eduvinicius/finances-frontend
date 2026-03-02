@@ -10,39 +10,39 @@ import { CPFField, FormField, PhoneField } from "@/components/FieldForms";
 import { BirthDateField } from "@/components/FieldForms/birthDateField";
 
 export function UserForm({ 
-    onSubmit, 
-    loading = false,
-    initialValues
+  onSubmit, 
+  loading = false,
+  initialValues
 }: Readonly<IFormBaseProps<UserFormValues>>) {
-    const {
-        handleSubmit,
-        control,
-        reset,
-        formState: { errors },
-    } = useForm<UserFormValues>({
-        resolver: zodResolver(userSchema),
-        mode: "onTouched",
-        defaultValues: initialValues || {
-            fullName: "",
-            nickname: "",
-            email: "",
-            documentNumber: "",
-            phoneNumber: "",
-            address: "",
-            city: "",
-            state: "",
-            postalCode: "",
-            country: "",
-        },
-    });
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<UserFormValues>({
+    resolver: zodResolver(userSchema),
+    mode: "onTouched",
+    defaultValues: initialValues || {
+      fullName: "",
+      nickname: "",
+      email: "",
+      documentNumber: "",
+      phoneNumber: "",
+      address: "",
+      city: "",
+      state: "",
+      postalCode: "",
+      country: "",
+    },
+  });
 
-    useEffect(() => {
-        if (initialValues) {
-            reset(initialValues);
-        }
-    }, [initialValues, reset]);
+  useEffect(() => {
+    if (initialValues) {
+      reset(initialValues);
+    }
+  }, [initialValues, reset]);
 
-    return (
+  return (
         <form 
             className="p-5"
             onSubmit={handleSubmit(onSubmit)}>
@@ -145,5 +145,5 @@ export function UserForm({
                 </Button>
             </div>
         </form>
-    );
+  );
 }

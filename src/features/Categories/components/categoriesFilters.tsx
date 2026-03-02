@@ -9,37 +9,37 @@ import type { CategoriesFiltersValues } from "@/shared/types/category.type"
 import { ComboboxField, DateRangeField, FormField } from "@/components/FieldForms"
 
 export function CategoriesFilters({
-    onFilter,
-    onClear,
-    loading = false,
+  onFilter,
+  onClear,
+  loading = false,
 }: Readonly<IFiltersBaseProps<CategoriesFiltersValues>>) {
 
-    const {
-        handleSubmit,
-        control,
-        reset,
-        formState: { errors },
-    } = useForm<CategoriesFiltersValues>({
-        resolver: zodResolver(categoriesFiltersSchema),
-        mode: "onTouched",
-        defaultValues: {
-            name: "",
-            transactionType: [],
-        },
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<CategoriesFiltersValues>({
+    resolver: zodResolver(categoriesFiltersSchema),
+    mode: "onTouched",
+    defaultValues: {
+      name: "",
+      transactionType: [],
+    },
+  })
+
+  const handleClearFilters = () => {
+    reset({
+      name: "",
+      transactionType: [],
     })
-
-    const handleClearFilters = () => {
-        reset({
-            name: "",
-            transactionType: [],
-        })
         
-        if (onClear) {
-            onClear()
-        }
+    if (onClear) {
+      onClear()
     }
+  }
 
-    return (
+  return (
         <form onSubmit={handleSubmit(onFilter)} className="w-full p-4 mt-4 bg-(--green-200) rounded-md shadow-sm border">
             <FieldSet className="space-y-4">
                 <FieldGroup className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -85,5 +85,5 @@ export function CategoriesFilters({
                 </div>
             </FieldSet>
         </form>
-    )
+  )
 }

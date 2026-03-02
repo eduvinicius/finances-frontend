@@ -20,39 +20,39 @@ interface DateRangeFieldProps<T extends FieldValues> {
 }
 
 export function DateRangeField<T extends FieldValues>({
-    id = "date-range",
-    label = "Período",
-    fromFieldName,
-    toFieldName,
-    control,
-    error,
-    helperText,
-    className,
+  id = "date-range",
+  label = "Período",
+  fromFieldName,
+  toFieldName,
+  control,
+  error,
+  helperText,
+  className,
 }: Readonly<DateRangeFieldProps<T>>) {
 
-    const fromValue = useWatch({ control, name: fromFieldName });
-    const toValue = useWatch({ control, name: toFieldName });
+  const fromValue = useWatch({ control, name: fromFieldName });
+  const toValue = useWatch({ control, name: toFieldName });
 
-    const dateRange: DateRange | undefined =
+  const dateRange: DateRange | undefined =
         fromValue || toValue
-        ? {
+          ? {
             from: fromValue ?? undefined,
             to: toValue ?? undefined,
-            }
-        : undefined;
+          }
+          : undefined;
 
 
-    const getDateRangeText = () => {
-        if (dateRange?.from && dateRange?.to) {
-            return <span className="text-white">{`${format(dateRange.from, "dd/MM/yyyy", { locale: ptBR })} - ${format(dateRange.to, "dd/MM/yyyy", { locale: ptBR })}`}</span>;
-        }
-        if (dateRange?.from) {
-            return <span className="text-white">{format(dateRange.from, "dd/MM/yyyy", { locale: ptBR })}</span>;
-        }
-        return <span className="text-white">Selecione o período</span>;
-    };
+  const getDateRangeText = () => {
+    if (dateRange?.from && dateRange?.to) {
+      return <span className="text-white">{`${format(dateRange.from, "dd/MM/yyyy", { locale: ptBR })} - ${format(dateRange.to, "dd/MM/yyyy", { locale: ptBR })}`}</span>;
+    }
+    if (dateRange?.from) {
+      return <span className="text-white">{format(dateRange.from, "dd/MM/yyyy", { locale: ptBR })}</span>;
+    }
+    return <span className="text-white">Selecione o período</span>;
+  };
 
-    return (
+  return (
         <Field className={className}>
             <FieldLabel htmlFor={id}>{label}</FieldLabel>
             <Controller
@@ -81,8 +81,8 @@ export function DateRangeField<T extends FieldValues>({
                                             type="button"
                                             className="absolute right-2 opacity-50 hover:opacity-100"
                                             onClick={() => {
-                                                fromField.onChange(undefined);
-                                                toField.onChange(undefined);
+                                              fromField.onChange(undefined);
+                                              toField.onChange(undefined);
                                             }}
                                         >
                                             <XIcon className="size-4 cursor-pointer" />
@@ -95,8 +95,8 @@ export function DateRangeField<T extends FieldValues>({
                                         defaultMonth={dateRange?.from}
                                         selected={dateRange}
                                         onSelect={(range) => {
-                                            fromField.onChange(range?.from);
-                                            toField.onChange(range?.to);
+                                          fromField.onChange(range?.from);
+                                          toField.onChange(range?.to);
                                         }}
                                         numberOfMonths={2}
                                     />
@@ -110,5 +110,5 @@ export function DateRangeField<T extends FieldValues>({
                 {error || helperText || ""}
             </FieldDescription>
         </Field>
-    );
+  );
 }

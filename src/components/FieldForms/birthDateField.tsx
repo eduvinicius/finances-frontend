@@ -11,11 +11,11 @@ import { Button } from "../ui/Button";
 import { Calendar } from "@/components/ui/Calendar";
 
 export function BirthDateField({ control, error }: Readonly<DateFieldProps<UserFormValues>>) {
-    const currentYear = new Date().getFullYear();
-    const startDate = new Date(1900, 0, 1);
-    const endDate = new Date(currentYear, 11, 31);
+  const currentYear = new Date().getFullYear();
+  const startDate = new Date(1900, 0, 1);
+  const endDate = new Date(currentYear, 11, 31);
 
-    return (
+  return (
         <Field>
             <FieldLabel htmlFor="birthDate">Data de Nascimento</FieldLabel>
             <Controller
@@ -27,14 +27,14 @@ export function BirthDateField({ control, error }: Readonly<DateFieldProps<UserF
                             <Button
                                 variant="outline"
                                 className={cn(
-                                    "w-full justify-start text-left font-normal bg-transparent hover:bg-transparent",
-                                    !field.value && "text-muted-foreground"
+                                  "w-full justify-start text-left font-normal bg-transparent hover:bg-transparent",
+                                  !field.value && "text-muted-foreground"
                                 )}
                                 type="button"
                             >
                                 <CalendarIcon className="mr-2 h-4 w-4" />
                                 {field.value ? (
-                                    format(field.value, "PPP", { locale: ptBR })
+                                  format(field.value, "PPP", { locale: ptBR })
                                 ) : (
                                     <span>Selecione a data</span>
                                 )}
@@ -57,5 +57,5 @@ export function BirthDateField({ control, error }: Readonly<DateFieldProps<UserF
                 {error || ""}
             </FieldDescription>
         </Field>
-    );
+  );
 }

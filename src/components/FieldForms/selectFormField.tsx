@@ -2,11 +2,11 @@ import { Controller, type FieldValues, type Path } from "react-hook-form";
 import type { FormFieldProps } from "@/shared/types/formBase.types";
 import { Field, FieldDescription, FieldLabel } from "../ui/Field";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "../ui/InputSelect";
 
 interface SelectOption<T> {
@@ -19,18 +19,18 @@ interface SelectFormFieldProps<T extends FieldValues> extends Omit<FormFieldProp
 }
 
 export function SelectFormField<T extends FieldValues>({
-    id,
-    label,
-    placeholder,
-    error,
-    helperText,
-    control,
-    fieldName,
-    options,
+  id,
+  label,
+  placeholder,
+  error,
+  helperText,
+  control,
+  fieldName,
+  options,
 }: Readonly<SelectFormFieldProps<T>>) {
-    const isNumberOption = options.length > 0 && typeof options[0].value === 'number';
+  const isNumberOption = options.length > 0 && typeof options[0].value === 'number';
 
-    return (
+  return (
         <Field>
             <FieldLabel htmlFor={id}>{label}</FieldLabel>
             <Controller
@@ -40,7 +40,7 @@ export function SelectFormField<T extends FieldValues>({
                     <Select 
                         value={field.value?.toString() ?? ""} 
                         onValueChange={(value) => {
-                            field.onChange(isNumberOption ? Number(value) : value);
+                          field.onChange(isNumberOption ? Number(value) : value);
                         }}
                     >
                         <SelectTrigger aria-invalid={!!error}>
@@ -60,5 +60,5 @@ export function SelectFormField<T extends FieldValues>({
                 {error || helperText || ""}
             </FieldDescription>
         </Field>
-    );
+  );
 }

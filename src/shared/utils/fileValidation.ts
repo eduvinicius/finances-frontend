@@ -19,7 +19,7 @@ export type FileValidationResult = FileValidationError | FileValidationSuccess;
  * @returns true if the file type is accepted
  */
 export function isValidImageType(file: File): boolean {
-    return ACCEPTED_IMAGE_TYPES.includes(file.type);
+  return ACCEPTED_IMAGE_TYPES.includes(file.type);
 }
 
 /**
@@ -28,7 +28,7 @@ export function isValidImageType(file: File): boolean {
  * @returns true if the file size is valid
  */
 export function isValidFileSize(file: File): boolean {
-    return file.size <= MAX_FILE_SIZE;
+  return file.size <= MAX_FILE_SIZE;
 }
 
 /**
@@ -37,13 +37,13 @@ export function isValidFileSize(file: File): boolean {
  * @returns Formatted string (e.g., "1.5 MB")
  */
 export function formatFileSize(bytes: number): string {
-    if (bytes === 0) return "0 Bytes";
+  if (bytes === 0) return "0 Bytes";
     
-    const k = 1024;
-    const sizes = ["Bytes", "KB", "MB", "GB"];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
+  const k = 1024;
+  const sizes = ["Bytes", "KB", "MB", "GB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
     
-    return `${Number.parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
+  return `${Number.parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
 }
 
 /**
@@ -52,30 +52,30 @@ export function formatFileSize(bytes: number): string {
  * @returns Validation result with error message if invalid
  */
 export function validateImageFile(file: File | null): FileValidationResult {
-    if (!file) {
-        return {
-            isValid: false,
-            error: "Nenhum arquivo selecionado",
-        };
-    }
-
-    if (!isValidImageType(file)) {
-        return {
-            isValid: false,
-            error: "O arquivo deve ser uma imagem do tipo JPEG, JPG ou PNG",
-        };
-    }
-
-    if (!isValidFileSize(file)) {
-        return {
-            isValid: false,
-            error: `O tamanho do arquivo deve ser menor que ${formatFileSize(MAX_FILE_SIZE)}`,
-        };
-    }
-
+  if (!file) {
     return {
-        isValid: true,
+      isValid: false,
+      error: "Nenhum arquivo selecionado",
     };
+  }
+
+  if (!isValidImageType(file)) {
+    return {
+      isValid: false,
+      error: "O arquivo deve ser uma imagem do tipo JPEG, JPG ou PNG",
+    };
+  }
+
+  if (!isValidFileSize(file)) {
+    return {
+      isValid: false,
+      error: `O tamanho do arquivo deve ser menor que ${formatFileSize(MAX_FILE_SIZE)}`,
+    };
+  }
+
+  return {
+    isValid: true,
+  };
 }
 
 /**
@@ -84,23 +84,23 @@ export function validateImageFile(file: File | null): FileValidationResult {
  * @returns Data URL for the image preview
  */
 export function createImagePreviewUrl(file: File): Promise<string> {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
         
-        reader.onload = () => {
-            if (typeof reader.result === "string") {
-                resolve(reader.result);
-            } else {
-                reject(new Error("Failed to read file"));
-            }
-        };
+    reader.onload = () => {
+      if (typeof reader.result === "string") {
+        resolve(reader.result);
+      } else {
+        reject(new Error("Failed to read file"));
+      }
+    };
         
-        reader.onerror = () => {
-            reject(new Error("Error reading file"));
-        };
+    reader.onerror = () => {
+      reject(new Error("Error reading file"));
+    };
         
-        reader.readAsDataURL(file);
-    });
+    reader.readAsDataURL(file);
+  });
 }
 
 /**
@@ -108,5 +108,5 @@ export function createImagePreviewUrl(file: File): Promise<string> {
  * @returns Comma-separated string of accepted MIME types
  */
 export function getAcceptedImageTypes(): string {
-    return ACCEPTED_IMAGE_TYPES.join(",");
+  return ACCEPTED_IMAGE_TYPES.join(",");
 }

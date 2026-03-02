@@ -2,9 +2,9 @@ import { useCallback, useState } from "react";
 import { Upload, User } from "lucide-react";
 import { Button } from "@/components/ui/Button/button";
 import {
-    validateImageFile,
-    createImagePreviewUrl,
-    getAcceptedImageTypes,
+  validateImageFile,
+  createImagePreviewUrl,
+  getAcceptedImageTypes,
 } from "@/shared/utils/fileValidation";
 import { useUploadProfileImage } from "../hooks/useUploadProfileImage";
 
@@ -13,65 +13,65 @@ interface ProfileImageUploadProps {
 }
 
 export function ProfileImageUpload({ currentImageUrl }: Readonly<ProfileImageUploadProps>) {
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-    const [validationError, setValidationError] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [validationError, setValidationError] = useState<string | null>(null);
     
-    const { mutate: uploadImage, isPending } = useUploadProfileImage();
+  const { mutate: uploadImage, isPending } = useUploadProfileImage();
 
-    const handleFileChange = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0] || null;
+  const handleFileChange = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] || null;
 
-        if (!file) {
-            setPreviewUrl(null);
-            setValidationError(null);
-            setSelectedFile(null);
-            return;
-        }
+    if (!file) {
+      setPreviewUrl(null);
+      setValidationError(null);
+      setSelectedFile(null);
+      return;
+    }
 
-        const validation = validateImageFile(file);
+    const validation = validateImageFile(file);
 
-        if (!validation.isValid) {
-            setValidationError(validation.error);
-            setPreviewUrl(null);
-            setSelectedFile(null);
-            event.target.value = "";
-            return;
-        }
+    if (!validation.isValid) {
+      setValidationError(validation.error);
+      setPreviewUrl(null);
+      setSelectedFile(null);
+      event.target.value = "";
+      return;
+    }
 
-        setValidationError(null);
+    setValidationError(null);
 
-        try {
-            const url = await createImagePreviewUrl(file);
-            setPreviewUrl(url);
-            setSelectedFile(file);
-        } catch {
-            setValidationError("Erro ao carregar preview da imagem");
-            setPreviewUrl(null);
-            setSelectedFile(null);
-        }
-    }, []);
+    try {
+      const url = await createImagePreviewUrl(file);
+      setPreviewUrl(url);
+      setSelectedFile(file);
+    } catch {
+      setValidationError("Erro ao carregar preview da imagem");
+      setPreviewUrl(null);
+      setSelectedFile(null);
+    }
+  }, []);
 
-    const handleRemoveFile = useCallback(() => {
-        setPreviewUrl(null);
-        setValidationError(null);
+  const handleRemoveFile = useCallback(() => {
+    setPreviewUrl(null);
+    setValidationError(null);
+    setSelectedFile(null);
+  }, []);
+
+  const handleUpload = useCallback(() => {
+    if (!selectedFile) return;
+
+    uploadImage(selectedFile, {
+      onSuccess: () => {
         setSelectedFile(null);
-    }, []);
+        setPreviewUrl(null);
+      }
+    });
+  }, [selectedFile, uploadImage]);
 
-    const handleUpload = useCallback(() => {
-        if (!selectedFile) return;
+  const displayImageUrl = previewUrl || currentImageUrl;
 
-        uploadImage(selectedFile, {
-            onSuccess: () => {
-                setSelectedFile(null);
-                setPreviewUrl(null);
-            }
-        });
-    }, [selectedFile, uploadImage]);
-
-    const displayImageUrl = previewUrl || currentImageUrl;
-
-    return (
+  return (
         <div className="space-y-4">
             <h3 className="text-lg font-semibold">Foto de Perfil</h3>
             
@@ -154,5 +154,5 @@ export function ProfileImageUpload({ currentImageUrl }: Readonly<ProfileImageUpl
                 </div>
             </div>
         </div>
-    );
+  );
 }
