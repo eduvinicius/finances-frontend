@@ -42,7 +42,13 @@ export const QUERY_KEYS = {
     filteredList: (pagination: IPaginatedRequest, filters?: TransactionFiltersValues) =>
       [...QUERY_KEYS.transactions.filtered(), pagination, filters] as const,
     byId: (id: string) => [...QUERY_KEYS.transactions.all, id] as const,
-  }
+  },
+
+  summary: {
+    all: ['summary'] as const,
+    get: (from: Date, to: Date) =>
+      [...QUERY_KEYS.summary.all, from.toISOString(), to.toISOString()] as const,
+  },
 } as const;
 
 export const getApiEndpoint = (queryKey: readonly unknown[]): string => {

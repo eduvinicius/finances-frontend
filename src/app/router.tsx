@@ -9,6 +9,7 @@ const Account = lazy(() => import("@/features/Account/pages").then(m => ({ defau
 const Transactions = lazy(() => import("@/features/Transactions/pages").then(m => ({ default: m.Transactions })));
 const Categories = lazy(() => import("@/features/Categories/pages").then(m => ({ default: m.Categories })));
 const Settings = lazy(() => import("@/features/Settings").then(m => ({ default: m.Settings })));
+const Summary = lazy(() => import("@/features/Summary").then(m => ({ default: m.Summary })));
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
       { path: "account", Component: Account },
       { path: "transactions", Component: Transactions },
       { path: "categories", Component: Categories },
+      { path: "summary", Component: Summary },
       { path: "settings", Component: Settings },
       { path: "*", Component: NotFound },
     ],

@@ -2,7 +2,7 @@ import type { IRoute } from "../types/routes.types";
 import { IoIosHome } from "react-icons/io";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { MdAccountBalance } from "react-icons/md";
-import { TbCategoryFilled } from "react-icons/tb";
+import { TbCategoryFilled, TbReportMoney } from "react-icons/tb";
 
 export const ROUTES: IRoute[] = [
   {
@@ -28,5 +28,11 @@ export const ROUTES: IRoute[] = [
     url: "/categories",
     label: "Categorias",
     icon: TbCategoryFilled,
+  },
+  {
+    id: "summary",
+    url: "/summary",
+    label: "Resumo",
+    icon: TbReportMoney,
   }
 ];
