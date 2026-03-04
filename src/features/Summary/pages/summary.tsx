@@ -4,6 +4,7 @@ import { useGetSummary } from "../hooks/useGetSummary";
 import { MonthSelector, SummaryCards, SummaryAccountsList, SummarySkeleton } from "../components";
 
 export function Summary() {
+
   const now = new Date();
   const [selectedMonth, setSelectedMonth] = useState(now.getMonth());
   const selectedYear = now.getFullYear();
@@ -14,8 +15,8 @@ export function Summary() {
   const { data, isLoading, error } = useGetSummary(from, to);
 
   return (
-    <>
-      <header className="flex justify-between items-center">
+    <div className="px-4">
+      <header className="flex justify-between items-center mb-4">
         <h1 className="text-3xl font-bold">Resumo</h1>
         <MonthSelector
           selectedMonth={selectedMonth}
@@ -34,6 +35,6 @@ export function Summary() {
       )}
 
       {error && toast.error(`Erro ao carregar resumo: ${error.message}`)}
-    </>
+    </div>
   );
 }

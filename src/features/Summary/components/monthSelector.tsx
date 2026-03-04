@@ -29,7 +29,7 @@ export function MonthSelector({ selectedMonth, selectedYear, onMonthChange }: Re
         className="rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring cursor-pointer"
       >
         {MONTHS.map((month, index) => (
-          <option key={month} value={index}>
+          <option className="text-black cursor-pointer" key={month} value={index}>
             {month}
           </option>
         ))}

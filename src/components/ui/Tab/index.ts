@@ -1,0 +1,7 @@
+export { Tabs } from "./tabs"
+export { TabsList } from "./tabsList"
+export { TabsTrigger } from "./tabsTrigger"
+export { TabsContent } from "./tabsContent"
+export { AppTabs } from "./appTabs"
+export { tabsListVariants } from "./tabsListVariants"
+export type { AppTabsProps, TabItem } from "./appTabs"
