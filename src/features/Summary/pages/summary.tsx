@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { toast } from "sonner";
-import { useGetSummary } from "../hooks/useGetSummary";
-import { MonthSelector, SummaryCards, SummaryAccountsList, SummarySkeleton } from "../components";
+import {
+  MonthSelector,
+  CategoryReportTab,
+  SummaryTab,
+} from "../components";
+import { AppTabs } from "@/components/ui/Tab";
 
 export function Summary() {
 
@@ -11,8 +14,6 @@ export function Summary() {
 
   const from = new Date(selectedYear, selectedMonth, 1);
   const to = new Date(selectedYear, selectedMonth + 1, 0, 23, 59, 59, 999);
-
-  const { data, isLoading, error } = useGetSummary(from, to);
 
   return (
     <div className="px-4">
@@ -25,16 +26,22 @@ export function Summary() {
         />
       </header>
 
-      {isLoading ? (
-        <SummarySkeleton />
-      ) : (
-        <div className="flex flex-col gap-6">
-          {data && <SummaryCards data={data} />}
-          {data && <SummaryAccountsList accounts={data.accounts} />}
-        </div>
-      )}
-
-      {error && toast.error(`Erro ao carregar resumo: ${error.message}`)}
+      <AppTabs
+        listClassName="border"
+        triggerClassName="data-[state=active]:border-b-(--green-100) data-[state=active]:border-b-2 cursor-pointer"
+        tabs={[
+          {
+            value: "summary",
+            label: "Resumo",
+            content: <SummaryTab from={from} to={to} />,
+          },
+          {
+            value: "category-report",
+            label: "Por Categoria",
+            content: <CategoryReportTab from={from} to={to} />,
+          },
+        ]}
+      />
     </div>
   );
 }

@@ -31,7 +31,7 @@ function AppTabs({
   triggerClassName,
   contentClassName,
   ...props
-}: AppTabsProps) {
+}: Readonly<AppTabsProps>) {
   return (
     <Tabs defaultValue={defaultValue ?? tabs[0]?.value} {...props}>
       <TabsList variant={variant} className={listClassName}>

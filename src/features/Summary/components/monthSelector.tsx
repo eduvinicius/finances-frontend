@@ -1,3 +1,5 @@
+import { AppSelect } from "@/components/ui/InputSelect";
+
 const MONTHS = [
   "Janeiro",
   "Fevereiro",
@@ -23,17 +25,12 @@ export function MonthSelector({ selectedMonth, selectedYear, onMonthChange }: Re
   return (
     <div className="flex items-center gap-3">
       <span className="text-sm font-medium text-muted-foreground">{selectedYear}</span>
-      <select
+      <AppSelect
+        options={MONTHS.map((month, index) => ({ value: index, label: month }))}
         value={selectedMonth}
-        onChange={(e) => onMonthChange(Number(e.target.value))}
-        className="rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring cursor-pointer"
-      >
-        {MONTHS.map((month, index) => (
-          <option className="text-black cursor-pointer" key={month} value={index}>
-            {month}
-          </option>
-        ))}
-      </select>
+        onValueChange={onMonthChange}
+        className="w-48"
+      />
     </div>
   );
 }

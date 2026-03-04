@@ -1,4 +1,17 @@
 import type { AccountTypeEnum } from "../enums/accountTypeEnum";
+import type { TransactionTypeEnum } from "../enums/transactionTypeEnum";
+
+export interface ICategoryReport {
+  categoryId: string;
+  categoryName: string;
+  type: TransactionTypeEnum;
+  totalAmount: number;
+  percentageOfTotal: number;
+}
+
+export interface ICategoryReportService {
+  getCategoryReport: (from: Date, to: Date, transactionType: TransactionTypeEnum) => Promise<ICategoryReport[]>;
+}
 
 export interface IAccountSummary {
   accountId: string;
