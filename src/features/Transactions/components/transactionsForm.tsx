@@ -32,9 +32,10 @@ export function TransactionsForm({
   });
   
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form 
+      onSubmit={handleSubmit(onSubmit)}>
         <FieldSet className="space-y-4">
-            <FieldGroup>
+            <FieldGroup className="grid grid-cols-1 lg:grid-cols-4 gap-4">
                 <SelectFormField<TransactionFormValues>
                     id="accountType"
                     label="Conta"
@@ -55,7 +56,7 @@ export function TransactionsForm({
                     error={errors.categoryId?.message}
                 />
                   
-                <FormField
+                <FormField<TransactionFormValues>
                     id="amount"
                     label="Valor"
                     type="number"
@@ -65,24 +66,27 @@ export function TransactionsForm({
                     fieldName="amount"
                 />
 
-                <TextAreaFormField<TransactionFormValues>
-                    id="description"
-                    label="Descrição"
-                    placeholder="Digite uma descrição para a transação"
-                    fieldName="description"
+              <SelectFormField<TransactionFormValues>
+                    id="type"
+                    label="Tipo de Transação"
+                    placeholder="Selecione o tipo"
+                    fieldName="type"
                     control={control}
-                    error={errors.description?.message}
+                    options={selectOptions?.transactionTypeOptions ?? []}
+                    error={errors.type?.message}
                 />
-
-                <SelectFormField<TransactionFormValues>
-                      id="type"
-                      label="Tipo de Transação"
-                      placeholder="Selecione o tipo"
-                      fieldName="type"
+                
+                <div className="col-span-4">
+                  <TextAreaFormField<TransactionFormValues>
+                      id="description"
+                      label="Descrição"
+                      placeholder="Digite uma descrição para a transação"
+                      fieldName="description"
                       control={control}
-                      options={selectOptions?.transactionTypeOptions ?? []}
-                      error={errors.type?.message}
+                      error={errors.description?.message}
                   />
+                </div>
+
             </FieldGroup>
 
             <Button 
