@@ -4,7 +4,7 @@ import type { ICategoryReport, ICategoryReportService } from "@/shared/types/sum
 import type { TransactionTypeEnum } from "@/shared/enums/transactionTypeEnum";
 import type { AxiosResponse } from "axios";
 
-const baseEndpoint = getApiEndpoint(QUERY_KEYS.summary.categoryReport());
+const baseEndpoint = getApiEndpoint(QUERY_KEYS.categoryReport.all);
 
 export const categoryReportService: ICategoryReportService = {
   async getCategoryReport(from: Date, to: Date, transactionType: TransactionTypeEnum): Promise<ICategoryReport[]> {

@@ -48,9 +48,12 @@ export const QUERY_KEYS = {
     all: ['summary'] as const,
     get: (from: Date, to: Date) =>
       [...QUERY_KEYS.summary.all, from.toISOString(), to.toISOString()] as const,
-    categoryReport: () => [...QUERY_KEYS.summary.all, 'category'] as const,
-    getCategoryReport: (from: Date, to: Date, transactionType: number) =>
-      [...QUERY_KEYS.summary.categoryReport(), from.toISOString(), to.toISOString(), transactionType] as const,
+  },
+
+  categoryReport: {
+    all: ['categoryreport'] as const,
+    get: (from: Date, to: Date, transactionType: number) =>
+      ['categoryreport', from.toISOString(), to.toISOString(), transactionType] as const,
   },
 } as const;
 

@@ -10,7 +10,7 @@ export function useGetCategoryReport(
   transactionType: TransactionTypeEnum,
 ): UseQueryResult<ICategoryReport[], Error> {
   return useQuery({
-    queryKey: QUERY_KEYS.summary.getCategoryReport(from, to, transactionType),
+    queryKey: QUERY_KEYS.categoryReport.get(from, to, transactionType),
     queryFn: () => categoryReportService.getCategoryReport(from, to, transactionType),
   });
 }
