@@ -1,4 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import type { ICategoryReport } from "@/shared/types/summary.types";
 import { DoughnutChart } from "./DoughnutChart";
 
@@ -16,16 +15,9 @@ export function CategoryDoughnutChart({
 }: Readonly<CategoryDoughnutChartProps>) {
   if (data.length === 0) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle title={title}></CardTitle>
-        </CardHeader>
-        <CardContent className="flex items-center justify-center h-64">
-          <p className="text-center text-muted-foreground">
-            Nenhum dado disponível para o período selecionado.
-          </p>
-        </CardContent>
-      </Card>
+      <p className="text-center text-muted-foreground">
+        Nenhum dado disponível para o período selecionado.
+      </p>
     );
   }
 
@@ -35,17 +27,15 @@ export function CategoryDoughnutChart({
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle title={title}></CardTitle>
-      </CardHeader>
-      <CardContent className="h-80 flex items-center justify-center p-4">
+    <div className="flex flex-col justify-center items-center gap-3 w-full">
+      <p>{title}</p>
+      <div>
         <DoughnutChart
           data={chartData}
           formatValue={formatCurrency}
           showLegend={true}
         />
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

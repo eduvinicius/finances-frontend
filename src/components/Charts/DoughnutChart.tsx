@@ -79,7 +79,7 @@ export function DoughnutChart({
             size: 12,
             family: "var(--font-family-base)",
           },
-          color: "#303F73",
+          color: "#FFF",
           usePointStyle: true,
           pointStyle: "circle",
         },
