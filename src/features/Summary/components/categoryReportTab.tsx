@@ -9,7 +9,7 @@ import { TRANSACTION_TYPE_OPTIONS } from "@/shared/constants/transactionTypeOpti
 import type { IFromToProps } from "@/shared/types/date.types";
 
 export function CategoryReportTab({ from, to }: Readonly<IFromToProps>) {
-  const [activeType, setActiveType] = useState<TransactionTypeEnum>(TransactionTypeEnum.INCOME);
+  const [activeType, setActiveType] = useState<TransactionTypeEnum>(TransactionTypeEnum.ALL);
 
   const { data, isLoading, error } = useGetCategoryReport(from, to, activeType);
 

@@ -1,12 +1,14 @@
 export enum TransactionTypeEnum {
     INCOME = 1,
     EXPENSE = 2,
-    INVESTMENT = 3
+    INVESTMENT = 3,
+    ALL = 4
 }
 
 export enum TransactionTypeEnumString {
     INCOME = "Receita",
     EXPENSE = "Despesa",
-    INVESTMENT = "Investimento"
+    INVESTMENT = "Investimento",
+    ALL = "Todos"
 }
 
