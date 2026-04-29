@@ -8,9 +8,11 @@ import { MdMailOutline, MdVisibilityOff } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 
-export function LoginForm({ 
-  onSubmit, 
-  loading
+export function LoginForm({
+  onSubmit,
+  onGoogleLogin,
+  loading,
+  googleLoading,
 }: Readonly<LoginFormProps>) {
   const {
     register,
@@ -81,10 +83,14 @@ export function LoginForm({
                         disabled={loading}>
                         {loading ? "Entrando..." : "Entrar"}
                     </Button>
-                    <Button 
-                        variant="outline" className="w-full" type="button">
+                    <Button
+                        variant="outline"
+                        className="w-full"
+                        type="button"
+                        onClick={onGoogleLogin}
+                        disabled={googleLoading}>
                         <FcGoogle className="size-5 mr-2" />
-                        Entrar com Google
+                        {googleLoading ? "Aguardando Google..." : "Entrar com Google"}
                     </Button>
                 </FieldSet>
             </form>

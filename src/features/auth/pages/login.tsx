@@ -1,24 +1,35 @@
 import { LoginForm } from "../components";
 import type { LoginFormValues } from "@/shared/types/login.type";
 import { useLogin } from "../hooks/useLogin";
+import { useGoogleLogin } from "../hooks/useGoogleLogin";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { getErrorMessage } from "@/lib/axiosError";
 import { useAuth } from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
+import { ENV } from "@/shared/constants/env";
 
 export function Login() {
 
   const { mutate, isPending, error } = useLogin();
+  const { mutate: googleMutate, isPending: googlePending, error: googleError } = useGoogleLogin();
   const { isAuthenticated } = useAuth();
-      
-  const handleLoginSubmit = (data: LoginFormValues) => {
-    mutate(data);
-  };
+
+  useEffect(() => {
+    google.accounts.id.initialize({
+      client_id: ENV.GOOGLE_CLIENT_ID,
+      callback: (response) => googleMutate(response.credential),
+      cancel_on_tap_outside: true,
+    });
+  }, []);
 
   useEffect(() => {
     if (error) toast.error(getErrorMessage(error));
   }, [error]);
+
+  useEffect(() => {
+    if (googleError) toast.error(getErrorMessage(googleError));
+  }, [googleError]);
 
   if (isAuthenticated) {
     return <Navigate to="/" replace />;
@@ -30,8 +41,10 @@ export function Login() {
         >
             <div className="w-full flex justify-center md:col-span-1">
                 <LoginForm
-                    onSubmit={handleLoginSubmit}
+                    onSubmit={(data: LoginFormValues) => mutate(data)}
+                    onGoogleLogin={() => google.accounts.id.prompt()}
                     loading={isPending}
+                    googleLoading={googlePending}
                 />
             </div>
             <img
