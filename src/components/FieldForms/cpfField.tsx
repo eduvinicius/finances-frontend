@@ -1,21 +1,20 @@
-import { Controller, type Control } from "react-hook-form";
-import type { UserFormValues } from "@/shared/types/user.types";
+import { Controller, type Control, type FieldValues, type Path } from "react-hook-form";
 import { unformatCPF } from "@/shared/utils/cpfValidation";
 import { Field, FieldDescription, FieldLabel } from "../ui/Field";
 import { Input } from "../ui/Input";
 
-export function CPFField({ 
-  control, 
+export function CPFField<T extends FieldValues>({
+  control,
   error
-}: Readonly<{ 
-    control: Control<UserFormValues>; 
+}: Readonly<{
+    control: Control<T>;
     error?: string;
 }>) {
   return (
         <Field>
             <FieldLabel htmlFor="documentNumber">CPF</FieldLabel>
             <Controller
-                name="documentNumber"
+                name={"documentNumber" as Path<T>}
                 control={control}
                 render={({ field }) => (
                     <Input

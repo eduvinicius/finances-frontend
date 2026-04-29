@@ -1,16 +1,15 @@
 import { CalendarIcon } from "lucide-react";
-import { Controller } from "react-hook-form";
+import { Controller, type FieldValues, type Path } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import { ptBR } from "date-fns/locale";
 import { format } from "date-fns";
-import type { UserFormValues } from "@/shared/types/user.types";
 import type { DateFieldProps } from "@/shared/types/formBase.types";
 import { Field, FieldDescription, FieldLabel } from "../ui/Field";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/Popover";
 import { Button } from "../ui/Button";
 import { Calendar } from "@/components/ui/Calendar";
 
-export function BirthDateField({ control, error }: Readonly<DateFieldProps<UserFormValues>>) {
+export function BirthDateField<T extends FieldValues>({ control, error }: Readonly<DateFieldProps<T>>) {
   const currentYear = new Date().getFullYear();
   const startDate = new Date(1900, 0, 1);
   const endDate = new Date(currentYear, 11, 31);
@@ -19,7 +18,7 @@ export function BirthDateField({ control, error }: Readonly<DateFieldProps<UserF
         <Field>
             <FieldLabel htmlFor="birthDate">Data de Nascimento</FieldLabel>
             <Controller
-                name="birthDate"
+                name={"birthDate" as Path<T>}
                 control={control}
                 render={({ field }) => (
                     <Popover>

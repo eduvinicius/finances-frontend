@@ -1,21 +1,20 @@
-import { Controller, type Control } from "react-hook-form";
-import type { UserFormValues } from "@/shared/types/user.types";
+import { Controller, type Control, type FieldValues, type Path } from "react-hook-form";
 import { formatPhoneNumber } from "@/shared/utils/phoneNumberMask";
 import { Field, FieldDescription, FieldLabel } from "../ui/Field";
 import { Input } from "../ui/Input";
 
-export function PhoneField({ 
-  control, 
-  error 
-}: Readonly<{ 
-    control: Control<UserFormValues>; 
+export function PhoneField<T extends FieldValues>({
+  control,
+  error
+}: Readonly<{
+    control: Control<T>;
     error?: string;
 }>) {
   return (
         <Field>
             <FieldLabel htmlFor="phoneNumber">Telefone (Opcional)</FieldLabel>
             <Controller
-                name="phoneNumber"
+                name={"phoneNumber" as Path<T>}
                 control={control}
                 render={({ field }) => (
                     <Input

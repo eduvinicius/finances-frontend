@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { MdMailOutline, MdVisibilityOff } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
+import { Link } from "react-router-dom";
 
 export function LoginForm({
   onSubmit,
@@ -94,6 +95,12 @@ export function LoginForm({
                     </Button>
                 </FieldSet>
             </form>
+            <p className="text-sm text-muted-foreground">
+                Não tem conta?{" "}
+                <Link to="/register" className="text-primary underline underline-offset-2">
+                    Criar conta
+                </Link>
+            </p>
         </section>
   );
 }

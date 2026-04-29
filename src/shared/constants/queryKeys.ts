@@ -15,6 +15,7 @@ export const QUERY_KEYS = {
     all: ['auth'] as const,
     currentUser: ['current-user'] as const,
     login: () => [...QUERY_KEYS.auth.all, 'login'] as const,
+    register: () => [...QUERY_KEYS.auth.all, 'register'] as const,
     getCurrentUser: () => [...QUERY_KEYS.auth.all, 'current-user'] as const,
     updateUser: () => [...QUERY_KEYS.auth.all, 'update-user'] as const,
     updateProfileImage: () => [...QUERY_KEYS.auth.all, 'update-profile-image'] as const,

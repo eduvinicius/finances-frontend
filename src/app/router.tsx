@@ -1,6 +1,7 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { Login } from "@/features/auth/pages/login";
+import { Register } from "@/features/auth/pages/register";
 import { ProtectedLayout } from "@/features/Layout";
 import { NotFound } from "@/features/NotFound";
 
@@ -15,6 +16,10 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     Component: Login,
+  },
+  {
+    path: "/register",
+    Component: Register,
   },
   {
     path: "/",
