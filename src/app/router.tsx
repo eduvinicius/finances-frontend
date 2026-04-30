@@ -11,6 +11,12 @@ const Transactions = lazy(() => import("@/features/Transactions/pages").then(m =
 const Categories = lazy(() => import("@/features/Categories/pages").then(m => ({ default: m.Categories })));
 const Settings = lazy(() => import("@/features/Settings").then(m => ({ default: m.Settings })));
 const Summary = lazy(() => import("@/features/Summary").then(m => ({ default: m.Summary })));
+const ForgotPasswordPage = lazy(() =>
+  import("@/features/auth/pages/ForgotPasswordPage").then(m => ({ default: m.ForgotPasswordPage }))
+);
+const ResetPasswordPage = lazy(() =>
+  import("@/features/auth/pages/ResetPasswordPage").then(m => ({ default: m.ResetPasswordPage }))
+);
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +26,14 @@ export const router = createBrowserRouter([
   {
     path: "/register",
     Component: Register,
+  },
+  {
+    path: "/forgot-password",
+    Component: ForgotPasswordPage,
+  },
+  {
+    path: "/reset-password",
+    Component: ResetPasswordPage,
   },
   {
     path: "/",

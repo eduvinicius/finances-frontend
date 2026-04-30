@@ -8,6 +8,7 @@ import { MdMailOutline, MdVisibilityOff } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import { PUBLIC_ROUTES } from "@/shared/constants/routes.cons";
 
 export function LoginForm({
   onSubmit,
@@ -75,6 +76,14 @@ export function LoginForm({
                                 className={errors.password ? "text-red-500" : ""}>
                                 {errors.password ? errors.password.message : ""}
                             </FieldDescription>
+                            <div className="text-right">
+                                <Link
+                                    to={PUBLIC_ROUTES.FORGOT_PASSWORD}
+                                    className="text-xs text-muted-foreground hover:text-primary underline underline-offset-2"
+                                >
+                                    Esqueceu a senha?
+                                </Link>
+                            </div>
                         </Field>
                     </FieldGroup>
                     <Button 

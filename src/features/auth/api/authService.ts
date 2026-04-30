@@ -9,6 +9,8 @@ import type { AxiosResponse } from "axios";
 const loginEndpoint = getApiEndpoint(QUERY_KEYS.auth.login());
 const registerEndpoint = getApiEndpoint(QUERY_KEYS.auth.register());
 const googleEndpoint = 'auth/google';
+const forgotPasswordEndpoint = getApiEndpoint(QUERY_KEYS.auth.forgotPassword());
+const resetPasswordEndpoint = getApiEndpoint(QUERY_KEYS.auth.resetPassword());
 
 export const authService = {
   async login(data: LoginFormValues): Promise<string> {
@@ -31,5 +33,13 @@ export const authService = {
   async googleLogin(idToken: string): Promise<GoogleAuthResponse> {
     const response: AxiosResponse<GoogleAuthResponse> = await httpClient.post(`/${googleEndpoint}`, { idToken });
     return response.data;
+  },
+
+  async forgotPassword(data: { email: string }): Promise<void> {
+    await httpClient.post(`/${forgotPasswordEndpoint}`, data);
+  },
+
+  async resetPassword(data: { token: string; email: string; newPassword: string; confirmPassword: string }): Promise<void> {
+    await httpClient.post(`/${resetPasswordEndpoint}`, data);
   },
 };

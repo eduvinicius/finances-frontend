@@ -4,6 +4,13 @@ import { AiOutlineTransaction } from "react-icons/ai";
 import { MdAccountBalance } from "react-icons/md";
 import { TbCategoryFilled, TbReportMoney } from "react-icons/tb";
 
+export const PUBLIC_ROUTES = {
+  LOGIN: '/login',
+  REGISTER: '/register',
+  FORGOT_PASSWORD: '/forgot-password',
+  RESET_PASSWORD: '/reset-password',
+} as const;
+
 export const ROUTES: IRoute[] = [
   {
     id: "home",
