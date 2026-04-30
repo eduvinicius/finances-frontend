@@ -76,7 +76,7 @@ export function RegisterForm({ onSubmit, loading }: Readonly<RegisterFormProps>)
             <InputGroupInput
               id="password"
               type="password"
-              placeholder="Mínimo 6 caracteres"
+              placeholder="Mínimo 8 caracteres"
               aria-invalid={!!errors.password}
               {...register("password")}
             />

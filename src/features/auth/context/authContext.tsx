@@ -1,10 +1,12 @@
 import { useMemo, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { AuthContext } from "../hooks/useAuth";
 import type { IAuthContextType } from "@/shared/types/authContext.type";
 import { storage, STORAGE_KEYS } from "@/shared/utils/storage";
 import type { IReactNode } from "@/shared/types/reactTypes";
 
 export function AuthProvider({ children }: Readonly<IReactNode>) {
+  const queryClient = useQueryClient();
 
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return storage.has(STORAGE_KEYS.TOKEN);
@@ -17,6 +19,7 @@ export function AuthProvider({ children }: Readonly<IReactNode>) {
 
   const logout = () => {
     storage.remove(STORAGE_KEYS.TOKEN);
+    queryClient.clear();
     setIsAuthenticated(false);
   };
 
