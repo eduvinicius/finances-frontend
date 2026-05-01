@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCategories } from "../hooks/useCategories";
 import type { CategoriesFiltersValues, CategoryFormValues } from "@/shared/types/category.type";
 import { useCreateCategory } from "../hooks/useCreateCategory";
@@ -18,7 +18,11 @@ export function Categories() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const totalPages = Math.ceil((data?.totalCount ?? 0) / pageSize);
-    
+
+  useEffect(() => {
+    if (error) toast.error(`Erro ao carregar categorias: ${error.message}`);
+  }, [error]);
+
   const handleFormSubmit = (formData: CategoryFormValues) => {
     mutate(formData, {
       onSuccess: () => {
@@ -63,7 +67,6 @@ export function Categories() {
             {data?.totalCount === 0 && !isLoading && (
                 <p className="text-center text-muted-foreground mt-10">Nenhuma categoria encontrada. Crie sua primeira categoria!</p>
             )}
-            {error && toast.error(`Erro ao carregar categorias: ${error.message}`)}
             {totalPages >= 1 && (
                 <AppPaginator
                     currentPage={currentPage}

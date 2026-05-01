@@ -22,6 +22,7 @@ export function Settings() {
 
   if (error) {
     toast.error(`Erro ao carregar dados do usuário: ${error.message}`);
+    return null;
   }
 
   return (

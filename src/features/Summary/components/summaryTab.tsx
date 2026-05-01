@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { toast } from "sonner";
 import { useGetSummary } from "../hooks/useGetSummary";
 import { SummaryAccountsList } from "./summaryAccountsList";
@@ -8,6 +9,10 @@ import type { IFromToProps } from "@/shared/types/date.types";
 export function SummaryTab({ from, to }: Readonly<IFromToProps>) {
 
   const { data, isLoading, error } = useGetSummary(from, to);
+
+  useEffect(() => {
+    if (error) toast.error(`Erro ao carregar resumo: ${error.message}`);
+  }, [error]);
 
   const summaryContent = isLoading ? (
           <SummarySkeleton />
@@ -20,7 +25,6 @@ export function SummaryTab({ from, to }: Readonly<IFromToProps>) {
   return (
     <div>
         {summaryContent}
-        {error && toast.error(`Erro ao carregar resumo: ${error.message}`)}
     </div>
   );
 }

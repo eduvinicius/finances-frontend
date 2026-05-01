@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { useCreateAccount } from "../hooks/useCreateAccount";
 import { useGetAccounts } from "../hooks/useGetAccounts";
@@ -18,7 +18,11 @@ export function Account() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const totalPages = Math.ceil((data?.totalCount ?? 0) / pageSize);
-    
+
+  useEffect(() => {
+    if (error) toast.error(`Erro ao carregar contas: ${error.message}`);
+  }, [error]);
+
   const handleFormSubmit = (formData: AccountFormValues) => {
     mutate(formData, {
       onSuccess: () => {
@@ -67,7 +71,6 @@ export function Account() {
           <p className="text-center text-muted-foreground mt-10">Nenhuma conta encontrada. Crie sua primeira conta!</p>
         )}
 
-        {error && toast.error(`Erro ao carregar contas: ${error.message}`)}
 
         {totalPages >= 1 && (
           <AppPaginator

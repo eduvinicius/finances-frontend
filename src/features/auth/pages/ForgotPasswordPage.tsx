@@ -26,7 +26,7 @@ export function ForgotPasswordPage() {
 
   const onSubmit = (data: ForgotPasswordFormValues) => {
     mutate(data, {
-      onSettled: () => setSubmitted(true),
+      onSuccess: () => setSubmitted(true),
     });
   };
 

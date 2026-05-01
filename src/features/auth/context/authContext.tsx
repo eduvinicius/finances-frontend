@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { AuthContext } from "../hooks/useAuth";
 import type { IAuthContextType } from "@/shared/types/authContext.type";
@@ -12,24 +12,24 @@ export function AuthProvider({ children }: Readonly<IReactNode>) {
     return storage.has(STORAGE_KEYS.TOKEN);
   });
 
-  const login = (token: string) => {
+  const login = useCallback((token: string) => {
     const success = storage.set(STORAGE_KEYS.TOKEN, token);
     if (success) setIsAuthenticated(true);
-  };
+  }, []);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     storage.remove(STORAGE_KEYS.TOKEN);
     queryClient.clear();
     setIsAuthenticated(false);
-  };
+  }, [queryClient]);
 
-  const getUserToken = (): string | null => {
+  const getUserToken = useCallback((): string | null => {
     return storage.get<string>(STORAGE_KEYS.TOKEN);
-  };
+  }, []);
 
   const value = useMemo<IAuthContextType>(
     () => ({ isAuthenticated, login, logout, getUserToken }),
-    [isAuthenticated]
+    [isAuthenticated, login, logout, getUserToken]
   );
 
   return (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { Download } from "lucide-react";
 import { Spinner } from "@/components/ui/Spinner";
@@ -25,6 +25,10 @@ export function Transactions() {
   const { selectOptions, isLoading: selectOptionsLoading } = useTransactionSelectOptions();
 
   const totalPages = Math.ceil((data?.totalCount ?? 0) / pageSize);
+
+  useEffect(() => {
+    if (error) toast.error(`Erro ao carregar transações: ${error.message}`);
+  }, [error]);
 
   const handleFormSubmit = (formData: TransactionFormValues) => {
     mutate(formData, {
@@ -94,11 +98,6 @@ export function Transactions() {
             emptyMessage="Nenhuma transação encontrada. Crie sua primeira transação!"
           />
         )}
-        {data?.totalCount === 0 && !isLoading && (
-            <p className="text-center text-muted-foreground mt-10">Nenhuma transação encontrada. Crie sua primeira transação!</p>
-        )}
-
-        {error && toast.error(`Erro ao carregar transações: ${error.message}`)}
 
         {totalPages >= 1 && (
             <AppPaginator

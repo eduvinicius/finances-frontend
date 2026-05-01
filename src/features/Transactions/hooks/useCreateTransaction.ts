@@ -12,7 +12,7 @@ export function useCreateTransaction():UseMutationResult<ITransaction, Error, Tr
 
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.transactions.filteredList({ page: 1, pageSize: 10 }, {}),
+        queryKey: QUERY_KEYS.transactions.filtered(),
       });
     },
 
