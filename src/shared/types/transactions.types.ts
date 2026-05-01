@@ -15,7 +15,18 @@ export interface ITransactionService {
     getTransactions: (pagination: IPaginatedRequest, filters?: TransactionFiltersValues) => Promise<IPaginatedBaseResponse<ITransaction[]>>;
     getTransactionById: (id: string) => Promise<ITransaction>;
     createTransaction: (data: TransactionFormValues) => Promise<ITransaction>;
+    exportTransactions: (data: TransactionExportRequest) => Promise<Blob>;
 }
+
+export interface TransactionExportRequest {
+    startDate?: string;
+    endDate?: string;
+    categoryId?: string;
+    accountId?: string;
+    type?: TransactionTypeEnum;
+    exportAll: boolean;
+}
+
 export interface ITransaction {
     id: string;
     accountId: string;

@@ -1,7 +1,7 @@
 import { httpClient } from "@/shared/api/httpClient";
 import { getApiEndpoint, QUERY_KEYS } from "@/shared/constants/queryKeys";
 import type { IPaginatedBaseResponse, IPaginatedRequest } from "@/shared/types/pagination.types";
-import type { ITransaction, ITransactionFilterDto, ITransactionService, TransactionFiltersValues, TransactionFormValues } from "@/shared/types/transactions.types";
+import type { ITransaction, ITransactionFilterDto, ITransactionService, TransactionExportRequest, TransactionFiltersValues, TransactionFormValues } from "@/shared/types/transactions.types";
 import type { AxiosResponse } from "axios";
 
 const baseEndpoint = getApiEndpoint(QUERY_KEYS.transactions.all);
@@ -29,7 +29,10 @@ export const transactionService: ITransactionService = {
   async createTransaction(data: TransactionFormValues): Promise<ITransaction> {
     const response: AxiosResponse<ITransaction> = await httpClient.post(`/${baseEndpoint}`, data);
     return response.data;
-  }
+  },
+
+  exportTransactions: (data: TransactionExportRequest) =>
+    httpClient.post('/transactions/export', data, { responseType: 'blob' }),
 };
 
 const buildTransactionFilters = (pagination: IPaginatedRequest, filters?: TransactionFiltersValues): ITransactionFilterDto => {
