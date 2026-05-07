@@ -6,6 +6,7 @@ import {
   Legend,
   type ChartOptions,
 } from "chart.js";
+import { usePrivacy } from "@/hooks/usePrivacy";
 
 // Register Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -54,6 +55,8 @@ export function DoughnutChart({
   cutout = "60%",
   formatValue = (value: number) => value.toLocaleString("pt-BR"),
 }: Readonly<DoughnutChartProps>) {
+  const { isHidden } = usePrivacy();
+
   const chartData = {
     labels: data.labels,
     datasets: [
@@ -94,6 +97,7 @@ export function DoughnutChart({
         callbacks: {
           label: (context) => {
             const label = context.label || "";
+            if (isHidden) return `${label}: ••••`;
             const value = context.parsed || 0;
             const total = context.dataset.data.reduce((a, b) => (a) + (b), 0);
             const percentage = ((value / total) * 100).toFixed(1);

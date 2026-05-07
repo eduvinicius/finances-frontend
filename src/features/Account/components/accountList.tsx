@@ -1,12 +1,16 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle,  } from "@/components/ui/Card";
 import { ACCOUNT_TYPE_STRINGS } from "@/shared/constants/accountTypeOptions.const";
 import type { IAccountsListProps } from "@/shared/types/account.types";
+import { usePrivacy } from "@/hooks/usePrivacy";
 
 export function AccountsList({ data }: Readonly<IAccountsListProps>) {
+  const { isHidden } = usePrivacy();
 
   return (
         <div className="grid grid-cols-5 gap-6 m-5">
-            {data.map((account) => (
+            {data.map((account) => {
+              const balanceDisplay = isHidden ? "••••" : `R$ ${account.balance.toFixed(2)}`;
+              return (
                 <Card key={account.id} className="overflow-hidden">
                     <CardHeader>
                         <CardTitle title={account.name} />
@@ -17,14 +21,15 @@ export function AccountsList({ data }: Readonly<IAccountsListProps>) {
                             alt={account.name}
                             className="w-full h-40 object-cover rounded-md"
                         />
-                        <CardDescription description={`Saldo: ${account.balance}`} />
+                        <CardDescription description={`Saldo: ${balanceDisplay}`} />
                         <div className="flex items-center gap-2">
                             <span className="text-sm font-medium text-muted-foreground">Tipo:</span>
                             <span className="text-sm font-semibold">{ACCOUNT_TYPE_STRINGS[account.type]}</span>
                         </div>
                     </CardContent>
                 </Card>
-            ))}
+              );
+            })}
         </div>
   );
 }

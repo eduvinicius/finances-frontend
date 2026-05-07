@@ -4,3 +4,4 @@ export { TransactionFilters } from './transactionFilters';
 export { TransactionDetailsModal } from './transactionDetailsModal';
 export { TransactionDetailsCell } from './transactionDetailsCell';
 export { ExportTransactionsModal } from './ExportTransactionsModal';
+export { HiddenAmount } from './hiddenAmount';
