@@ -1,14 +1,19 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MdVisibilityOff } from "react-icons/md";
+import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { registerSchema } from "@/shared/schemas/registerSchema";
 import type { RegisterFormProps, RegisterFormValues } from "@/shared/types/register.types";
 import { Button } from "@/components/ui/Button";
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/Field";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/InputGroup";
 import { BirthDateField, CPFField, FormField, PhoneField } from "@/components/FieldForms";
+import { cn } from "@/lib/utils";
 
 export function RegisterForm({ onSubmit, loading }: Readonly<RegisterFormProps>) {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const {
     register,
     control,
@@ -75,15 +80,25 @@ export function RegisterForm({ onSubmit, loading }: Readonly<RegisterFormProps>)
           <InputGroup>
             <InputGroupInput
               id="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Mínimo 8 caracteres"
               aria-invalid={!!errors.password}
+              aria-describedby="password-error"
               {...register("password")}
             />
-            <InputGroupAddon><MdVisibilityOff /></InputGroupAddon>
+            <InputGroupAddon>
+              <button
+                type="button"
+                onClick={() => setShowPassword((p) => !p)}
+                aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                className="cursor-pointer"
+              >
+                {showPassword ? <MdVisibility aria-hidden="true" /> : <MdVisibilityOff aria-hidden="true" />}
+              </button>
+            </InputGroupAddon>
           </InputGroup>
-          <FieldDescription className={errors.password ? "text-red-500" : ""}>
-            {errors.password?.message ?? ""}
+          <FieldDescription id="password-error" className={cn(errors.password && "text-red-500")}>
+            {errors.password?.message}
           </FieldDescription>
         </Field>
 
@@ -92,15 +107,25 @@ export function RegisterForm({ onSubmit, loading }: Readonly<RegisterFormProps>)
           <InputGroup>
             <InputGroupInput
               id="confirmPassword"
-              type="password"
+              type={showConfirmPassword ? "text" : "password"}
               placeholder="Repita sua senha"
               aria-invalid={!!errors.confirmPassword}
+              aria-describedby="confirm-password-error"
               {...register("confirmPassword")}
             />
-            <InputGroupAddon><MdVisibilityOff /></InputGroupAddon>
+            <InputGroupAddon>
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword((p) => !p)}
+                aria-label={showConfirmPassword ? "Ocultar confirmação de senha" : "Mostrar confirmação de senha"}
+                className="cursor-pointer"
+              >
+                {showConfirmPassword ? <MdVisibility aria-hidden="true" /> : <MdVisibilityOff aria-hidden="true" />}
+              </button>
+            </InputGroupAddon>
           </InputGroup>
-          <FieldDescription className={errors.confirmPassword ? "text-red-500" : ""}>
-            {errors.confirmPassword?.message ?? ""}
+          <FieldDescription id="confirm-password-error" className={cn(errors.confirmPassword && "text-red-500")}>
+            {errors.confirmPassword?.message}
           </FieldDescription>
         </Field>
 
