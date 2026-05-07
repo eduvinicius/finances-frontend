@@ -4,8 +4,9 @@ import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/In
 import { loginSchema, type LoginFormValues } from "@/shared/schemas/loginSchema";
 import type { LoginFormProps } from "@/shared/types/login.type";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MdMailOutline, MdVisibilityOff } from "react-icons/md";
+import { MdMailOutline, MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { PUBLIC_ROUTES } from "@/shared/constants/routes.cons";
@@ -17,6 +18,8 @@ export function LoginForm({
   loading,
   googleLoading,
 }: Readonly<LoginFormProps>) {
+  const [showPassword, setShowPassword] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -65,7 +68,7 @@ export function LoginForm({
               <InputGroup>
                 <InputGroupInput
                   id="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Digite a sua senha"
                   autoComplete="current-password"
                   aria-invalid={!!errors.password}
@@ -73,7 +76,18 @@ export function LoginForm({
                   {...register("password")}
                 />
                 <InputGroupAddon>
-                  <MdVisibilityOff aria-hidden="true" />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                    className="cursor-pointer"
+                  >
+                    {showPassword ? (
+                      <MdVisibility aria-hidden="true" />
+                    ) : (
+                      <MdVisibilityOff aria-hidden="true" />
+                    )}
+                  </button>
                 </InputGroupAddon>
               </InputGroup>
               <FieldDescription id="password-error" className={cn(errors.password && "text-red-500")}>
