@@ -2,6 +2,8 @@ import { useMutation } from "@tanstack/react-query";
 import { authService } from "../api/authService";
 import { useAuth } from "./useAuth";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/axiosError";
 
 export function useLogin() {
   const { login } = useAuth();
@@ -12,6 +14,9 @@ export function useLogin() {
     onSuccess: (data) => {
       login(data);
       navigate("/home");
+    },
+    onError: (error) => {
+      toast.error(getErrorMessage(error));
     },
   });
 }

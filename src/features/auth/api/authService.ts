@@ -1,6 +1,7 @@
 import { httpClient } from "@/shared/api/httpClient";
 import { getApiEndpoint, QUERY_KEYS } from "@/shared/constants/queryKeys";
-import type { LoginFormValues, GoogleAuthResponse } from "@/shared/types/login.type";
+import type { LoginFormValues } from "@/shared/schemas/loginSchema";
+import type { GoogleAuthResponse } from "@/shared/types/login.type";
 import type { RegisterFormValues } from "@/shared/types/register.types";
 import { unformatCPF } from "@/shared/utils/cpfValidation";
 import { unformatPhoneNumber } from "@/shared/utils/phoneNumberMask";

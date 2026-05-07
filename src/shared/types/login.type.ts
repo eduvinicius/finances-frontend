@@ -1,7 +1,4 @@
-export interface LoginFormValues {
-    email: string;
-    password: string;
-};
+import type { LoginFormValues } from "@/shared/schemas/loginSchema";
 
 export interface LoginFormProps {
     onSubmit: (data: LoginFormValues) => void;
