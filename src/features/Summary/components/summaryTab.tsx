@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { useGetSummary } from "../hooks/useGetSummary";
-import { SummaryAccountsList } from "./summaryAccountsList";
+import { AccountsDoughnutChart } from "@/components/Charts";
 import { SummaryCards } from "./summaryCards";
 import { SummarySkeleton } from "./summarySkeleton";
 import type { IFromToProps } from "@/shared/types/date.types";
@@ -19,7 +19,7 @@ export function SummaryTab({ from, to }: Readonly<IFromToProps>) {
   ) : (
         <div className="flex flex-col gap-6">
           {data && <SummaryCards data={data} />}
-          {data && <SummaryAccountsList accounts={data.accounts} />}
+          {data && <AccountsDoughnutChart data={data.accounts} />}
         </div>
   );
   return (
