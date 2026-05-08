@@ -58,6 +58,11 @@ export const QUERY_KEYS = {
     get: (from: Date, to: Date, transactionType: number) =>
       ['categoryreport', from.toISOString(), to.toISOString(), transactionType] as const,
   },
+
+  viaCep: {
+    all: ['viaCep'] as const,
+    lookup: (cep: string) => [...QUERY_KEYS.viaCep.all, cep] as const,
+  },
 } as const;
 
 export const getApiEndpoint = (queryKey: readonly unknown[]): string => {

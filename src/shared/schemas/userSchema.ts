@@ -27,7 +27,13 @@ export const userSchema = z.object({
   address: z.string().min(5, "O endereço deve conter pelo menos 5 caracteres").optional(),
   city: z.string().min(2, "A cidade deve conter pelo menos 2 caracteres").optional(),
   state: z.string().min(2, "O estado deve conter pelo menos 2 caracteres").optional(),
-  postalCode: z.string().min(5, "O código postal deve conter pelo menos 5 caracteres").optional(),
+  postalCode: z
+    .string()
+    .optional()
+    .refine(
+      (v) => !v || v === "" || v.replaceAll(/\D/g, "").length === 8,
+      { message: "CEP inválido. Digite os 8 dígitos do CEP" }
+    ),
   country: z.string().min(2, "O país deve conter pelo menos 2 caracteres").optional(),
   birthDate: z.date({
     required_error: "Data de nascimento é obrigatória",

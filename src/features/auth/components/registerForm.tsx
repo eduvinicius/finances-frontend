@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
@@ -7,8 +7,10 @@ import type { RegisterFormProps, RegisterFormValues } from "@/shared/types/regis
 import { Button } from "@/components/ui/Button";
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/Field";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/InputGroup";
-import { BirthDateField, CPFField, FormField, PhoneField } from "@/components/FieldForms";
+import { BirthDateField, CPFField, CepField, FormField, PhoneField } from "@/components/FieldForms";
 import { cn } from "@/lib/utils";
+import { unformatPostalCode } from "@/shared/utils/postalCodeMask";
+import { useViaCep } from "../hooks/useViaCep";
 
 export function RegisterForm({ onSubmit, loading }: Readonly<RegisterFormProps>) {
   const [showPassword, setShowPassword] = useState(false);
@@ -18,6 +20,8 @@ export function RegisterForm({ onSubmit, loading }: Readonly<RegisterFormProps>)
     register,
     control,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
@@ -37,6 +41,16 @@ export function RegisterForm({ onSubmit, loading }: Readonly<RegisterFormProps>)
       confirmPassword: "",
     },
   });
+
+  const rawCep = unformatPostalCode(watch("postalCode") ?? "");
+  const { data: viaCepData, isFetching: isCepLoading } = useViaCep(rawCep);
+
+  useEffect(() => {
+    if (!viaCepData || viaCepData.erro === "true") return;
+    setValue("address", viaCepData.logradouro, { shouldValidate: true });
+    setValue("city", viaCepData.localidade, { shouldValidate: true });
+    setValue("state", viaCepData.uf, { shouldValidate: true });
+  }, [viaCepData, setValue]);
 
   return (
     <form
@@ -131,6 +145,12 @@ export function RegisterForm({ onSubmit, loading }: Readonly<RegisterFormProps>)
 
         <FieldGroup className="col-span-2 space-y-2 pt-1">
           <p className="text-sm text-muted-foreground font-medium">Endereço (Opcional)</p>
+          <CepField
+            control={control}
+            error={errors.postalCode?.message}
+            notFound={viaCepData?.erro === "true"}
+            isLoading={isCepLoading}
+          />
           <FormField
             id="address"
             label="Logradouro"
@@ -158,15 +178,6 @@ export function RegisterForm({ onSubmit, loading }: Readonly<RegisterFormProps>)
               error={errors.state?.message}
               control={control}
               fieldName="state"
-            />
-            <FormField
-              id="postalCode"
-              label="CEP"
-              type="text"
-              placeholder="00000-000"
-              error={errors.postalCode?.message}
-              control={control}
-              fieldName="postalCode"
             />
             <FormField
               id="country"

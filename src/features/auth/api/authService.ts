@@ -5,6 +5,7 @@ import type { GoogleAuthResponse } from "@/shared/types/login.type";
 import type { RegisterFormValues } from "@/shared/types/register.types";
 import { unformatCPF } from "@/shared/utils/cpfValidation";
 import { unformatPhoneNumber } from "@/shared/utils/phoneNumberMask";
+import { unformatPostalCode } from "@/shared/utils/postalCodeMask";
 import type { AxiosResponse } from "axios";
 
 const loginEndpoint = getApiEndpoint(QUERY_KEYS.auth.login());
@@ -25,6 +26,7 @@ export const authService = {
       ...rest,
       documentNumber: rest.documentNumber ? unformatCPF(rest.documentNumber) : undefined,
       phoneNumber: rest.phoneNumber ? unformatPhoneNumber(rest.phoneNumber) : undefined,
+      postalCode: rest.postalCode ? unformatPostalCode(rest.postalCode) : undefined,
       birthDate: rest.birthDate.toISOString(),
     };
     const response: AxiosResponse<string> = await httpClient.post(`/${registerEndpoint}`, payload);
