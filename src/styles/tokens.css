@@ -48,4 +48,12 @@
   /* ===== LINE HEIGHTS ===== */
   --line-height-body: 1.6;     /* 160% */
   --line-height-heading: 1.4;  /* 140% */
+
+  --header-bg: #50B2C0;
+  --header-border: #D1D6E4;
+}
+
+.dark {
+  --header-bg: #0A313C;
+  --header-border: #303F73;
 }
