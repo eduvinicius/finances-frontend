@@ -33,7 +33,7 @@ function RoleBadge({ role }: Readonly<{ role: 'Admin' | 'User' }>) {
   }
   return (
     <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-semibold text-blue-800">
-      User
+      Usuário
     </span>
   );
 }
@@ -42,23 +42,23 @@ function StatusBadge({ isActive }: Readonly<{ isActive: boolean }>) {
   if (isActive) {
     return (
       <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-semibold text-green-800">
-        Active
+        Ativo
       </span>
     );
   }
   return (
     <span className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-semibold text-gray-600">
-      Inactive
+      Inativo
     </span>
   );
 }
 
 function formatDateOrNever(dateStr: string | null): string {
-  if (!dateStr) return "Never";
+  if (!dateStr) return "Nunca";
   try {
     return format(new Date(dateStr), "dd/MM/yyyy HH:mm");
   } catch {
-    return "Never";
+    return "Nunca";
   }
 }
 
@@ -79,11 +79,11 @@ export function AdminUsersTable({
 
   const columns: Column<AdminUserRow>[] = [
     {
-      header: "Full Name",
+      header: "Nome completo",
       accessor: "fullName",
     },
     {
-      header: "Nickname",
+      header: "Apelido",
       accessor: (row) => row.nickname ?? "—",
     },
     {
@@ -91,7 +91,7 @@ export function AdminUsersTable({
       accessor: "email",
     },
     {
-      header: "Role",
+      header: "Função",
       accessor: "role",
       cell: (_value, row) => <RoleBadge role={row.role} />,
     },
@@ -101,15 +101,15 @@ export function AdminUsersTable({
       cell: (_value, row) => <StatusBadge isActive={row.isActive} />,
     },
     {
-      header: "Created At",
+      header: "Criado em",
       accessor: (row) => formatDateOrNever(row.createdAt),
     },
     {
-      header: "Last Login",
+      header: "Último acesso",
       accessor: (row) => formatDateOrNever(row.lastLogin),
     },
     {
-      header: "Actions",
+      header: "Ações",
       accessor: "id",
       cell: (_value, row) => {
         const isSelf = row.id === currentUserId;
@@ -119,9 +119,10 @@ export function AdminUsersTable({
             <Button
               variant="ghost"
               size="sm"
-              title="View details"
+              title="Ver detalhes"
+              className="text-foreground"
               onClick={() => onDetails(row)}
-              aria-label={`View details for ${row.fullName}`}
+              aria-label={`Ver detalhes de ${row.fullName}`}
             >
               <Eye className="h-4 w-4" />
             </Button>
@@ -129,10 +130,11 @@ export function AdminUsersTable({
             <Button
               variant="ghost"
               size="sm"
-              title="Change role"
+              title="Alterar função"
+              className="text-foreground"
               disabled={isSelf}
               onClick={() => onChangeRole(row)}
-              aria-label={`Change role for ${row.fullName}`}
+              aria-label={`Alterar função de ${row.fullName}`}
             >
               <RefreshCw className="h-4 w-4" />
             </Button>
@@ -140,10 +142,11 @@ export function AdminUsersTable({
             <Button
               variant="ghost"
               size="sm"
-              title={row.isActive ? "Deactivate user" : "Already inactive"}
+              title={row.isActive ? "Desativar usuário" : "Já inativo"}
+              className="text-foreground"
               disabled={isSelf || !row.isActive}
               onClick={() => onDeactivate(row)}
-              aria-label={`Deactivate ${row.fullName}`}
+              aria-label={`Desativar ${row.fullName}`}
             >
               <UserX className="h-4 w-4" />
             </Button>
@@ -151,10 +154,10 @@ export function AdminUsersTable({
             <Button
               variant="ghost"
               size="sm"
-              title="Delete user"
+              title="Excluir usuário"
               disabled={isSelf}
               onClick={() => onDelete(row)}
-              aria-label={`Delete ${row.fullName}`}
+              aria-label={`Excluir ${row.fullName}`}
               className="text-destructive hover:text-destructive"
             >
               <Trash2 className="h-4 w-4" />
@@ -171,7 +174,7 @@ export function AdminUsersTable({
         data={data as AdminUserRow[]}
         columns={columns}
         isLoading={isLoading}
-        emptyMessage="No users found."
+        emptyMessage="Nenhum usuário encontrado."
         getRowKey={(row) => row.id}
       />
       {totalPages >= 1 && (

@@ -28,26 +28,22 @@ export function DeactivateUserModal({ user, isOpen, onClose }: Readonly<Deactiva
     <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Deactivate User</DialogTitle>
-          <DialogDescription>
-            You are about to deactivate <strong>{user?.fullName}</strong>.
+          <DialogTitle className="text-white">Desativar usuário</DialogTitle>
+          <DialogDescription className="text-white/70">
+            Você está prestes a desativar <strong>{user?.fullName}</strong>.
           </DialogDescription>
         </DialogHeader>
 
-        <p className="text-sm text-muted-foreground rounded-md border border-yellow-300 bg-yellow-50 px-4 py-3">
-          This will prevent the user from logging in. This can be undone.
+        <p className="text-sm rounded-md border px-4 py-3 bg-yellow-50 border-yellow-300 text-yellow-900 dark:bg-yellow-900/30 dark:border-yellow-700 dark:text-yellow-200">
+          Isso impedirá o usuário de acessar o sistema. Esta ação pode ser desfeita.
         </p>
 
         <DialogFooter>
           <Button variant="outline" onClick={onClose} disabled={isPending}>
-            Cancel
+            Cancelar
           </Button>
-          <Button
-            variant="purple"
-            onClick={handleConfirm}
-            disabled={isPending}
-          >
-            {isPending ? "Deactivating..." : "Deactivate"}
+          <Button variant="purple" onClick={handleConfirm} disabled={isPending}>
+            {isPending ? "Desativando..." : "Desativar"}
           </Button>
         </DialogFooter>
       </DialogContent>

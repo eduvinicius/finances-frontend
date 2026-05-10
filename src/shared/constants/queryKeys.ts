@@ -66,9 +66,10 @@ export const QUERY_KEYS = {
   },
 
   adminUsers: {
-    all: ['adminUsers'] as const,
-    list: (filters: AdminUserFilter) => ['adminUsers', 'list', filters] as const,
-    detail: (id: string) => ['adminUsers', 'detail', id] as const,
+    all: ['admin', 'users'] as const,
+    getAll: () => [...QUERY_KEYS.adminUsers.all, 'getAll'] as const,
+    list: (filters: AdminUserFilter) => [...QUERY_KEYS.adminUsers.all, 'list', filters] as const,
+    detail: (id: string) => [...QUERY_KEYS.adminUsers.all, 'detail', id] as const,
   },
 } as const;
 

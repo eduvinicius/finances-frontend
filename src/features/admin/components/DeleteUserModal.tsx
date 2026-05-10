@@ -46,19 +46,19 @@ export function DeleteUserModal({ user, isOpen, onClose }: Readonly<DeleteUserMo
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Delete User</DialogTitle>
-          <DialogDescription>
-            You are about to permanently delete <strong>{user?.fullName}</strong>.
+          <DialogTitle className="text-white">Excluir usuário</DialogTitle>
+          <DialogDescription className="text-white/70">
+            Você está prestes a excluir permanentemente <strong>{user?.fullName}</strong>.
           </DialogDescription>
         </DialogHeader>
 
-        <p className="text-sm text-muted-foreground rounded-md border border-red-300 bg-red-50 px-4 py-3">
-          This will permanently delete the user and all their data. This action cannot be undone.
+        <p className="text-sm rounded-md border px-4 py-3 bg-red-50 border-red-300 text-red-900 dark:bg-red-900/30 dark:border-red-700 dark:text-red-200">
+          Isso excluirá permanentemente o usuário e todos os seus dados. Esta ação não pode ser desfeita.
         </p>
 
         <Field>
-          <FieldLabel htmlFor="delete-email-confirm">
-            Type the user's email to confirm
+          <FieldLabel htmlFor="delete-email-confirm" className="text-white">
+            Digite o e-mail do usuário para confirmar
           </FieldLabel>
           <Input
             id="delete-email-confirm"
@@ -67,7 +67,7 @@ export function DeleteUserModal({ user, isOpen, onClose }: Readonly<DeleteUserMo
             value={emailConfirmation}
             onChange={(e) => setEmailConfirmation(e.target.value)}
             disabled={isPending}
-            aria-label="Confirm user email to enable deletion"
+            aria-label="Confirme o e-mail do usuário para habilitar a exclusão"
           />
         </Field>
 
@@ -77,7 +77,7 @@ export function DeleteUserModal({ user, isOpen, onClose }: Readonly<DeleteUserMo
             onClick={() => handleOpenChange(false)}
             disabled={isPending}
           >
-            Cancel
+            Cancelar
           </Button>
           <Button
             variant="secondary"
@@ -85,7 +85,7 @@ export function DeleteUserModal({ user, isOpen, onClose }: Readonly<DeleteUserMo
             disabled={!isConfirmed || isPending}
             className="bg-red-600 text-white hover:bg-red-700"
           >
-            {isPending ? "Deleting..." : "Delete Permanently"}
+            {isPending ? "Excluindo..." : "Excluir permanentemente"}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -29,9 +29,9 @@ interface AdminUsersFiltersProps {
 }
 
 const ROLE_OPTIONS = [
-  { label: "All Roles", value: "all" },
+  { label: "Todas as funções", value: "all" },
   { label: "Admin", value: "1" },
-  { label: "User", value: "0" },
+  { label: "Usuário", value: "0" },
 ];
 
 const DEBOUNCE_MS = 300;
@@ -114,37 +114,37 @@ export function AdminUsersFilters({
   return (
     <div className="grid grid-cols-2 gap-4 w-full p-4 mt-4 bg-(--green-200) rounded-md shadow-sm border my-6 md:grid-cols-3 lg:grid-cols-4">
       <Field>
-        <FieldLabel htmlFor="admin-filter-fullName">Full Name</FieldLabel>
+        <FieldLabel htmlFor="admin-filter-fullName">Nome completo</FieldLabel>
         <Input
           id="admin-filter-fullName"
-          placeholder="Search by full name"
+          placeholder="Buscar por nome"
           disabled={loading}
           {...register("fullName")}
         />
       </Field>
 
       <Field>
-        <FieldLabel htmlFor="admin-filter-nickname">Nickname</FieldLabel>
+        <FieldLabel htmlFor="admin-filter-nickname">Apelido</FieldLabel>
         <Input
           id="admin-filter-nickname"
-          placeholder="Search by nickname"
+          placeholder="Buscar por apelido"
           disabled={loading}
           {...register("nickname")}
         />
       </Field>
 
       <Field>
-        <FieldLabel htmlFor="admin-filter-documentNumber">Document Number</FieldLabel>
+        <FieldLabel htmlFor="admin-filter-documentNumber">CPF/Documento</FieldLabel>
         <Input
           id="admin-filter-documentNumber"
-          placeholder="Search by document"
+          placeholder="Buscar por documento"
           disabled={loading}
           {...register("documentNumber")}
         />
       </Field>
 
       <Field>
-        <FieldLabel htmlFor="admin-filter-role">Role</FieldLabel>
+        <FieldLabel htmlFor="admin-filter-role">Função</FieldLabel>
         <Controller
           name="role"
           control={control}
@@ -155,7 +155,7 @@ export function AdminUsersFilters({
               disabled={loading}
             >
               <SelectTrigger id="admin-filter-role">
-                <SelectValue placeholder="All Roles" />
+                <SelectValue placeholder="Todas as funções" />
               </SelectTrigger>
               <SelectContent>
                 {ROLE_OPTIONS.map((opt) => (
@@ -170,7 +170,7 @@ export function AdminUsersFilters({
       </Field>
 
       <DateRangeField<FilterFormValues>
-        label="Created At"
+        label="Criado em"
         fromFieldName="createdAtFrom"
         toFieldName="createdAtTo"
         control={control}
@@ -183,7 +183,7 @@ export function AdminUsersFilters({
           onClick={handleClear}
           disabled={loading}
         >
-          Clear Filters
+          Limpar filtros
         </Button>
       </div>
     </div>

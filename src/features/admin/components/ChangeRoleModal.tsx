@@ -27,7 +27,7 @@ interface ChangeRoleModalProps {
 
 const ROLE_OPTIONS = [
   { label: "Admin", value: "1" },
-  { label: "User", value: "0" },
+  { label: "Usuário", value: "0" },
 ];
 
 function roleToString(role: 'Admin' | 'User'): string {
@@ -69,18 +69,18 @@ export function ChangeRoleModal({ user, isOpen, onClose }: Readonly<ChangeRoleMo
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Change User Role</DialogTitle>
-          <DialogDescription>
-            Update the role for <strong>{user?.fullName}</strong>.
-            Current role: <strong>{user?.role}</strong>.
+          <DialogTitle className="text-white">Alterar função do usuário</DialogTitle>
+          <DialogDescription className="text-white/70">
+            Alterar a função de <strong>{user?.fullName}</strong>.
+            Função atual: <strong>{user?.role}</strong>.
           </DialogDescription>
         </DialogHeader>
 
         <Field>
-          <FieldLabel htmlFor="change-role-select">New Role</FieldLabel>
+          <FieldLabel htmlFor="change-role-select" className="text-white">Nova função</FieldLabel>
           <Select value={selectedRole} onValueChange={setSelectedRole}>
             <SelectTrigger id="change-role-select">
-              <SelectValue placeholder="Select a role" />
+              <SelectValue placeholder="Selecione uma função" />
             </SelectTrigger>
             <SelectContent>
               {ROLE_OPTIONS.map((opt) => (
@@ -94,13 +94,13 @@ export function ChangeRoleModal({ user, isOpen, onClose }: Readonly<ChangeRoleMo
 
         <DialogFooter>
           <Button variant="outline" onClick={handleClose} disabled={isPending}>
-            Cancel
+            Cancelar
           </Button>
           <Button
             onClick={handleConfirm}
             disabled={isUnchanged || isPending}
           >
-            {isPending ? "Saving..." : "Confirm"}
+            {isPending ? "Salvando..." : "Confirmar"}
           </Button>
         </DialogFooter>
       </DialogContent>
