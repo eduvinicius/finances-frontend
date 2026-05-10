@@ -9,12 +9,13 @@ import { AdminUsersTable } from "../components/AdminUsersTable";
 import { UserDetailModal } from "../components/UserDetailModal";
 import { ChangeRoleModal } from "../components/ChangeRoleModal";
 import { DeactivateUserModal } from "../components/DeactivateUserModal";
+import { ActivateUserModal } from "../components/ActivateUserModal";
 import { DeleteUserModal } from "../components/DeleteUserModal";
 import type { AdminUserListItem, AdminUserFilter } from "@/shared/types/adminUser.types";
 
 const PAGE_SIZE = 10;
 
-type ModalType = 'detail' | 'changeRole' | 'deactivate' | 'delete' | null;
+type ModalType = 'detail' | 'changeRole' | 'deactivate' | 'activate' | 'delete' | null;
 
 export function AdminUsersPage() {
   const { getUserToken } = useAuth();
@@ -77,6 +78,7 @@ export function AdminUsersPage() {
         onDetails={(user) => openWith('detail', user)}
         onChangeRole={(user) => openWith('changeRole', user)}
         onDeactivate={(user) => openWith('deactivate', user)}
+        onActivate={(user) => openWith('activate', user)}
         onDelete={(user) => openWith('delete', user)}
       />
 
@@ -96,6 +98,12 @@ export function AdminUsersPage() {
       <DeactivateUserModal
         user={openModal === 'deactivate' ? selectedUser : null}
         isOpen={openModal === 'deactivate'}
+        onClose={closeModal}
+      />
+
+      <ActivateUserModal
+        user={openModal === 'activate' ? selectedUser : null}
+        isOpen={openModal === 'activate'}
         onClose={closeModal}
       />
 

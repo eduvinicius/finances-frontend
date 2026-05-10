@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { Eye, RefreshCw, UserX, Trash2 } from "lucide-react";
+import { Eye, RefreshCw, UserX, UserCheck, Trash2 } from "lucide-react";
 import { AppTable, type Column } from "@/components/ui/Table/appTable";
 import { AppPaginator } from "@/components/ui/Paginator/appPaginator";
 import { Button } from "@/components/ui/Button";
@@ -16,6 +16,7 @@ interface AdminUsersTableProps {
   onDetails: (user: AdminUserListItem) => void;
   onChangeRole: (user: AdminUserListItem) => void;
   onDeactivate: (user: AdminUserListItem) => void;
+  onActivate: (user: AdminUserListItem) => void;
   onDelete: (user: AdminUserListItem) => void;
 }
 
@@ -73,6 +74,7 @@ export function AdminUsersTable({
   onDetails,
   onChangeRole,
   onDeactivate,
+  onActivate,
   onDelete,
 }: Readonly<AdminUsersTableProps>) {
   const totalPages = Math.ceil(totalCount / pageSize);
@@ -139,17 +141,31 @@ export function AdminUsersTable({
               <RefreshCw className="h-4 w-4" />
             </Button>
 
-            <Button
-              variant="ghost"
-              size="sm"
-              title={row.isActive ? "Desativar usuário" : "Já inativo"}
-              className="text-foreground"
-              disabled={isSelf || !row.isActive}
-              onClick={() => onDeactivate(row)}
-              aria-label={`Desativar ${row.fullName}`}
-            >
-              <UserX className="h-4 w-4" />
-            </Button>
+            {row.isActive ? (
+              <Button
+                variant="ghost"
+                size="sm"
+                title="Desativar usuário"
+                className="text-foreground"
+                disabled={isSelf}
+                onClick={() => onDeactivate(row)}
+                aria-label={`Desativar ${row.fullName}`}
+              >
+                <UserX className="h-4 w-4" />
+              </Button>
+            ) : (
+              <Button
+                variant="ghost"
+                size="sm"
+                title="Ativar usuário"
+                className="text-foreground"
+                disabled={isSelf}
+                onClick={() => onActivate(row)}
+                aria-label={`Ativar ${row.fullName}`}
+              >
+                <UserCheck className="h-4 w-4" />
+              </Button>
+            )}
 
             <Button
               variant="ghost"

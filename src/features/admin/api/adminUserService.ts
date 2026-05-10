@@ -29,6 +29,10 @@ export const adminUserService = {
     await httpClient.patch(`/${baseEndpoint}/${id}/deactivate`);
   },
 
+  async activate(id: string): Promise<void> {
+    await httpClient.patch(`/${baseEndpoint}/${id}/activate`);
+  },
+
   async deleteUser(id: string): Promise<void> {
     await httpClient.delete(`/${baseEndpoint}/${id}`);
   },

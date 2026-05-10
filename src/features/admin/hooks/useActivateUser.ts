@@ -4,15 +4,15 @@ import { QUERY_KEYS } from "@/shared/constants/queryKeys";
 import { getErrorMessage } from "@/lib/axiosError";
 import { adminUserService } from "../api/adminUserService";
 
-export function useDeactivateUser(): UseMutationResult<void, Error, string> {
+export function useActivateUser(): UseMutationResult<void, Error, string> {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id: string) => adminUserService.deactivate(id),
+    mutationFn: (id: string) => adminUserService.activate(id),
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.adminUsers.all });
-      toast.success("Usuário desativado");
+      toast.success("Usuário ativado");
     },
 
     onError: (error) => {
