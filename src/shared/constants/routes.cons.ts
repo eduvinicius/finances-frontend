@@ -23,23 +23,27 @@ export const ROUTES: IRoute[] = [
     url: "/transactions",
     label: "Transações",
     icon: AiOutlineTransaction,
+    roles: ["User"],
   },
   {
     id: "account",
     url: "/account",
     label: "Conta",
     icon: MdAccountBalance,
+    roles: ["User"],
   },
   {
     id: "categories",
     url: "/categories",
     label: "Categorias",
     icon: TbCategoryFilled,
+    roles: ["User"],
   },
   {
     id: "summary",
     url: "/summary",
     label: "Resumo",
     icon: TbReportMoney,
+    roles: ["User"],
   }
 ];

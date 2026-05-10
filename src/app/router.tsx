@@ -2,7 +2,7 @@ import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { Login } from "@/features/auth/pages/login";
 import { Register } from "@/features/auth/pages/register";
-import { ProtectedLayout } from "@/features/Layout";
+import { ProtectedLayout, UserOnlyLayout } from "@/features/Layout";
 import { NotFound } from "@/features/NotFound";
 
 const Home = lazy(() => import("@/features/Home").then(m => ({ default: m.Home })));
@@ -40,11 +40,17 @@ export const router = createBrowserRouter([
     Component: ProtectedLayout,
     children: [
       { index: true, Component: Home },
-      { path: "account", Component: Account },
-      { path: "transactions", Component: Transactions },
-      { path: "categories", Component: Categories },
-      { path: "summary", Component: Summary },
+      { path: "home", Component: Home },
       { path: "settings", Component: Settings },
+      {
+        Component: UserOnlyLayout,
+        children: [
+          { path: "account", Component: Account },
+          { path: "transactions", Component: Transactions },
+          { path: "categories", Component: Categories },
+          { path: "summary", Component: Summary },
+        ],
+      },
       { path: "*", Component: NotFound },
     ],
   },
