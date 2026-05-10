@@ -2,7 +2,7 @@ import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { Login } from "@/features/auth/pages/login";
 import { Register } from "@/features/auth/pages/register";
-import { ProtectedLayout, UserOnlyLayout } from "@/features/Layout";
+import { AdminLayout, ProtectedLayout, UserOnlyLayout } from "@/features/Layout";
 import { NotFound } from "@/features/NotFound";
 
 const Home = lazy(() => import("@/features/Home").then(m => ({ default: m.Home })));
@@ -16,6 +16,9 @@ const ForgotPasswordPage = lazy(() =>
 );
 const ResetPasswordPage = lazy(() =>
   import("@/features/auth/pages/ResetPasswordPage").then(m => ({ default: m.ResetPasswordPage }))
+);
+const AdminUsersPage = lazy(() =>
+  import("@/features/admin/pages/AdminUsersPage").then(m => ({ default: m.AdminUsersPage }))
 );
 
 export const router = createBrowserRouter([
@@ -52,6 +55,13 @@ export const router = createBrowserRouter([
         ],
       },
       { path: "*", Component: NotFound },
+    ],
+  },
+  {
+    path: "/admin",
+    Component: AdminLayout,
+    children: [
+      { path: "users", Component: AdminUsersPage },
     ],
   },
   { path: "*", Component: NotFound },

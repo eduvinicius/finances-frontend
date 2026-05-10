@@ -3,12 +3,17 @@ import { IoIosHome } from "react-icons/io";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { MdAccountBalance } from "react-icons/md";
 import { TbCategoryFilled, TbReportMoney } from "react-icons/tb";
+import { RiAdminLine } from "react-icons/ri";
 
 export const PUBLIC_ROUTES = {
   LOGIN: '/login',
   REGISTER: '/register',
   FORGOT_PASSWORD: '/forgot-password',
   RESET_PASSWORD: '/reset-password',
+} as const;
+
+export const ADMIN_ROUTES = {
+  ADMIN_USERS: '/admin/users',
 } as const;
 
 export const ROUTES: IRoute[] = [
@@ -45,5 +50,12 @@ export const ROUTES: IRoute[] = [
     label: "Resumo",
     icon: TbReportMoney,
     roles: ["User"],
-  }
+  },
+  {
+    id: "admin-users",
+    url: "/admin/users",
+    label: "Usuários",
+    icon: RiAdminLine,
+    roles: ["Admin"],
+  },
 ];

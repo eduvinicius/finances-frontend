@@ -8,6 +8,7 @@ import type { AccountFiltersValues } from "../types/account.types";
 import type { CategoriesFiltersValues } from "../types/category.type";
 import type { IPaginatedRequest } from "../types/pagination.types";
 import type { TransactionFiltersValues } from "../types/transactions.types";
+import type { AdminUserFilter } from "../types/adminUser.types";
 
 export const QUERY_KEYS = {
 
@@ -62,6 +63,12 @@ export const QUERY_KEYS = {
   viaCep: {
     all: ['viaCep'] as const,
     lookup: (cep: string) => [...QUERY_KEYS.viaCep.all, cep] as const,
+  },
+
+  adminUsers: {
+    all: ['adminUsers'] as const,
+    list: (filters: AdminUserFilter) => ['adminUsers', 'list', filters] as const,
+    detail: (id: string) => ['adminUsers', 'detail', id] as const,
   },
 } as const;
 
