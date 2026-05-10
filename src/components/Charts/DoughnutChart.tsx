@@ -6,6 +6,7 @@ import {
   Legend,
   type ChartOptions,
 } from "chart.js";
+import { useTheme } from "next-themes";
 import { usePrivacy } from "@/hooks/usePrivacy";
 
 // Register Chart.js components
@@ -56,6 +57,8 @@ export function DoughnutChart({
   formatValue = (value: number) => value.toLocaleString("pt-BR"),
 }: Readonly<DoughnutChartProps>) {
   const { isHidden } = usePrivacy();
+  const { resolvedTheme } = useTheme();
+  const labelColor = resolvedTheme === "dark" ? "#FFF" : "#252D4A";
 
   const chartData = {
     labels: data.labels,
@@ -82,7 +85,7 @@ export function DoughnutChart({
             size: 12,
             family: "var(--font-family-base)",
           },
-          color: "#FFF",
+          color: labelColor,
           usePointStyle: true,
           pointStyle: "circle",
         },
@@ -114,7 +117,7 @@ export function DoughnutChart({
             weight: "bold",
             family: "var(--font-family-base)",
           },
-          color: "#252D4A",
+          color: labelColor,
           padding: {
             bottom: 20,
           },
