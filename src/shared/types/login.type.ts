@@ -1,4 +1,5 @@
 import type { LoginFormValues } from "@/shared/schemas/loginSchema";
+import type { UserRole } from "@/shared/types/authContext.type";
 
 export interface LoginFormProps {
     onSubmit: (data: LoginFormValues) => void;
@@ -9,10 +10,12 @@ export interface LoginFormProps {
 
 export interface LoginResponse {
   token: string;
+  role: UserRole;
 }
 
 export interface GoogleAuthResponse {
   token: string;
+  role: UserRole;
   user: {
     id: string;
     email: string;

@@ -16,7 +16,7 @@ export function useGoogleLogin() {
   const mutation = useMutation({
     mutationFn: authService.googleLogin,
     onSuccess: (data) => {
-      login(data.token);
+      login(data.token, data.role);
       navigate("/home");
     },
     onError: (error) => {

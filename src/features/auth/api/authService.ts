@@ -1,7 +1,7 @@
 import { httpClient } from "@/shared/api/httpClient";
 import { getApiEndpoint, QUERY_KEYS } from "@/shared/constants/queryKeys";
 import type { LoginFormValues } from "@/shared/schemas/loginSchema";
-import type { GoogleAuthResponse } from "@/shared/types/login.type";
+import type { GoogleAuthResponse, LoginResponse } from "@/shared/types/login.type";
 import type { RegisterFormValues } from "@/shared/types/register.types";
 import { unformatCPF } from "@/shared/utils/cpfValidation";
 import { unformatPhoneNumber } from "@/shared/utils/phoneNumberMask";
@@ -15,12 +15,12 @@ const forgotPasswordEndpoint = getApiEndpoint(QUERY_KEYS.auth.forgotPassword());
 const resetPasswordEndpoint = getApiEndpoint(QUERY_KEYS.auth.resetPassword());
 
 export const authService = {
-  async login(data: LoginFormValues): Promise<string> {
-    const response: AxiosResponse<string> = await httpClient.post(`/${loginEndpoint}`, data);
+  async login(data: LoginFormValues): Promise<LoginResponse> {
+    const response: AxiosResponse<LoginResponse> = await httpClient.post(`/${loginEndpoint}`, data);
     return response.data;
   },
 
-  async register(data: RegisterFormValues): Promise<string> {
+  async register(data: RegisterFormValues): Promise<LoginResponse> {
     const { confirmPassword: _, ...rest } = data;
     const payload = {
       ...rest,
@@ -29,7 +29,7 @@ export const authService = {
       postalCode: rest.postalCode ? unformatPostalCode(rest.postalCode) : undefined,
       birthDate: rest.birthDate.toISOString(),
     };
-    const response: AxiosResponse<string> = await httpClient.post(`/${registerEndpoint}`, payload);
+    const response: AxiosResponse<LoginResponse> = await httpClient.post(`/${registerEndpoint}`, payload);
     return response.data;
   },
 

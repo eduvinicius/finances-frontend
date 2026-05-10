@@ -3,9 +3,10 @@ export const storage = {
   get<T>(key: string): T | null {
     try {
       const item = localStorage.getItem(key);
-      return item ? (JSON.parse(item) as T) : null;
-    } catch (error) {
-      console.error(`Error reading from localStorage (key: ${key}):`, error);
+      if (!item) return null;
+      return JSON.parse(item) as T;
+    } catch {
+      localStorage.removeItem(key);
       return null;
     }
   },
@@ -47,6 +48,7 @@ export const storage = {
 
 export const STORAGE_KEYS = {
   TOKEN: 'token',
+  ROLE: 'role',
   THEME: 'theme',
   SIDEBAR_STATE: 'sidebar_state',
 } as const;

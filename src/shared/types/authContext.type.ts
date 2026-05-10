@@ -1,6 +1,11 @@
+export type UserRole = 'Admin' | 'User';
+
 export interface IAuthContextType {
   isAuthenticated: boolean;
-  login: (token: string) => void;
+  role: UserRole | null;
+  isAdmin: boolean;
+  isUser: boolean;
+  login: (token: string, role: UserRole) => void;
   logout: () => void;
   getUserToken: () => string | null;
 }
