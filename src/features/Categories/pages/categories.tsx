@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useCategories } from "../hooks/useCategories";
 import type { CategoriesFiltersValues, CategoryFormValues } from "@/shared/types/category.type";
 import { useCreateCategory } from "../hooks/useCreateCategory";
 import { Spinner } from "@/components/ui/Spinner";
 import { CategoryForm, CategoriesFilters, CategoriesList,  CategoriesListSkeleton  } from "../components";
-import { toast } from "sonner";
 import { AppPaginator } from "@/components/ui/Paginator/appPaginator";
 import { AppDialog } from "@/components/AppDialog/appDialog";
 
@@ -13,15 +12,11 @@ export function Categories() {
   const pageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState<CategoriesFiltersValues | undefined>(undefined);
-  const { data, isLoading, error } = useCategories({ page: currentPage, pageSize }, filters);
+  const { data, isLoading } = useCategories({ page: currentPage, pageSize }, filters);
   const { mutate, isPending } = useCreateCategory();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const totalPages = Math.ceil((data?.totalCount ?? 0) / pageSize);
-
-  useEffect(() => {
-    if (error) toast.error(`Erro ao carregar categorias: ${error.message}`);
-  }, [error]);
 
   const handleFormSubmit = (formData: CategoryFormValues) => {
     mutate(formData, {

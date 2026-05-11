@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { toast } from "sonner";
+import { useState } from "react";
 import { TransactionTypeEnum } from "@/shared/enums/transactionTypeEnum";
 import { AppSelect } from "@/components/ui/InputSelect";
 import { useGetCategoryReport } from "../hooks/useGetCategoryReport";
@@ -11,11 +10,7 @@ import type { IFromToProps } from "@/shared/types/date.types";
 export function CategoryReportTab({ from, to }: Readonly<IFromToProps>) {
   const [activeType, setActiveType] = useState<TransactionTypeEnum>(TransactionTypeEnum.ALL);
 
-  const { data, isLoading, error } = useGetCategoryReport(from, to, activeType);
-
-  useEffect(() => {
-    if (error) toast.error(`Erro ao carregar relatório por categoria: ${error.message}`);
-  }, [error]);
+  const { data, isLoading } = useGetCategoryReport(from, to, activeType);
 
   return (
     <div className="flex flex-col gap-4 mt-4">

@@ -6,16 +6,12 @@ import {
   CardTitle,
 } from "@/components/ui/Card";
 import { TRANSACTION_TYPE_STRINGS } from "@/shared/constants/transactionTypeOptions.const";
-import { TransactionTypeEnum } from "@/shared/enums/transactionTypeEnum";
-import type { CategoriesListProps } from "@/shared/types/category.type";
+import type { CategoriesListProps, TransactionTypeString } from "@/shared/types/category.type";
 import { FcMoneyTransfer } from "react-icons/fc";
 import { TbPigMoney } from "react-icons/tb";
 import { GiExpense } from "react-icons/gi";
 
-const ICON_BY_TYPE: Record<string | number, React.ReactNode> = {
-  [TransactionTypeEnum.INCOME]: <FcMoneyTransfer size={48} />,
-  [TransactionTypeEnum.EXPENSE]: <GiExpense color="red" size={48} />,
-  [TransactionTypeEnum.INVESTMENT]: <TbPigMoney color="green" size={48} />,
+const ICON_BY_TYPE: Record<TransactionTypeString, React.ReactNode> = {
   Income: <FcMoneyTransfer size={48} />,
   Expense: <GiExpense color="red" size={48} />,
   Investment: <TbPigMoney color="green" size={48} />,

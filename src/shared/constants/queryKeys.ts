@@ -58,7 +58,7 @@ export const QUERY_KEYS = {
   categoryReport: {
     all: ['categoryreport'] as const,
     get: (from: Date, to: Date, transactionType: number) =>
-      ['categoryreport', from.toISOString(), to.toISOString(), transactionType] as const,
+      [...QUERY_KEYS.categoryReport.all, from.toISOString(), to.toISOString(), transactionType] as const,
   },
 
   viaCep: {

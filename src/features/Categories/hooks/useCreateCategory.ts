@@ -11,6 +11,7 @@ export function useCreateCategory(): UseMutationResult<ICategory, Error, ICreate
     mutationFn: categoryService.createCategory,
 
     onSuccess: () => {
+      toast.success("Categoria criada com sucesso!");
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.categories.all,
       });
