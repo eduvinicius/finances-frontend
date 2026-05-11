@@ -12,7 +12,7 @@ export function useRegister() {
   return useMutation({
     mutationFn: authService.register,
     onSuccess: (data) => {
-      login(data.token, data.role);
+      login(data.token);
       navigate("/home");
     },
     onError: (error) => {

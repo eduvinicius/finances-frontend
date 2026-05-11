@@ -6,10 +6,8 @@ import type { TransactionExportRequest } from "@/shared/types/transactions.types
 import { getErrorMessage } from "@/lib/axiosError";
 export function useExportTransactions(onSuccess?: () => void): UseMutationResult<Blob, Error, TransactionExportRequest> {
   return useMutation({
-    mutationFn: async (request: TransactionExportRequest) => {
-      const response = await transactionService.exportTransactions(request);
-      return response.data;
-    },
+    mutationFn: (request: TransactionExportRequest) =>
+      transactionService.exportTransactions(request),
 
     onSuccess: (blob) => {
       const url = globalThis.URL.createObjectURL(blob);

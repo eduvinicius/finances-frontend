@@ -4,6 +4,13 @@ import { AuthContext } from "../hooks/useAuth";
 import type { IAuthContextType, UserRole } from "@/shared/types/authContext.type";
 import { storage, STORAGE_KEYS } from "@/shared/utils/storage";
 import type { IReactNode } from "@/shared/types/reactTypes";
+import { getRoleFromToken } from "@/shared/utils/jwtDecode";
+
+function deriveRole(token: string): UserRole | null {
+  const raw = getRoleFromToken(token);
+  if (raw === 'Admin' || raw === 'User') return raw;
+  return null;
+}
 
 export function AuthProvider({ children }: Readonly<IReactNode>) {
   const queryClient = useQueryClient();
@@ -13,21 +20,20 @@ export function AuthProvider({ children }: Readonly<IReactNode>) {
   });
 
   const [role, setRole] = useState<UserRole | null>(() => {
-    return storage.get<UserRole>(STORAGE_KEYS.ROLE);
+    const token = storage.get<string>(STORAGE_KEYS.TOKEN);
+    return token ? deriveRole(token) : null;
   });
 
-  const login = useCallback((token: string, userRole: UserRole) => {
+  const login = useCallback((token: string) => {
     const tokenSuccess = storage.set(STORAGE_KEYS.TOKEN, token);
-    storage.set(STORAGE_KEYS.ROLE, userRole);
     if (tokenSuccess) {
       setIsAuthenticated(true);
-      setRole(userRole);
+      setRole(deriveRole(token));
     }
   }, []);
 
   const logout = useCallback(() => {
     storage.remove(STORAGE_KEYS.TOKEN);
-    storage.remove(STORAGE_KEYS.ROLE);
     queryClient.clear();
     setIsAuthenticated(false);
     setRole(null);

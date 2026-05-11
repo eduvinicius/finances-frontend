@@ -35,7 +35,8 @@ export function ResetPasswordPage() {
   }
 
   const onSubmit = (data: ResetPasswordFormValues) => {
-    mutate({ token, email, newPassword: data.newPassword, confirmPassword: data.confirmPassword });
+    const { confirmPassword: _, ...payload } = data;
+    mutate({ token, email, ...payload });
   };
 
   return (

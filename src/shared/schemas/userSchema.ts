@@ -35,9 +35,6 @@ export const userSchema = z.object({
       { message: "CEP inválido. Digite os 8 dígitos do CEP" }
     ),
   country: z.string().min(2, "O país deve conter pelo menos 2 caracteres").optional(),
-  birthDate: z.date({
-    required_error: "Data de nascimento é obrigatória",
-    invalid_type_error: "Data de nascimento é obrigatória",
-  }),
+  birthDate: z.date({ error: "Data de nascimento é obrigatória" }),
 
 });

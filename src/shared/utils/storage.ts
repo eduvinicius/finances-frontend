@@ -48,7 +48,6 @@ export const storage = {
 
 export const STORAGE_KEYS = {
   TOKEN: 'token',
-  ROLE: 'role',
   THEME: 'theme',
   SIDEBAR_STATE: 'sidebar_state',
 } as const;

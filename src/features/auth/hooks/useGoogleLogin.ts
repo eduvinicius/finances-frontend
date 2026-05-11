@@ -16,7 +16,7 @@ export function useGoogleLogin() {
   const mutation = useMutation({
     mutationFn: authService.googleLogin,
     onSuccess: (data) => {
-      login(data.token, data.role);
+      login(data.token);
       navigate("/home");
     },
     onError: (error) => {
@@ -24,15 +24,17 @@ export function useGoogleLogin() {
     },
   });
 
+  const { mutate: loginWithGoogle } = mutation;
+
   useEffect(() => {
     if (initialized.current) return;
     initialized.current = true;
     google.accounts.id.initialize({
       client_id: ENV.GOOGLE_CLIENT_ID,
-      callback: (response) => mutation.mutate(response.credential),
+      callback: (response) => loginWithGoogle(response.credential),
       cancel_on_tap_outside: true,
     });
-  }, [mutation]);
+  }, [loginWithGoogle]);
 
   return mutation;
 }

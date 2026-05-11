@@ -5,7 +5,7 @@ export interface IAuthContextType {
   role: UserRole | null;
   isAdmin: boolean;
   isUser: boolean;
-  login: (token: string, role: UserRole) => void;
+  login: (token: string) => void;
   logout: () => void;
   getUserToken: () => string | null;
 }

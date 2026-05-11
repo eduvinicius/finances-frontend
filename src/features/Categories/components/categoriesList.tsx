@@ -12,7 +12,7 @@ import { FcMoneyTransfer } from "react-icons/fc";
 import { TbPigMoney } from "react-icons/tb";
 import { GiExpense } from "react-icons/gi";
 
-const ICON_BY_TYPE: Record<TransactionTypeEnum, React.ReactNode> = {
+const ICON_BY_TYPE: Partial<Record<TransactionTypeEnum, React.ReactNode>> = {
   [TransactionTypeEnum.INCOME]: <FcMoneyTransfer size={48} />,
   [TransactionTypeEnum.EXPENSE]: <GiExpense color="red" size={48} />,
   [TransactionTypeEnum.INVESTMENT]: <TbPigMoney color="green" size={48} />,

@@ -31,8 +31,10 @@ export const transactionService: ITransactionService = {
     return response.data;
   },
 
-  exportTransactions: (data: TransactionExportRequest) =>
-    httpClient.post('/transactions/export', data, { responseType: 'blob' }),
+  exportTransactions: async (data: TransactionExportRequest): Promise<Blob> => {
+    const response = await httpClient.post<Blob>('/transactions/export', data, { responseType: 'blob' });
+    return response.data;
+  },
 };
 
 const buildTransactionFilters = (pagination: IPaginatedRequest, filters?: TransactionFiltersValues): ITransactionFilterDto => {
