@@ -1,14 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import type { IAccountSummary } from "@/shared/types/summary.types";
+import { formatCurrency } from "@/shared/utils/formatCurrency";
 import { DoughnutChart } from "./DoughnutChart";
 
 interface AccountsDoughnutChartProps {
   data: IAccountSummary[];
   title?: string;
 }
-
-const formatCurrency = (value: number) =>
-  value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
 export function AccountsDoughnutChart({
   data,

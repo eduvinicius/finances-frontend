@@ -6,8 +6,11 @@ export const ACCOUNT_TYPE_OPTIONS = [
   { value: AccountTypeEnum.INVESTMENT, label: AccountTypeStringEnum.INVESTMENT },
 ];
 
-export const ACCOUNT_TYPE_STRINGS = {
+export const ACCOUNT_TYPE_STRINGS: Record<string | number, string> = {
   [AccountTypeEnum.CHECKING]: AccountTypeStringEnum.CHECKING,
   [AccountTypeEnum.CREDIT]: AccountTypeStringEnum.CREDIT,
   [AccountTypeEnum.INVESTMENT]: AccountTypeStringEnum.INVESTMENT,
+  Checking: AccountTypeStringEnum.CHECKING,
+  Credit: AccountTypeStringEnum.CREDIT,
+  Investment: AccountTypeStringEnum.INVESTMENT,
 };

@@ -8,9 +8,13 @@ export const TRANSACTION_TYPE_OPTIONS: ISelectBaseProps<TransactionTypeEnum>[] =
   { value: TransactionTypeEnum.INVESTMENT, label: TransactionTypeEnumString.INVESTMENT },
 ];
 
-export const TRANSACTION_TYPE_STRINGS = {
+export const TRANSACTION_TYPE_STRINGS: Record<string | number, string> = {
   [TransactionTypeEnum.ALL]: TransactionTypeEnumString.ALL,
   [TransactionTypeEnum.INCOME]: TransactionTypeEnumString.INCOME,
   [TransactionTypeEnum.EXPENSE]: TransactionTypeEnumString.EXPENSE,
   [TransactionTypeEnum.INVESTMENT]: TransactionTypeEnumString.INVESTMENT,
+  All: TransactionTypeEnumString.ALL,
+  Income: TransactionTypeEnumString.INCOME,
+  Expense: TransactionTypeEnumString.EXPENSE,
+  Investment: TransactionTypeEnumString.INVESTMENT,
 };

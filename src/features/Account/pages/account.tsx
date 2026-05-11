@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { toast } from "sonner";
+import { useState } from "react";
 import { useCreateAccount } from "../hooks/useCreateAccount";
 import { useGetAccounts } from "../hooks/useGetAccounts";
 import type { AccountFiltersValues, AccountFormValues } from "@/shared/types/account.types";
@@ -13,15 +12,11 @@ export function Account() {
   const pageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState<AccountFiltersValues | undefined>(undefined);
-  const { data, isLoading, error } = useGetAccounts({ page: currentPage, pageSize }, filters);
+  const { data, isLoading } = useGetAccounts({ page: currentPage, pageSize }, filters);
   const { mutate, isPending } = useCreateAccount();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const totalPages = Math.ceil((data?.totalCount ?? 0) / pageSize);
-
-  useEffect(() => {
-    if (error) toast.error(`Erro ao carregar contas: ${error.message}`);
-  }, [error]);
 
   const handleFormSubmit = (formData: AccountFormValues) => {
     mutate(formData, {
@@ -72,7 +67,7 @@ export function Account() {
         )}
 
 
-        {totalPages >= 1 && (
+        {totalPages > 1 && (
           <AppPaginator
             currentPage={currentPage}
             totalPages={totalPages}

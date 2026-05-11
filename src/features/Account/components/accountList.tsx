@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle,  } from "@/c
 import { ACCOUNT_TYPE_STRINGS } from "@/shared/constants/accountTypeOptions.const";
 import type { IAccountsListProps } from "@/shared/types/account.types";
 import { usePrivacy } from "@/hooks/usePrivacy";
+import { formatCurrency } from "@/shared/utils/formatCurrency";
 
 export function AccountsList({ data }: Readonly<IAccountsListProps>) {
   const { isHidden } = usePrivacy();
@@ -9,7 +10,7 @@ export function AccountsList({ data }: Readonly<IAccountsListProps>) {
   return (
         <div className="grid grid-cols-5 gap-6 m-5">
             {data.map((account) => {
-              const balanceDisplay = isHidden ? "••••" : `R$ ${account.balance.toFixed(2)}`;
+              const balanceDisplay = isHidden ? "••••" : formatCurrency(account.balance);
               return (
                 <Card key={account.id} className="overflow-hidden">
                     <CardHeader>

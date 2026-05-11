@@ -12,7 +12,7 @@ export function useCreateAccount(): UseMutationResult<IAccount, Error, ICreateAc
 
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.accounts.all,
+        queryKey: QUERY_KEYS.accounts.getAll(),
       });
     },
 
