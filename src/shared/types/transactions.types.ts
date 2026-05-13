@@ -2,7 +2,7 @@ import type z from "zod";
 import type { TransactionTypeEnum } from "../enums/transactionTypeEnum";
 import type { transactionFormSchema, transactionsFiltersSchema } from "../schemas/transactionsSchema";
 import type { IAccount } from "./account.types";
-import type { ICategory } from "./category.type";
+import type { ICategory, TransactionTypeString } from "./category.type";
 import type { IPaginatedBaseResponse, IPaginatedRequest } from "./pagination.types";
 import type { ISelectBaseProps } from "./selectBase.types";
 
@@ -34,7 +34,8 @@ export interface ITransaction {
     categoryId: string;
     category: ICategory;
     amount: number;
-    type: TransactionTypeEnum;
+    /** Comes from the API as a string due to JsonStringEnumConverter on the backend. */
+    type: TransactionTypeString;
     description: string;
     createdAt: Date;
 }

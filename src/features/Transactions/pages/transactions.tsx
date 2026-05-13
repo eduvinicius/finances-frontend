@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { toast } from "sonner";
+import { useState } from "react";
 import { Download } from "lucide-react";
 import { Spinner } from "@/components/ui/Spinner";
 import { AppPaginator } from "@/components/ui/Paginator/appPaginator";
@@ -20,15 +19,11 @@ export function Transactions() {
   const [filters, setFilters] = useState<TransactionFiltersValues | undefined>(undefined);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
-  const { data, isLoading, error } = useGetAllTransactions({ page: currentPage, pageSize }, filters ?? {});
+  const { data, isLoading } = useGetAllTransactions({ page: currentPage, pageSize }, filters ?? {});
   const { mutate, isPending } = useCreateTransaction();
   const { selectOptions, isLoading: selectOptionsLoading } = useTransactionSelectOptions();
 
   const totalPages = Math.ceil((data?.totalCount ?? 0) / pageSize);
-
-  useEffect(() => {
-    if (error) toast.error(`Erro ao carregar transações: ${error.message}`);
-  }, [error]);
 
   const handleFormSubmit = (formData: TransactionFormValues) => {
     mutate(formData, {

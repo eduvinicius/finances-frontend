@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { ACCOUNT_TYPE_STRINGS } from "@/shared/constants/accountTypeOptions.const";
 import { TRANSACTION_TYPE_STRINGS } from "@/shared/constants/transactionTypeOptions.const";
 import type { ITransaction } from "@/shared/types/transactions.types";
@@ -23,7 +24,7 @@ export function TransactionDetailsModal({ transaction }: Readonly<TransactionDet
             <DetailRow label="Tipo de transação" value={TRANSACTION_TYPE_STRINGS[transaction.type] ?? "--"} />
             <DetailRow label="Descrição" value={transaction.description} />
             <DetailRow label="Valor" value={amount} />
-            <DetailRow label="Data" value={new Date(transaction.createdAt).toLocaleDateString()} />
+            <DetailRow label="Data" value={format(new Date(transaction.createdAt), 'dd/MM/yyyy')} />
             <DetailRow label="Categoria" value={transaction.category?.name ?? "Sem categoria"} />
             <DetailRow label="Desc. da Categoria" value={transaction.category?.description ?? "Sem descrição"} />
         </div>

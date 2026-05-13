@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { TRANSACTION_TYPE_STRINGS } from "@/shared/constants/transactionTypeOptions.const";
 import type { ITransaction } from "@/shared/types/transactions.types";
 import { HiddenAmount, TransactionDetailsCell } from "../components";
@@ -12,7 +13,7 @@ export const TRANSACTIONS_COLUMNS: Column<ITransaction>[] = [
     accessor: (row: ITransaction) => row.amount,
     cell: (_value: unknown, row: ITransaction) => <HiddenAmount amount={row.amount} />,
   },
-  { header: "Data", accessor: (row: ITransaction) => new Date(row.createdAt).toLocaleDateString() },
+  { header: "Data", accessor: (row: ITransaction) => format(new Date(row.createdAt), 'dd/MM/yyyy') },
   { header: "Categoria", accessor: (row: ITransaction) => row.category?.name ?? "Sem categoria" },
   {
     header: "Detalhes",
