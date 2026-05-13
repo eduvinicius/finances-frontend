@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { ComboboxField, DateRangeField } from "@/components/FieldForms";
 import { Button } from "@/components/ui/Button";
 import { transactionsFiltersSchema } from "@/shared/schemas/transactionsSchema";
@@ -6,42 +7,65 @@ import type { ITransactionComboboxProps, TransactionFiltersValues } from "@/shar
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+const DEFAULT_VALUES: TransactionFiltersValues = {
+  accountIds: [],
+  categoryIds: [],
+  type: [],
+};
+
 export function TransactionFilters({
   onFilter,
   onClear,
   loading = false,
   selectOptions
-}: Readonly<IFiltersBaseProps<TransactionFiltersValues, ITransactionComboboxProps> >) {
+}: Readonly<IFiltersBaseProps<TransactionFiltersValues, ITransactionComboboxProps>>) {
 
   const {
-    handleSubmit,
     control,
     reset,
+    watch,
     formState: { errors },
   } = useForm<TransactionFiltersValues>({
     resolver: zodResolver(transactionsFiltersSchema),
-    mode: "onTouched",
-    defaultValues: {
-      accountIds: [],
-      categoryIds: [],
-      type: [],
-    },
+    defaultValues: DEFAULT_VALUES,
   })
 
-  const handleClearFilters = () => {
-    reset({
-      accountIds: [],
-      categoryIds: [],
-      type: [],
-    })
-        
-    if (onClear) {
-      onClear()
+  const values = watch();
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
     }
+
+    const { accountIds, categoryIds, type, fromDate, toDate } = values;
+
+    const buildFilters = (): Partial<TransactionFiltersValues> => ({
+      ...(accountIds?.length ? { accountIds } : {}),
+      ...(categoryIds?.length ? { categoryIds } : {}),
+      ...(type?.length ? { type } : {}),
+      ...(fromDate ? { fromDate } : {}),
+      ...(toDate ? { toDate } : {}),
+    });
+
+    onFilter(buildFilters());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    values.accountIds,
+    values.categoryIds,
+    values.type,
+    values.fromDate,
+    values.toDate,
+  ]);
+
+  const handleClearFilters = () => {
+    reset(DEFAULT_VALUES);
+    onClear();
   }
 
   return (
-        <form onSubmit={handleSubmit(onFilter)} className="grid grid-cols-4 gap-4 w-full p-4 mt-4 bg-(--green-200) rounded-md shadow-sm border my-6">
+        <form className="grid grid-cols-4 gap-4 w-full p-4 mt-4 bg-(--green-200) rounded-md shadow-sm border my-6">
             <ComboboxField
                 id="accountId"
                 control={control}
@@ -84,9 +108,6 @@ export function TransactionFilters({
                     disabled={loading}
                 >
                     Limpar Filtros
-                </Button>
-                <Button type="submit" disabled={loading}>
-                    {loading ? "Filtrando..." : "Filtrar"}
                 </Button>
             </div>
         </form>

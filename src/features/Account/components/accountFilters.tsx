@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react"
 import { Button } from "@/components/ui/Button"
 import { FieldGroup, FieldSet } from "@/components/ui/Field"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -9,6 +10,13 @@ import { ACCOUNT_TYPE_OPTIONS } from "@/shared/constants/accountTypeOptions.cons
 import { FormField } from "@/components/FieldForms/formField"
 import { ComboboxField, DateRangeField } from "@/components/FieldForms"
 
+const DEBOUNCE_MS = 300;
+
+const DEFAULT_VALUES: AccountFiltersValues = {
+  name: "",
+  accountType: [],
+};
+
 export function AccountFilters({
   onFilter,
   onClear,
@@ -16,32 +24,67 @@ export function AccountFilters({
 }: Readonly<IFiltersBaseProps<AccountFiltersValues>>) {
 
   const {
-    handleSubmit,
     control,
     reset,
+    watch,
     formState: { errors },
   } = useForm<AccountFiltersValues>({
     resolver: zodResolver(accountFiltersSchema),
-    mode: "onTouched",
-    defaultValues: {
-      name: "",
-      accountType: [],
-    },
+    defaultValues: DEFAULT_VALUES,
   })
 
-  const handleClearFilters = () => {
-    reset({
-      name: "",
-      accountType: [],
-    })
-        
-    if (onClear) {
-      onClear()
+  const values = watch();
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const prevTextRef = useRef({ name: "" });
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
     }
+
+    const { name, accountType, fromDate, toDate } = values;
+
+    const textChanged = name !== prevTextRef.current.name;
+
+    const buildFilters = (): Partial<AccountFiltersValues> => ({
+      ...(name ? { name } : {}),
+      ...(accountType?.length ? { accountType } : {}),
+      ...(fromDate ? { fromDate } : {}),
+      ...(toDate ? { toDate } : {}),
+    });
+
+    if (textChanged) {
+      prevTextRef.current = { name: name ?? "" };
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+      debounceRef.current = setTimeout(() => {
+        onFilter(buildFilters());
+      }, DEBOUNCE_MS);
+    } else {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+      onFilter(buildFilters());
+    }
+
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    values.name,
+    values.accountType,
+    values.fromDate,
+    values.toDate,
+  ]);
+
+  const handleClearFilters = () => {
+    reset(DEFAULT_VALUES);
+    prevTextRef.current = { name: "" };
+    onClear();
   }
 
   return (
-        <form onSubmit={handleSubmit(onFilter)} className="w-full p-4 mt-4 bg-(--green-200) rounded-md shadow-sm border">
+        <form className="w-full p-4 mt-4 bg-(--green-200) rounded-md shadow-sm border">
             <FieldSet className="space-y-4">
                 <FieldGroup className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                     <FormField
@@ -79,9 +122,6 @@ export function AccountFilters({
                         disabled={loading}
                     >
                         Limpar Filtros
-                    </Button>
-                    <Button type="submit" disabled={loading}>
-                        {loading ? "Filtrando..." : "Filtrar"}
                     </Button>
                 </div>
             </FieldSet>
