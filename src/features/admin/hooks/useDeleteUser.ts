@@ -11,8 +11,8 @@ export function useDeleteUser(): UseMutationResult<void, Error, string> {
     mutationFn: (id: string) => adminUserService.deleteUser(id),
 
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.adminUsers.all });
-      toast.success("User permanently deleted");
+      queryClient.invalidateQueries({ queryKey: [...QUERY_KEYS.adminUsers.all, 'list'] });
+      toast.success("Usuário excluído permanentemente");
     },
 
     onError: (error) => {

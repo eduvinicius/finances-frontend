@@ -2,6 +2,7 @@ import { httpClient } from "@/shared/api/httpClient";
 import { getApiEndpoint, QUERY_KEYS } from "@/shared/constants/queryKeys";
 import type { IPaginatedBaseResponse } from "@/shared/types/pagination.types";
 import type { AdminUserDetail, AdminUserFilter, AdminUserListItem } from "@/shared/types/adminUser.types";
+import { UserRole } from "@/shared/enums/userRoleEnum";
 import type { AxiosResponse } from "axios";
 
 const baseEndpoint = getApiEndpoint(QUERY_KEYS.adminUsers.all);
@@ -21,7 +22,7 @@ export const adminUserService = {
     return response.data;
   },
 
-  async changeRole(id: string, role: number): Promise<void> {
+  async changeRole(id: string, role: UserRole): Promise<void> {
     await httpClient.patch(`/${baseEndpoint}/${id}/role`, { role });
   },
 

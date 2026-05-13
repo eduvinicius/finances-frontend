@@ -2,8 +2,6 @@ import { useState } from "react";
 import { Users } from "lucide-react";
 import { useAdminUsers } from "../hooks/useAdminUsers";
 import { useAuth } from "@/features/auth/hooks/useAuth";
-import { getUserIdFromToken } from "@/shared/utils/jwtDecode";
-import { storage, STORAGE_KEYS } from "@/shared/utils/storage";
 import { AdminUsersFilters } from "../components/AdminUsersFilters";
 import { AdminUsersTable } from "../components/AdminUsersTable";
 import { UserDetailModal } from "../components/UserDetailModal";
@@ -18,8 +16,7 @@ const PAGE_SIZE = 10;
 type ModalType = 'detail' | 'changeRole' | 'deactivate' | 'activate' | 'delete' | null;
 
 export function AdminUsersPage() {
-  const { getUserToken } = useAuth();
-  const currentUserId = getUserIdFromToken(getUserToken() ?? storage.get<string>(STORAGE_KEYS.TOKEN));
+  const { userId: currentUserId } = useAuth();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [activeFilters, setActiveFilters] = useState<Partial<AdminUserFilter>>({});

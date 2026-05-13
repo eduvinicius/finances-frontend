@@ -29,6 +29,3 @@ export interface AdminUserFilter {
   createdAtTo?: string;
 }
 
-export interface AdminUserColumns extends AdminUserListItem {
-  [key: string]: unknown;
-}

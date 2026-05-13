@@ -4,12 +4,16 @@ import { AuthContext } from "../hooks/useAuth";
 import type { IAuthContextType, UserRole } from "@/shared/types/authContext.type";
 import { storage, STORAGE_KEYS } from "@/shared/utils/storage";
 import type { IReactNode } from "@/shared/types/reactTypes";
-import { getRoleFromToken } from "@/shared/utils/jwtDecode";
+import { getRoleFromToken, getUserIdFromToken } from "@/shared/utils/jwtDecode";
 
 function deriveRole(token: string): UserRole | null {
   const raw = getRoleFromToken(token);
   if (raw === 'Admin' || raw === 'User') return raw;
   return null;
+}
+
+function deriveUserId(token: string): string | null {
+  return getUserIdFromToken(token);
 }
 
 export function AuthProvider({ children }: Readonly<IReactNode>) {
@@ -24,11 +28,17 @@ export function AuthProvider({ children }: Readonly<IReactNode>) {
     return token ? deriveRole(token) : null;
   });
 
+  const [userId, setUserId] = useState<string | null>(() => {
+    const token = storage.get<string>(STORAGE_KEYS.TOKEN);
+    return token ? deriveUserId(token) : null;
+  });
+
   const login = useCallback((token: string) => {
     const tokenSuccess = storage.set(STORAGE_KEYS.TOKEN, token);
     if (tokenSuccess) {
       setIsAuthenticated(true);
       setRole(deriveRole(token));
+      setUserId(deriveUserId(token));
     }
   }, []);
 
@@ -37,6 +47,7 @@ export function AuthProvider({ children }: Readonly<IReactNode>) {
     queryClient.clear();
     setIsAuthenticated(false);
     setRole(null);
+    setUserId(null);
   }, [queryClient]);
 
   const getUserToken = useCallback((): string | null => {
@@ -47,13 +58,14 @@ export function AuthProvider({ children }: Readonly<IReactNode>) {
     () => ({
       isAuthenticated,
       role,
+      userId,
       isAdmin: role === 'Admin',
       isUser: role === 'User',
       login,
       logout,
       getUserToken,
     }),
-    [isAuthenticated, role, login, logout, getUserToken]
+    [isAuthenticated, role, userId, login, logout, getUserToken]
   );
 
   return (

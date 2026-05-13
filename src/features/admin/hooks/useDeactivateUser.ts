@@ -10,8 +10,9 @@ export function useDeactivateUser(): UseMutationResult<void, Error, string> {
   return useMutation({
     mutationFn: (id: string) => adminUserService.deactivate(id),
 
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.adminUsers.all });
+    onSuccess: (_data, id) => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.adminUsers.detail(id) });
+      queryClient.invalidateQueries({ queryKey: [...QUERY_KEYS.adminUsers.all, 'list'] });
       toast.success("Usuário desativado");
     },
 

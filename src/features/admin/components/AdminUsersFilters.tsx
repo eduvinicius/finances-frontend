@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Field, FieldLabel } from "@/components/ui/Field";
@@ -12,15 +13,10 @@ import {
 } from "@/components/ui/InputSelect";
 import { DateRangeField } from "@/components/FieldForms";
 import type { AdminUserFilter } from "@/shared/types/adminUser.types";
-
-interface FilterFormValues {
-  fullName: string;
-  nickname: string;
-  documentNumber: string;
-  role: string;
-  createdAtFrom: Date | undefined;
-  createdAtTo: Date | undefined;
-}
+import {
+  adminUserFiltersSchema,
+  type AdminUserFiltersFormValues,
+} from "@/shared/schemas/adminUserFiltersSchema";
 
 interface AdminUsersFiltersProps {
   onFilter: (filters: Partial<AdminUserFilter>) => void;
@@ -36,7 +32,7 @@ const ROLE_OPTIONS = [
 
 const DEBOUNCE_MS = 300;
 
-const DEFAULT_VALUES: FilterFormValues = {
+const DEFAULT_VALUES: AdminUserFiltersFormValues = {
   fullName: "",
   nickname: "",
   documentNumber: "",
@@ -50,7 +46,8 @@ export function AdminUsersFilters({
   onClear,
   loading = false,
 }: Readonly<AdminUsersFiltersProps>) {
-  const { register, control, watch, reset } = useForm<FilterFormValues>({
+  const { register, control, watch, reset, formState: { errors } } = useForm<AdminUserFiltersFormValues>({
+    resolver: zodResolver(adminUserFiltersSchema),
     defaultValues: DEFAULT_VALUES,
   });
 
@@ -82,7 +79,7 @@ export function AdminUsersFilters({
     });
 
     if (textChanged) {
-      prevTextRef.current = { fullName, nickname, documentNumber };
+      prevTextRef.current = { fullName: fullName ?? "", nickname: nickname ?? "", documentNumber: documentNumber ?? "" };
       if (debounceRef.current) clearTimeout(debounceRef.current);
       debounceRef.current = setTimeout(() => {
         onFilter(buildFilters());
@@ -169,12 +166,18 @@ export function AdminUsersFilters({
         />
       </Field>
 
-      <DateRangeField<FilterFormValues>
+      <DateRangeField<AdminUserFiltersFormValues>
         label="Criado em"
         fromFieldName="createdAtFrom"
         toFieldName="createdAtTo"
         control={control}
       />
+
+      {errors.createdAtFrom && (
+        <p className="col-span-2 text-sm text-destructive md:col-span-3 lg:col-span-4">
+          {errors.createdAtFrom.message}
+        </p>
+      )}
 
       <div className="col-span-2 flex items-end justify-end gap-2 md:col-span-3 lg:col-span-4">
         <Button

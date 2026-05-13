@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Dialog,
   DialogContent,
@@ -18,6 +19,7 @@ import {
 } from "@/components/ui/InputSelect";
 import { useChangeUserRole } from "../hooks/useChangeUserRole";
 import type { AdminUserListItem } from "@/shared/types/adminUser.types";
+import { changeRoleSchema, type ChangeRoleFormValues } from "@/shared/schemas/changeRoleSchema";
 
 interface ChangeRoleModalProps {
   user: AdminUserListItem | null;
@@ -40,13 +42,16 @@ function roleToString(role: 'Admin' | 'User'): string {
  * The parent passes user=null when closed, so we gate rendering on user being present.
  */
 export function ChangeRoleModal({ user, isOpen, onClose }: Readonly<ChangeRoleModalProps>) {
-  // Initialise from user.role — safe because this component is remounted each open cycle
-  const [selectedRole, setSelectedRole] = useState<string>(
-    user ? roleToString(user.role) : ""
-  );
+  const currentRoleString = user ? roleToString(user.role) : "";
+
+  const { control, handleSubmit, watch, formState: { errors } } = useForm<ChangeRoleFormValues>({
+    resolver: zodResolver(changeRoleSchema),
+    defaultValues: { role: currentRoleString },
+  });
+
   const { mutate, isPending } = useChangeUserRole();
 
-  const currentRoleString = user ? roleToString(user.role) : "";
+  const selectedRole = watch("role");
   const isUnchanged = selectedRole === currentRoleString || selectedRole === "";
 
   const handleClose = () => {
@@ -57,10 +62,10 @@ export function ChangeRoleModal({ user, isOpen, onClose }: Readonly<ChangeRoleMo
     if (!open) handleClose();
   };
 
-  const handleConfirm = () => {
+  const onSubmit = (values: ChangeRoleFormValues) => {
     if (!user || isUnchanged) return;
     mutate(
-      { id: user.id, role: Number(selectedRole) },
+      { id: user.id, role: Number(values.role) },
       { onSuccess: handleClose }
     );
   };
@@ -76,33 +81,44 @@ export function ChangeRoleModal({ user, isOpen, onClose }: Readonly<ChangeRoleMo
           </DialogDescription>
         </DialogHeader>
 
-        <Field>
-          <FieldLabel htmlFor="change-role-select" className="text-white">Nova função</FieldLabel>
-          <Select value={selectedRole} onValueChange={setSelectedRole}>
-            <SelectTrigger id="change-role-select">
-              <SelectValue placeholder="Selecione uma função" />
-            </SelectTrigger>
-            <SelectContent>
-              {ROLE_OPTIONS.map((opt) => (
-                <SelectItem key={opt.value} value={opt.value}>
-                  {opt.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </Field>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Field>
+            <FieldLabel htmlFor="change-role-select" className="text-white">Nova função</FieldLabel>
+            <Controller
+              name="role"
+              control={control}
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger id="change-role-select">
+                    <SelectValue placeholder="Selecione uma função" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {ROLE_OPTIONS.map((opt) => (
+                      <SelectItem key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+            {errors.role && (
+              <p className="text-sm text-destructive">{errors.role.message}</p>
+            )}
+          </Field>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={handleClose} disabled={isPending}>
-            Cancelar
-          </Button>
-          <Button
-            onClick={handleConfirm}
-            disabled={isUnchanged || isPending}
-          >
-            {isPending ? "Salvando..." : "Confirmar"}
-          </Button>
-        </DialogFooter>
+          <DialogFooter className="mt-4">
+            <Button type="button" variant="outline" onClick={handleClose} disabled={isPending}>
+              Cancelar
+            </Button>
+            <Button
+              type="submit"
+              disabled={isUnchanged || isPending}
+            >
+              {isPending ? "Salvando..." : "Confirmar"}
+            </Button>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   );
