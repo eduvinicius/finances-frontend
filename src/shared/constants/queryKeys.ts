@@ -72,6 +72,11 @@ export const QUERY_KEYS = {
     list: (filters: AdminUserFilter) => [...QUERY_KEYS.adminUsers.all, 'list', filters] as const,
     detail: (id: string) => [...QUERY_KEYS.adminUsers.all, 'detail', id] as const,
   },
+
+  home: {
+    all: ['home'] as const,
+    dashboard: () => [...QUERY_KEYS.home.all, 'dashboard'] as const,
+  },
 } as const;
 
 export const getApiEndpoint = (queryKey: readonly unknown[]): string => {

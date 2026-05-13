@@ -14,16 +14,7 @@ export function SummaryCards({ data }: Readonly<SummaryCardsProps>) {
   const masked = "••••";
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-      <Card>
-        <CardHeader>
-          <CardTitle title="Saldo Total" className="text-sm text-muted-foreground font-medium" />
-        </CardHeader>
-        <CardContent>
-          <p className="text-2xl font-bold">{isHidden ? masked : formatCurrency(data.totalBalance)}</p>
-        </CardContent>
-      </Card>
-
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <Card>
         <CardHeader>
           <CardTitle title="Receitas" className="text-sm text-muted-foreground font-medium" />
