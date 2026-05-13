@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
@@ -26,8 +26,6 @@ interface ExportTransactionsModalProps {
   selectOptions: ITransactionComboboxProps;
 }
 
-type ExportScope = "current" | "all";
-
 const ALL_SENTINEL = "all";
 
 const EXPORT_TYPE_OPTIONS = [
@@ -44,6 +42,7 @@ function toDateInputValue(date: Date | undefined): string {
 
 function buildDefaultValues(currentFilters?: TransactionFiltersValues): ExportTransactionFormValues {
   return {
+    exportScope: "current",
     startDate: toDateInputValue(currentFilters?.fromDate),
     endDate: toDateInputValue(currentFilters?.toDate),
     categoryId: currentFilters?.categoryIds?.[0] ?? ALL_SENTINEL,
@@ -59,31 +58,32 @@ export function ExportTransactionsModal({
   selectOptions,
 }: Readonly<ExportTransactionsModalProps>) {
   const { mutate, isPending } = useExportTransactions(onClose);
-  const [exportScope, setExportScope] = useState<ExportScope>("current");
 
   const {
     register,
     control,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<ExportTransactionFormValues>({
     resolver: zodResolver(exportTransactionSchema),
     defaultValues: buildDefaultValues(currentFilters),
   });
 
-  // Re-sync form and scope with current filters each time the modal opens (finding #15)
+  const exportScope = watch("exportScope");
+
+  // Re-sync form with current filters each time the modal opens (finding #15)
   useEffect(() => {
     if (isOpen) {
       reset(buildDefaultValues(currentFilters));
-      setExportScope("current");
     }
   }, [isOpen, currentFilters, reset]);
 
   const isDisabled = exportScope === "all";
 
   function onSubmit(values: ExportTransactionFormValues) {
-    if (exportScope === "all") {
+    if (values.exportScope === "all") {
       mutate({ exportAll: true });
       return;
     }
@@ -101,10 +101,6 @@ export function ExportTransactionsModal({
     mutate(payload);
   }
 
-  function handleScopeChange(value: ExportScope) {
-    setExportScope(value);
-  }
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
@@ -116,22 +112,18 @@ export function ExportTransactionsModal({
           <label className="flex items-center gap-2 cursor-pointer">
             <input
               type="radio"
-              name="exportScope"
               value="current"
-              checked={exportScope === "current"}
-              onChange={() => handleScopeChange("current")}
               className="accent-primary"
+              {...register("exportScope")}
             />
             <span className="text-sm">Filtros atuais</span>
           </label>
           <label className="flex items-center gap-2 cursor-pointer">
             <input
               type="radio"
-              name="exportScope"
               value="all"
-              checked={exportScope === "all"}
-              onChange={() => handleScopeChange("all")}
               className="accent-primary"
+              {...register("exportScope")}
             />
             <span className="text-sm">Todas as transações</span>
           </label>

@@ -28,17 +28,27 @@ export const transactionFormSchema = z.object({
 });
 
 export const exportTransactionSchema = z.object({
-  startDate: z.string().min(1, "Data de início é obrigatória"),
-  endDate: z.string().min(1, "Data de fim é obrigatória"),
+  exportScope: z.enum(["current", "all"]),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
   categoryId: z.string().optional(),
   accountId: z.string().optional(),
   transactionType: z.string().optional(),
-}).refine(
-  (data) => data.startDate <= data.endDate,
-  {
-    message: "A data de início deve ser anterior à data de fim",
-    path: ["endDate"],
+}).superRefine((data, ctx) => {
+  if (data.exportScope !== "current") {
+    return;
   }
-);
+  const hasStart = Boolean(data.startDate && data.startDate.length > 0);
+  const hasEnd = Boolean(data.endDate && data.endDate.length > 0);
+  if (!hasStart) {
+    ctx.addIssue({ code: "custom", message: "Data de início é obrigatória", path: ["startDate"] });
+  }
+  if (!hasEnd) {
+    ctx.addIssue({ code: "custom", message: "Data de fim é obrigatória", path: ["endDate"] });
+  }
+  if (hasStart && hasEnd && data.startDate! > data.endDate!) {
+    ctx.addIssue({ code: "custom", message: "A data de início deve ser anterior à data de fim", path: ["endDate"] });
+  }
+});
 
 export type ExportTransactionFormValues = z.infer<typeof exportTransactionSchema>;
