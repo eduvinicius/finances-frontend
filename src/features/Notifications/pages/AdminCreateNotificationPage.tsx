@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Bell } from "lucide-react";
@@ -5,8 +6,10 @@ import { Button } from "@/components/ui/Button";
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/Field";
 import { InputGroup, InputGroupInput, InputGroupTextarea } from "@/components/ui/InputGroup";
 import { AppSelect } from "@/components/ui/InputSelect/appSelect";
-import { createNotificationSchema, type CreateNotificationDto } from "@/shared/schemas/notification.schema";
+import { createNotificationSchema, type CreateNotificationDto, type CreateNotificationInput } from "@/shared/schemas/notification.schema";
 import { useCreateNotification } from "../hooks/useCreateNotification";
+import { UserSearchCombobox } from "../components/UserSearchCombobox";
+import type { UserSearchResult } from "@/shared/types/adminUser.types";
 
 const TARGETING_MODE_OPTIONS = [
   { label: "Todos os usuários", value: 0 as const },
@@ -21,14 +24,17 @@ const DELIVERY_CHANNEL_OPTIONS = [
 ];
 
 export function AdminCreateNotificationPage() {
+  const [selectedUsers, setSelectedUsers] = useState<UserSearchResult[]>([]);
+
   const {
     register,
     handleSubmit,
     control,
     watch,
     reset,
+    setValue,
     formState: { errors },
-  } = useForm<CreateNotificationDto>({
+  } = useForm<CreateNotificationInput, unknown, CreateNotificationDto>({
     resolver: zodResolver(createNotificationSchema),
     mode: "onTouched",
     defaultValues: {
@@ -40,12 +46,22 @@ export function AdminCreateNotificationPage() {
     },
   });
 
-  const { mutate, isPending } = useCreateNotification(() => reset());
+  const { mutate, isPending } = useCreateNotification(() => {
+    reset();
+    setSelectedUsers([]);
+  });
 
   const targetingMode = watch("targetingMode");
   const showTargetUserIds = targetingMode === 1 || targetingMode === 2;
 
+  function handleSelectionChange(users: UserSearchResult[]) {
+    setSelectedUsers(users);
+    setValue("targetUserIds", users.map((u) => u.id), { shouldValidate: true });
+  }
+
   const onSubmit = (data: CreateNotificationDto) => mutate(data);
+
+  const targetUserIdsError = errors.targetUserIds?.root?.message;
 
   return (
     <div className="flex min-h-screen flex-col items-center px-4 py-10">
@@ -98,7 +114,11 @@ export function AdminCreateNotificationPage() {
                   <AppSelect
                     options={TARGETING_MODE_OPTIONS}
                     value={field.value}
-                    onValueChange={field.onChange}
+                    onValueChange={(value) => {
+                      field.onChange(value);
+                      setSelectedUsers([]);
+                      setValue("targetUserIds", []);
+                    }}
                     placeholder="Selecione os destinatários"
                   />
                 )}
@@ -109,26 +129,12 @@ export function AdminCreateNotificationPage() {
             </Field>
 
             {showTargetUserIds && (
-              <Field>
-                <FieldLabel htmlFor="targetUserIds">IDs dos usuários</FieldLabel>
-                <InputGroup>
-                  <InputGroupInput
-                    id="targetUserIds"
-                    type="text"
-                    placeholder="UUIDs separados por vírgula"
-                    aria-invalid={!!errors.targetUserIds}
-                    {...register("targetUserIds", {
-                      setValueAs: (value: string) =>
-                        typeof value === "string"
-                          ? value.split(",").map((s) => s.trim()).filter(Boolean)
-                          : value,
-                    })}
-                  />
-                </InputGroup>
-                <FieldDescription className={errors.targetUserIds ? "text-destructive" : ""}>
-                  {errors.targetUserIds?.message ?? "Insira os UUIDs separados por vírgula"}
-                </FieldDescription>
-              </Field>
+              <UserSearchCombobox
+                selectedUsers={selectedUsers}
+                onSelectionChange={handleSelectionChange}
+                multiSelect={targetingMode === 2}
+                error={targetUserIdsError}
+              />
             )}
 
             <Field>

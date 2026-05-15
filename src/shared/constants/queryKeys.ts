@@ -71,6 +71,7 @@ export const QUERY_KEYS = {
     getAll: () => [...QUERY_KEYS.adminUsers.all, 'getAll'] as const,
     list: (filters: AdminUserFilter) => [...QUERY_KEYS.adminUsers.all, 'list', filters] as const,
     detail: (id: string) => [...QUERY_KEYS.adminUsers.all, 'detail', id] as const,
+    search: (name: string) => [...QUERY_KEYS.adminUsers.all, 'search', name] as const,
   },
 
   home: {

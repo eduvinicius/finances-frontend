@@ -1,7 +1,7 @@
 import { httpClient } from "@/shared/api/httpClient";
 import { getApiEndpoint, QUERY_KEYS } from "@/shared/constants/queryKeys";
 import type { IPaginatedBaseResponse } from "@/shared/types/pagination.types";
-import type { AdminUserDetail, AdminUserFilter, AdminUserListItem } from "@/shared/types/adminUser.types";
+import type { AdminUserDetail, AdminUserFilter, AdminUserListItem, UserSearchResult } from "@/shared/types/adminUser.types";
 import { UserRole } from "@/shared/enums/userRoleEnum";
 import type { AxiosResponse } from "axios";
 
@@ -36,5 +36,11 @@ export const adminUserService = {
 
   async deleteUser(id: string): Promise<void> {
     await httpClient.delete(`/${baseEndpoint}/${id}`);
+  },
+
+  async searchByName(name: string): Promise<UserSearchResult[]> {
+    const response: AxiosResponse<UserSearchResult[]> =
+      await httpClient.get(`/${baseEndpoint}/search`, { params: { name } });
+    return response.data;
   },
 };
