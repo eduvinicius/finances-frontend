@@ -17,8 +17,20 @@ const ForgotPasswordPage = lazy(() =>
 const ResetPasswordPage = lazy(() =>
   import("@/features/auth/pages/ResetPasswordPage").then(m => ({ default: m.ResetPasswordPage }))
 );
+const AdminHomePage = lazy(() =>
+  import("@/features/admin/pages/AdminHomePage").then(m => ({ default: m.AdminHomePage }))
+);
 const AdminUsersPage = lazy(() =>
   import("@/features/admin/pages/AdminUsersPage").then(m => ({ default: m.AdminUsersPage }))
+);
+const AdminCreateNotificationPage = lazy(() =>
+  import("@/features/Notifications/pages").then(m => ({ default: m.AdminCreateNotificationPage }))
+);
+const AdminNotificationHistoryPage = lazy(() =>
+  import("@/features/Notifications/pages").then(m => ({ default: m.AdminNotificationHistoryPage }))
+);
+const NotificationsPage = lazy(() =>
+  import("@/features/Notifications/pages").then(m => ({ default: m.NotificationsPage }))
 );
 
 export const router = createBrowserRouter([
@@ -42,12 +54,12 @@ export const router = createBrowserRouter([
     path: "/",
     Component: ProtectedLayout,
     children: [
-      { index: true, Component: Home },
-      { path: "home", Component: Home },
       { path: "settings", Component: Settings },
+      { path: "notifications", Component: NotificationsPage },
       {
         Component: UserOnlyLayout,
         children: [
+          { index: true, Component: Home },
           { path: "account", Component: Account },
           { path: "transactions", Component: Transactions },
           { path: "categories", Component: Categories },
@@ -61,7 +73,10 @@ export const router = createBrowserRouter([
     path: "/admin",
     Component: AdminLayout,
     children: [
+      { index: true, Component: AdminHomePage },
       { path: "users", Component: AdminUsersPage },
+      { path: "notifications", Component: AdminCreateNotificationPage },
+      { path: "notifications/history", Component: AdminNotificationHistoryPage },
     ],
   },
   { path: "*", Component: NotFound },

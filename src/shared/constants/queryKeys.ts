@@ -77,6 +77,16 @@ export const QUERY_KEYS = {
     all: ['home'] as const,
     dashboard: () => [...QUERY_KEYS.home.all, 'dashboard'] as const,
   },
+
+  notifications: {
+    all: ['notifications'] as const,
+    inbox: () => [...QUERY_KEYS.notifications.all, 'inbox'] as const,
+  },
+
+  adminNotifications: {
+    all: ['admin', 'notifications'] as const,
+    history: () => [...QUERY_KEYS.adminNotifications.all, 'history'] as const,
+  },
 } as const;
 
 export const getApiEndpoint = (queryKey: readonly unknown[]): string => {

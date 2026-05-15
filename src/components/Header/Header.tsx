@@ -1,9 +1,12 @@
 import { usePrivacy } from "@/hooks/usePrivacy";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { ThemeToggle } from "@/components/ThemeToggle/themeToggle";
+import { NotificationBell } from "@/features/Notifications/components/NotificationBell";
+import { useAuth } from "@/features/auth/hooks/useAuth";
 
 export function Header() {
   const { isHidden, toggleHidden } = usePrivacy();
+  const { isAdmin } = useAuth();
 
   return (
     <header className="p-4 mb-2 w-full border-b border-b-(--header-border) bg-(--header-bg) shadow-sm flex items-center justify-between">
@@ -21,6 +24,7 @@ export function Header() {
         >
           {isHidden ? <MdVisibilityOff aria-hidden="true" /> : <MdVisibility aria-hidden="true" />}
         </button>
+        {!isAdmin && <NotificationBell />}
         <ThemeToggle />
       </div>
     </header>
