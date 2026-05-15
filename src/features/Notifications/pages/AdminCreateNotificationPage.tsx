@@ -10,18 +10,7 @@ import { createNotificationSchema, type CreateNotificationDto, type CreateNotifi
 import { useCreateNotification } from "../hooks/useCreateNotification";
 import { UserSearchCombobox } from "../components/UserSearchCombobox";
 import type { UserSearchResult } from "@/shared/types/adminUser.types";
-
-const TARGETING_MODE_OPTIONS = [
-  { label: "Todos os usuários", value: 0 as const },
-  { label: "Usuário específico", value: 1 as const },
-  { label: "Usuários selecionados", value: 2 as const },
-];
-
-const DELIVERY_CHANNEL_OPTIONS = [
-  { label: "No app", value: 0 as const },
-  { label: "E-mail", value: 1 as const },
-  { label: "Ambos", value: 2 as const },
-];
+import { TARGETING_MODE_OPTIONS, DELIVERY_CHANNEL_OPTIONS } from "@/shared/constants/notificationOptions.const";
 
 export function AdminCreateNotificationPage() {
   const [selectedUsers, setSelectedUsers] = useState<UserSearchResult[]>([]);

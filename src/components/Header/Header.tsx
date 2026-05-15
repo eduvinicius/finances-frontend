@@ -22,7 +22,7 @@ export function Header() {
           aria-label={isHidden ? "Mostrar valores" : "Ocultar valores"}
           className="text-white text-xl cursor-pointer hover:opacity-75 transition-opacity"
         >
-          {isHidden ? <MdVisibilityOff aria-hidden="true" /> : <MdVisibility aria-hidden="true" />}
+          {!isAdmin && (isHidden ? <MdVisibilityOff aria-hidden="true" /> : <MdVisibility aria-hidden="true" />)}
         </button>
         {!isAdmin && <NotificationBell />}
         <ThemeToggle />

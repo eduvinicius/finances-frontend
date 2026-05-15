@@ -3,6 +3,7 @@ import { Bell } from "lucide-react";
 import { AppTable, type Column } from "@/components/ui/Table/appTable";
 import { useNotificationHistory } from "../hooks/useNotificationHistory";
 import type { AdminNotificationResponse } from "../api/adminNotificationService";
+import { TARGETING_MODE_LABELS, DELIVERY_CHANNEL_LABELS } from "@/shared/constants/notificationOptions.const";
 
 interface AdminNotificationRow extends AdminNotificationResponse {
   [key: string]: unknown;
@@ -19,11 +20,11 @@ const columns: Column<AdminNotificationRow>[] = [
   },
   {
     header: "Destinatários",
-    accessor: "targetingMode",
+    accessor: (row) => TARGETING_MODE_LABELS[row.targetingMode] ?? row.targetingMode,
   },
   {
     header: "Canal",
-    accessor: "deliveryChannel",
+    accessor: (row) => DELIVERY_CHANNEL_LABELS[row.deliveryChannel] ?? row.deliveryChannel,
   },
   {
     header: "Enviado em",

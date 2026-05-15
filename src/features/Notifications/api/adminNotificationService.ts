@@ -5,8 +5,8 @@ export interface AdminNotificationResponse {
   id: number;
   title: string;
   body: string;
-  targetingMode: string;
-  deliveryChannel: string;
+  targetingMode: "AllUsers" | "SingleUser" | "SelectedUsers";
+  deliveryChannel: "InApp" | "Email" | "Both";
   createdAt: string;
 }
 

@@ -109,7 +109,7 @@ export function UserSearchCombobox({
         {showDropdown && (
           <ul
             aria-label="Resultados da busca"
-            className="absolute z-50 mt-1 w-full rounded-md border bg-popover text-popover-foreground shadow-md"
+            className="absolute z-50 mt-1 w-full rounded-md border bg-(--green-200) text-popover-foreground shadow-md opacity-100"
           >
             {filteredResults.length === 0 && !isFetching && (
               <li className="px-3 py-2 text-sm text-muted-foreground text-center">

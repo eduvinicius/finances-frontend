@@ -44,6 +44,7 @@ function NotificationItem({
             size="sm"
             onClick={() => onRead(notification.id)}
             aria-label="Marcar como lida"
+            className="border border-input text-foreground hover:bg-accent hover:text-accent-foreground"
           >
             Marcar como lida
           </Button>
@@ -95,7 +96,7 @@ export function NotificationsPage() {
 
       {isLoading === false && (notifications ?? []).length > 0 && (
         <ul className="flex flex-col gap-3">
-          {notifications.map((n) => (
+          {notifications?.map((n) => (
             <li key={n.id}>
               <NotificationItem
                 notification={n}
