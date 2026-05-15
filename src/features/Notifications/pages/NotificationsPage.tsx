@@ -4,6 +4,7 @@ import { ptBR } from "date-fns/locale";
 import { Button } from "@/components/ui/Button";
 import { useNotifications } from "../hooks/useNotifications";
 import { useMarkAsRead } from "../hooks/useMarkAsRead";
+import { useMarkAllAsRead } from "../hooks/useMarkAllAsRead";
 import { useDeleteNotification } from "../hooks/useDeleteNotification";
 import type { UserNotification } from "@/shared/types/notification.types";
 
@@ -66,6 +67,7 @@ function NotificationItem({
 export function NotificationsPage() {
   const { data: notifications, isLoading, unreadCount } = useNotifications();
   const markAsRead = useMarkAsRead();
+  const markAllAsRead = useMarkAllAsRead();
   const deleteNotification = useDeleteNotification();
 
   return (
@@ -77,6 +79,17 @@ export function NotificationsPage() {
           <span className="rounded-full bg-blue-500 px-2 py-0.5 text-xs font-semibold text-white">
             {unreadCount} não lida{unreadCount !== 1 ? "s" : ""}
           </span>
+        )}
+        {unreadCount > 0 && (
+          <Button
+            variant="outline"
+            size="sm"
+            className="ml-auto"
+            disabled={markAllAsRead.isPending}
+            onClick={() => markAllAsRead.mutate()}
+          >
+            Marcar todas como lida
+          </Button>
         )}
       </header>
 
